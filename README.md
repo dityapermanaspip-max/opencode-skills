@@ -17,6 +17,9 @@ is also a backup. Nothing to build or sync.
   UI labels, and the doc-update rule.
 - `cubeee-tours` — authoring Cubeee guided tours in darkhive-fev2: designing steps, tagging
   data-tour anchors, wiring permissions, chains, and tour docs.
+- `iam-foundation` — the platform foundation: multi-instance (many root orgs), multi-app
+  (applications/roles/permissions), cascading grants, contexts, the built-in theme picker, and one
+  FE hosting four FastAPI BEs through per-app BFF proxies.
 
 Stock/community skills (`docx-builder`, `frontend-design`, `mcp-builder`, `theme-factory`,
 `webapp-testing`) exist in this directory on the machine but are gitignored — they are not part
