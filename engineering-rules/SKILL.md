@@ -26,6 +26,25 @@ habits. Adapt the placeholders to your project; keep the gates and the workflow.
 - Report with a concrete owner checklist (which DDL patch to run, service restart, browser flow,
   role/permission matrix). Never claim something "works" until the owner has verified it.
 
+## Evidence and status labels
+
+- Keep three states distinct: **written** (code/typecheck passes), **exercised locally** (dry-run or
+  rollback test, local database patched), **owner-verified** (browser/acceptance). Never collapse them
+  into "done".
+- A patch applied locally is not live. Record environment parity explicitly (local / staging /
+  production) and keep a pending list per environment until each one runs it.
+- Migrations are numbered by **run order**, not feature batch. A later patch can supersede an earlier
+  backfill; record "never rerun patch X after Y" where it matters. Run through the project's runner
+  with a dry-run first; print only host/database, never credentials.
+- Mass renames: dump the distinct values before and after; the dump is the proof the rename did not
+  truncate or widen the set.
+- Remove guessed abstractions (permission/action matrices, role tables) that no code enforces; a stale
+  matrix is worse than none.
+- Temporary tracking files (batch TODOs) are deleted after the browser pass. Their decisions belong in
+  the decisions doc; their current state belongs in the status doc.
+- Reuse registered permission codes before adding one. A new code is an owner-approved identity change,
+  never something an app seeds itself.
+
 ## Secrets and files
 
 - Never read or create `.env` files. Never put secrets, tokens, or `.env` contents in chat or docs.
@@ -81,6 +100,8 @@ habits. Adapt the placeholders to your project; keep the gates and the workflow.
 
 - Agent-facing docs and code comments are English. UI labels follow the product language (this team:
   Indonesian). Error strings are English unless the product dictates otherwise.
+- Keep the three docs separate: **status** = current verified/pending state, **history** = dated work
+  log, **decisions** = append-only rationale for hard-to-reverse choices.
 - After work, update the status doc, append to the decisions doc, and add a dated history entry.
   Keep docs current as part of the batch.
 

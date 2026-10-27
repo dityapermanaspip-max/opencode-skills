@@ -33,6 +33,19 @@ names and registry calls to the codebase you are in; the concepts and rules stay
 4. **Document exact counts after the module is done** — total per tour, noting that permission and
    page-state gating shape each session's walk.
 
+## Keep the tour in sync with the host UI
+
+- **A UI change updates the tour in the same batch.** Adding/removing a control, search, filter, or
+  collapsible section means updating the anchors, the steps, and the exact counts in the tour record.
+- **Collapsible navigation and filters must not hide connector anchors.** While a tour runs, force
+  collapsible nav groups open and clear local search/filter state (restore the user's state afterwards),
+  or an "Antar saya"/"take me there" step points at a missing element.
+- **Counts have two numbers.** Record the raw definition length and note when mutually exclusive
+  persona/page branches make the rendered walk shorter. A page tour stays on its page; multi-page
+  detours belong to the mission.
+- **No invented steps for unused permissions.** If a permission has no endpoint or UI, report the gap;
+  do not tour a control that does not exist.
+
 ## Permissions and strict visibility
 
 Gate steps on **permission codes**, never on role names. A role is only a bundle of codes.

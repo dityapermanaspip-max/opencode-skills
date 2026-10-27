@@ -78,6 +78,27 @@ identity tables. Example table names are illustrative — map them to your schem
 - Data ownership: ONE database, one schema per owner. **No FK leaves its schema** except
   `org_id`/`user_id` into identity — this is the platform's data-coupling rule.
 
+## Operating rules
+
+- **No wildcard for app admins.** Wildcard superadmin is reserved and is data, not a username. App
+  roles are explicit bundles; an "admin" role does not automatically get every action.
+- **Codes are final per application.** Prefer reusing an existing code; adding one is an owner-approved
+  identity change, never seeded from app code.
+- **Menus mirror backend gates.** Master/config menus sit behind the `.create` code, pages behind
+  their read code, action groups behind their act code. A menu entry and its tour/step gates use the
+  same code.
+- **User pickers stay behind the app backend.** A candidate endpoint reads identity grants inside the
+  caller's org scope; the browser never queries the identity service directly.
+- **App settings own app data only.** Preferences, templates, letterheads, delegations — never users,
+  organizations, roles, or grants.
+- **Public surface:** a no-auth router mounts without the root-scoped dependency and gets its own BFF
+  forwarder; record it in the security doc.
+- **Role/permission audit before shipping.** Derive the matrix from the live identity data or the app's
+  role doc. For each role, check: a visible first tour step, no step pointing at a hidden control, no
+  connector into an unreadable page, and no combined role that matches neither side of a
+  `code`/`notCode` pair.
+- **Registered but unused codes are a product gap.** Do not fake UI or tour steps for them.
+
 ## Onboarding a new app (foundation recipe)
 
 1. Register the app in `applications` (uppercase code), activate it on the root org.
