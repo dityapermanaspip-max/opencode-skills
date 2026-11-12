@@ -1,0 +1,1214 @@
+{
+ "schema_version": 1,
+ "pack": "pbj-pengadaan-langsung-2026",
+ "title": "Pengadaan Langsung Pekerjaan Konstruksi (SPK Lumsum), dari persiapan sampai penyelesaian dan kejadian kontrak",
+ "namespace": "6f0b3b0e-8d57-4a52-9a0e-3c2d0f7b41aa",
+ "templates_dir": "pbj-pengadaan-langsung-2026/templates",
+ "regulation": {
+  "name": "Peraturan Presiden Nomor 16 Tahun 2018 tentang Pengadaan Barang/Jasa Pemerintah sebagaimana diubah dengan Peraturan Presiden Nomor 46 Tahun 2025",
+  "version": "46/2025",
+  "source_ref": "https://peraturan.bpk.go.id/Details/318647/perpres-no-46-tahun-2025"
+ },
+ "marker_keys": {},
+ "literal_markers": {},
+ "placeholder_kinds": {
+  "ambang_kritis_persen": "number",
+  "batas_perbaikan_hari": "number",
+  "batas_perbaikan_sp_hari": "number",
+  "deviasi_persen": "number",
+  "jangka_waktu_hari": "number",
+  "masa_berlaku_penawaran_hari": "number",
+  "masa_pemeliharaan_hari": "number",
+  "penyedia_akta_tanggal": "date",
+  "ppn_persen": "number",
+  "realisasi_fisik_persen": "number",
+  "rencana_fisik_persen": "number",
+  "tahun_anggaran": "number",
+  "tanggal_addendum": "date",
+  "tanggal_ba_hasil": "date",
+  "tanggal_ba_lokasi": "date",
+  "tanggal_ba_pemeriksaan": "date",
+  "tanggal_ba_pjphp": "date",
+  "tanggal_ba_sanksi": "date",
+  "tanggal_ba_scm": "date",
+  "tanggal_bast_akhir": "date",
+  "tanggal_bast_pa": "date",
+  "tanggal_bast_pertama": "date",
+  "tanggal_bast_pertama_acuan": "date",
+  "tanggal_berlaku_penghentian": "date",
+  "tanggal_dokumen_pemilihan": "date",
+  "tanggal_jaminan": "date",
+  "tanggal_kak": "date",
+  "tanggal_mulai": "date",
+  "tanggal_nd": "date",
+  "tanggal_pembatalan_sppbj": "date",
+  "tanggal_pemberitahuan_pemutusan": "date",
+  "tanggal_pemberitahuan_sanksi": "date",
+  "tanggal_pemeriksaan_bersama": "date",
+  "tanggal_pemutusan": "date",
+  "tanggal_pemutusan_efektif": "date",
+  "tanggal_penawaran": "date",
+  "tanggal_pengembalian_jaminan": "date",
+  "tanggal_penghentian_kontrak": "date",
+  "tanggal_perintah_perbaikan": "date",
+  "tanggal_permintaan_pencairan": "date",
+  "tanggal_permintaan_pl": "date",
+  "tanggal_permintaan_serah_terima": "date",
+  "tanggal_permintaan_serah_terima_akhir": "date",
+  "tanggal_rapat_pelaksanaan": "date",
+  "tanggal_rapat_ttd": "date",
+  "tanggal_rencana_pemutusan": "date",
+  "tanggal_reviu": "date",
+  "tanggal_selesai": "date",
+  "tanggal_selesai_aktual": "date",
+  "tanggal_selesai_baru": "date",
+  "tanggal_sk_sanksi": "date",
+  "tanggal_sk_sanksi_temuan": "date",
+  "tanggal_sp": "date",
+  "tanggal_spk": "date",
+  "tanggal_spmk": "date",
+  "tanggal_sppbj": "date",
+  "tanggal_undangan": "date",
+  "tanggal_usulan_sanksi": "date"
+ },
+ "placeholder_labels": {
+  "addendum_ke": "Urutan addendum (I, II, dan seterusnya)",
+  "alamat": "Alamat kantor (kop)",
+  "alasan_pembatalan_sppbj": "Alasan pembatalan SPPBJ",
+  "alasan_pencairan": "Alasan pencairan jaminan",
+  "ambang_kritis_persen": "Batas keterlambatan kontrak kritis (persen): 10 pada periode I, 5 pada periode II",
+  "ambang_kritis_persen__terbilang": "Batas keterlambatan kontrak kritis (persen): 10 pada periode I, 5 pada periode II (terbilang)",
+  "ba_lokasi_hasil": "Hasil peninjauan lapangan dan penyerahan lokasi kerja",
+  "ba_lokasi_perubahan": "Hal yang dapat mengakibatkan perubahan isi kontrak (apabila ada)",
+  "ba_lokasi_peserta": "Peserta peninjauan lokasi kerja (nama dan jabatan)",
+  "ba_pemeriksaan_pemutusan_ref": "Berita acara pemeriksaan bersama atas hasil pekerjaan (nomor dan tanggal)",
+  "ba_sanksi_dokumen": "Dokumen yang diteliti",
+  "ba_sanksi_kesimpulan": "Kesimpulan pemeriksaan",
+  "ba_sanksi_keterangan": "Keterangan para pihak",
+  "ba_sanksi_saksi": "Saksi atau pihak lain (nama dan jabatan)",
+  "bast_akhir_ref": "Nomor dan tanggal BAST akhir",
+  "bast_pa_dasar": "Dasar serah terima kepada PA/KPA (nomor dan tanggal BAST dan BA PjPHP)",
+  "batas_perbaikan_hari": "Batas waktu perbaikan (hari kalender)",
+  "batas_perbaikan_hari__terbilang": "Batas waktu perbaikan (hari kalender) (terbilang)",
+  "batas_perbaikan_sp_hari": "Batas waktu perbaikan kinerja (hari kalender)",
+  "batas_perbaikan_sp_hari__terbilang": "Batas waktu perbaikan kinerja (hari kalender) (terbilang)",
+  "dasar_addendum": "Dasar perubahan kontrak",
+  "dasar_pemutusan": "Dasar pemutusan (sesuai syarat umum kontrak)",
+  "detil_perbuatan": "Detil perbuatan/tindakan penyedia (ringkasan)",
+  "deviasi_persen": "Deviasi kemajuan fisik (persen terlambat, tanpa tanda minus)",
+  "email": "Email (kop)",
+  "faksimile": "Faksimile (kop)",
+  "hasil_pemeriksaan_bast": "Catatan pemeriksaan hasil pekerjaan (serah terima pertama)",
+  "hasil_pemeriksaan_bast_akhir": "Catatan pemeriksaan hasil pekerjaan (serah terima akhir)",
+  "hasil_pemeriksaan_pekerjaan": "Hasil pemeriksaan pekerjaan",
+  "isi_addendum": "Perubahan yang disepakati",
+  "izin_usaha": "Izin usaha",
+  "jaminan_pemeliharaan_ref": "Jaminan pemeliharaan (nomor, tanggal, penerbit)",
+  "jangka_waktu_hari": "Jangka waktu pelaksanaan (hari kalender)",
+  "jangka_waktu_hari__terbilang": "Jangka waktu pelaksanaan (hari kalender) (terbilang)",
+  "jenis_jaminan": "Jenis jaminan yang dicairkan",
+  "kak_jadwal": "KAK: Jadwal tahapan pelaksanaan",
+  "kak_kegiatan": "Kegiatan (DIPA)",
+  "kak_keluaran": "KAK: Keluaran",
+  "kak_komponen": "Komponen",
+  "kak_latar_belakang": "KAK: Latar belakang",
+  "kak_lingkup": "KAK: Lingkup kegiatan",
+  "kak_maksud_tujuan": "KAK: Maksud dan tujuan",
+  "kak_manajemen_proyek": "KAK: Manajemen proyek",
+  "kak_pdn": "Produk dalam negeri (Ya/Tidak)",
+  "kak_program": "Program",
+  "kak_referensi_hukum": "KAK: Referensi hukum tambahan",
+  "kak_sasaran": "KAK: Sasaran",
+  "kak_spesifikasi": "KAK: Spesifikasi teknis",
+  "kak_standar_teknis": "KAK: Standar teknis",
+  "kak_studi_terdahulu": "KAK: Studi-studi terdahulu",
+  "kak_usaha_kecil": "Usaha kecil (Ya/Tidak)",
+  "kak_volume": "Volume pekerjaan",
+  "keberatan_ref": "Surat keberatan penyedia (nomor dan tanggal, apabila ada)",
+  "kesimpulan_pjphp": "Hasil pemeriksaan administratif",
+  "ketentuan_denda": "Ketentuan denda keterlambatan selama kesempatan (apabila ada)",
+  "klasifikasi_sbu": "Klasifikasi SBU",
+  "kode_paket": "Kode paket SPSE (Kode Non Tender)",
+  "kode_rup": "Kode RUP",
+  "kpa_jabatan": "Jabatan KPA (dalam judul keputusan dan alamat surat)",
+  "kpa_jabatan__kapital": "Jabatan KPA (dalam judul keputusan dan alamat surat) (HURUF KAPITAL)",
+  "kpa_nama": "Nama Kuasa Pengguna Anggaran (KPA)",
+  "kualifikasi_usaha": "Kualifikasi usaha",
+  "lokasi_pekerjaan": "Lokasi pekerjaan",
+  "mak": "MAK (kode akun anggaran)",
+  "masa_berlaku_penawaran_hari": "Masa berlaku surat penawaran (hari kalender)",
+  "masa_berlaku_penawaran_hari__terbilang": "Masa berlaku surat penawaran (hari kalender) (terbilang)",
+  "masa_berlaku_sanksi": "Masa berlaku sanksi daftar hitam (sesuai ketentuan LKPP)",
+  "masa_pemeliharaan_hari": "Masa pemeliharaan (hari kalender)",
+  "masa_pemeliharaan_hari__terbilang": "Masa pemeliharaan (hari kalender) (terbilang)",
+  "masa_pemutusan": "Masa terjadinya pemutusan (Masa Pelaksanaan atau Masa Pemeliharaan)",
+  "nama_paket": "Nama paket pekerjaan",
+  "nama_paket__kapital": "Nama paket pekerjaan (HURUF KAPITAL)",
+  "nilai_hps__rupiah": "Nilai HPS (Rp)",
+  "nilai_hps__rupiah_terbilang": "Nilai HPS (Rp, terbilang)",
+  "nilai_jaminan__rupiah": "Nilai jaminan (Rp)",
+  "nilai_jaminan__rupiah_terbilang": "Nilai jaminan (Rp, terbilang)",
+  "nilai_jaminan_pemeliharaan__rupiah": "Nilai jaminan pemeliharaan (Rp)",
+  "nilai_jaminan_pemeliharaan__rupiah_terbilang": "Nilai jaminan pemeliharaan (Rp, terbilang)",
+  "nilai_kontrak__rupiah": "Nilai kontrak (SPK) (Rp)",
+  "nilai_kontrak__rupiah_terbilang": "Nilai kontrak (SPK) (Rp, terbilang)",
+  "nilai_kontrak_baru__rupiah": "Nilai kontrak setelah addendum (Rp)",
+  "nilai_kontrak_baru__rupiah_terbilang": "Nilai kontrak setelah addendum (Rp, terbilang)",
+  "nilai_sisa_pekerjaan__rupiah": "Nilai sisa pekerjaan (Rp)",
+  "nilai_terkoreksi__rupiah": "Nilai penawaran setelah koreksi aritmatik (Rp)",
+  "nilai_terkoreksi__rupiah_terbilang": "Nilai penawaran setelah koreksi aritmatik (Rp, terbilang)",
+  "nomor_addendum": "Nomor addendum (diisi manual)",
+  "nomor_ba_hasil": "Nomor BA hasil pemilihan",
+  "nomor_dipa": "Nomor DIPA",
+  "nomor_jaminan": "Nomor jaminan",
+  "nomor_penawaran": "Nomor surat penawaran",
+  "nomor_permintaan_serah_terima": "Nomor surat permintaan serah terima dari penyedia",
+  "nomor_permintaan_serah_terima_akhir": "Nomor surat permintaan serah terima akhir dari penyedia",
+  "nomor_sk_sanksi": "Nomor dan tahun keputusan penetapan sanksi (diisi manual)",
+  "nomor_sk_sanksi_temuan": "Nomor dan tahun keputusan penetapan sanksi atas temuan (diisi manual)",
+  "nomor_spk": "Nomor Kontrak (SPK atau Surat Perjanjian)",
+  "nomor_sppbj": "Nomor SPPBJ",
+  "nomor_surat": "Nomor naskah (otomatis dari penomoran)",
+  "nomor_undangan": "Nomor undangan pengadaan langsung",
+  "pagu__rupiah": "Pagu anggaran (Rp)",
+  "pagu__rupiah_terbilang": "Pagu anggaran (Rp, terbilang)",
+  "pemberitahuan_kahar_ref": "Pemberitahuan keadaan kahar (nomor dan tanggal)",
+  "pemberitahuan_pemutusan_ref": "Surat pemberitahuan rencana pemutusan (nomor dan tanggal)",
+  "pemenang_cadangan": "Pemenang cadangan atau pelaku usaha yang diusulkan",
+  "pemeriksaan_bersama_hasil": "Hasil pemeriksaan bersama",
+  "pemeriksaan_bersama_peserta": "Peserta pemeriksaan bersama (nama dan jabatan)",
+  "pemeriksaan_bersama_tujuan": "Tujuan pemeriksaan bersama",
+  "pemutusan_ref": "Surat pemutusan Kontrak (nomor dan tanggal)",
+  "penerbit_jaminan": "Penerbit jaminan (bank atau perusahaan asuransi)",
+  "penerbit_jaminan_alamat": "Alamat penerbit jaminan",
+  "pengawas_jabatan": "Jabatan/instansi Pengawas Pekerjaan",
+  "pengawas_nama": "Nama Pengawas Pekerjaan",
+  "penyedia_akta_nomor": "Nomor akta notaris penyedia",
+  "penyedia_akta_tanggal": "Tanggal akta notaris penyedia",
+  "penyedia_alamat": "Alamat penyedia",
+  "penyedia_izin_usaha": "Nomor izin usaha penyedia",
+  "penyedia_jabatan": "Jabatan yang mewakili penyedia",
+  "penyedia_nama": "Nama penyedia",
+  "penyedia_notaris": "Nama notaris penerbit akta",
+  "penyedia_npwp": "NPWP penyedia",
+  "penyedia_rekening": "Rekening penyedia (bank, nomor, atas nama)",
+  "penyedia_wakil": "Nama yang mewakili penyedia",
+  "peralatan_utama": "Peralatan utama dan K3",
+  "perbuatan_penyedia": "Perbuatan/tindakan penyedia",
+  "peringatan_ke": "Jenis dan urutan peringatan (misalnya Kontrak Kritis I)",
+  "periode_uji_coba": "Periode uji coba (dari tanggal sampai tanggal)",
+  "perpanjangan_jaminan": "Perpanjangan masa berlaku Jaminan Pelaksanaan (tulis 'Tidak ada' bila tidak berlaku)",
+  "persentase_realisasi": "Persentase realisasi pekerjaan (apabila sudah berkontrak)",
+  "personel_utama": "Personel yang dipersyaratkan",
+  "pp_nama": "Nama Pejabat Pengadaan",
+  "pphp_jabatan": "Jabatan PjPHP/PPHP",
+  "pphp_nama": "Nama PjPHP/PPHP",
+  "pphp_nip": "NIP PjPHP/PPHP",
+  "pphp_sk": "Dasar penunjukan PjPHP/PPHP (nomor dan tanggal surat keputusan)",
+  "ppk_alamat": "Alamat PPK",
+  "ppk_jabatan": "Jabatan PPK",
+  "ppk_nama": "Nama PPK",
+  "ppk_nip": "NIP PPK",
+  "ppk_sk": "Dasar penetapan PPK (Surat Keputusan: penerbit, nomor, tanggal, tentang)",
+  "ppn_persen": "Tarif PPN (persen)",
+  "rapat_pelaksanaan_hasil": "Hasil pembahasan dan kesepakatan rapat persiapan pelaksanaan kontrak",
+  "rapat_pelaksanaan_narahubung": "Narahubung para pihak selama pelaksanaan kontrak",
+  "rapat_pelaksanaan_peserta": "Peserta rapat persiapan pelaksanaan kontrak (nama dan jabatan)",
+  "rapat_ttd_hasil": "Hasil pembahasan dan kesepakatan rapat persiapan penandatanganan kontrak",
+  "rapat_ttd_peserta": "Peserta rapat persiapan penandatanganan kontrak (nama dan jabatan)",
+  "realisasi_fisik_persen": "Realisasi kemajuan fisik (persen)",
+  "rekomendasi_apip_ref": "Surat rekomendasi APIP (nomor dan tanggal)",
+  "rekomendasi_apip_ringkasan": "Ringkasan rekomendasi APIP",
+  "rekomendasi_temuan_ref": "Surat rekomendasi BPK/APIP (nomor dan tanggal)",
+  "rekomendasi_temuan_ringkasan": "Ringkasan rekomendasi BPK/APIP",
+  "rencana_fisik_persen": "Rencana kemajuan fisik (persen)",
+  "riwayat_peringatan": "Surat peringatan yang telah disampaikan (nomor dan tanggal)",
+  "satker": "Satuan kerja (dalam kalimat)",
+  "scm_dasar": "Dasar penyelenggaraan SCM (peringatan tertulis atau surat peringatan sebelumnya)",
+  "scm_tahap": "Tahap SCM (I, II, atau III)",
+  "sifat_penghentian_kahar": "Sifat penghentian (sementara atau permanen)",
+  "sisa_pekerjaan": "Sisa pekerjaan yang akan dilanjutkan",
+  "situs_spse": "Situs SPSE",
+  "subklasifikasi_sbu": "Subklasifikasi SBU",
+  "sumber_dana": "Sumber dana",
+  "sumber_dana_tahun_berikutnya": "Sumber dana sisa pekerjaan pada tahun anggaran berikutnya (DIPA; tulis 'Tidak melampaui tahun anggaran' bila tidak berlaku)",
+  "tahun_anggaran": "Tahun anggaran",
+  "tanggal_addendum": "Tanggal addendum",
+  "tanggal_addendum__bulan": "Tanggal addendum (bulan)",
+  "tanggal_addendum__hari": "Tanggal addendum (hari)",
+  "tanggal_addendum__tahun_kata": "Tanggal addendum (tahun, huruf)",
+  "tanggal_addendum__tanggal_kata": "Tanggal addendum (tanggal, huruf)",
+  "tanggal_ba_hasil": "Tanggal BA hasil pemilihan",
+  "tanggal_ba_lokasi": "Tanggal penyerahan lokasi kerja",
+  "tanggal_ba_lokasi__bulan": "Tanggal penyerahan lokasi kerja (bulan)",
+  "tanggal_ba_lokasi__hari": "Tanggal penyerahan lokasi kerja (hari)",
+  "tanggal_ba_lokasi__tahun_kata": "Tanggal penyerahan lokasi kerja (tahun, huruf)",
+  "tanggal_ba_lokasi__tanggal_kata": "Tanggal penyerahan lokasi kerja (tanggal, huruf)",
+  "tanggal_ba_pemeriksaan": "Tanggal pemeriksaan pekerjaan (kemajuan fisik)",
+  "tanggal_ba_pemeriksaan__bulan": "Tanggal pemeriksaan pekerjaan (kemajuan fisik) (bulan)",
+  "tanggal_ba_pemeriksaan__hari": "Tanggal pemeriksaan pekerjaan (kemajuan fisik) (hari)",
+  "tanggal_ba_pemeriksaan__tahun_kata": "Tanggal pemeriksaan pekerjaan (kemajuan fisik) (tahun, huruf)",
+  "tanggal_ba_pemeriksaan__tanggal_kata": "Tanggal pemeriksaan pekerjaan (kemajuan fisik) (tanggal, huruf)",
+  "tanggal_ba_pjphp": "Tanggal pemeriksaan administratif oleh PjPHP/PPHP",
+  "tanggal_ba_pjphp__bulan": "Tanggal pemeriksaan administratif oleh PjPHP/PPHP (bulan)",
+  "tanggal_ba_pjphp__hari": "Tanggal pemeriksaan administratif oleh PjPHP/PPHP (hari)",
+  "tanggal_ba_pjphp__tahun_kata": "Tanggal pemeriksaan administratif oleh PjPHP/PPHP (tahun, huruf)",
+  "tanggal_ba_pjphp__tanggal_kata": "Tanggal pemeriksaan administratif oleh PjPHP/PPHP (tanggal, huruf)",
+  "tanggal_ba_sanksi": "Tanggal pemeriksaan usulan sanksi",
+  "tanggal_ba_sanksi__bulan": "Tanggal pemeriksaan usulan sanksi (bulan)",
+  "tanggal_ba_sanksi__hari": "Tanggal pemeriksaan usulan sanksi (hari)",
+  "tanggal_ba_sanksi__tahun_kata": "Tanggal pemeriksaan usulan sanksi (tahun, huruf)",
+  "tanggal_ba_sanksi__tanggal_kata": "Tanggal pemeriksaan usulan sanksi (tanggal, huruf)",
+  "tanggal_ba_scm": "Tanggal rapat pembuktian (SCM)",
+  "tanggal_ba_scm__bulan": "Tanggal rapat pembuktian (SCM) (bulan)",
+  "tanggal_ba_scm__hari": "Tanggal rapat pembuktian (SCM) (hari)",
+  "tanggal_ba_scm__tahun_kata": "Tanggal rapat pembuktian (SCM) (tahun, huruf)",
+  "tanggal_ba_scm__tanggal_kata": "Tanggal rapat pembuktian (SCM) (tanggal, huruf)",
+  "tanggal_bast_akhir": "Tanggal serah terima akhir pekerjaan",
+  "tanggal_bast_akhir__bulan": "Tanggal serah terima akhir pekerjaan (bulan)",
+  "tanggal_bast_akhir__hari": "Tanggal serah terima akhir pekerjaan (hari)",
+  "tanggal_bast_akhir__tahun_kata": "Tanggal serah terima akhir pekerjaan (tahun, huruf)",
+  "tanggal_bast_akhir__tanggal_kata": "Tanggal serah terima akhir pekerjaan (tanggal, huruf)",
+  "tanggal_bast_pa": "Tanggal serah terima kepada PA/KPA",
+  "tanggal_bast_pa__bulan": "Tanggal serah terima kepada PA/KPA (bulan)",
+  "tanggal_bast_pa__hari": "Tanggal serah terima kepada PA/KPA (hari)",
+  "tanggal_bast_pa__tahun_kata": "Tanggal serah terima kepada PA/KPA (tahun, huruf)",
+  "tanggal_bast_pa__tanggal_kata": "Tanggal serah terima kepada PA/KPA (tanggal, huruf)",
+  "tanggal_bast_pertama": "Tanggal serah terima pertama pekerjaan",
+  "tanggal_bast_pertama__bulan": "Tanggal serah terima pertama pekerjaan (bulan)",
+  "tanggal_bast_pertama__hari": "Tanggal serah terima pertama pekerjaan (hari)",
+  "tanggal_bast_pertama__tahun_kata": "Tanggal serah terima pertama pekerjaan (tahun, huruf)",
+  "tanggal_bast_pertama__tanggal_kata": "Tanggal serah terima pertama pekerjaan (tanggal, huruf)",
+  "tanggal_bast_pertama_acuan": "Tanggal serah terima pertama (awal masa pemeliharaan)",
+  "tanggal_berlaku_penghentian": "Tanggal penghentian berlaku",
+  "tanggal_dokumen_pemilihan": "Tanggal Dokumen Pemilihan",
+  "tanggal_jaminan": "Tanggal jaminan",
+  "tanggal_kak": "Tanggal KAK",
+  "tanggal_mulai": "Tanggal mulai kerja",
+  "tanggal_nd": "Tanggal Nota Dinas",
+  "tanggal_pembatalan_sppbj": "Tanggal surat pembatalan SPPBJ",
+  "tanggal_pemberitahuan_pemutusan": "Tanggal surat pemberitahuan rencana pemutusan",
+  "tanggal_pemberitahuan_sanksi": "Tanggal surat pemberitahuan usulan sanksi",
+  "tanggal_pemeriksaan_bersama": "Tanggal pemeriksaan bersama",
+  "tanggal_pemeriksaan_bersama__bulan": "Tanggal pemeriksaan bersama (bulan)",
+  "tanggal_pemeriksaan_bersama__hari": "Tanggal pemeriksaan bersama (hari)",
+  "tanggal_pemeriksaan_bersama__tahun_kata": "Tanggal pemeriksaan bersama (tahun, huruf)",
+  "tanggal_pemeriksaan_bersama__tanggal_kata": "Tanggal pemeriksaan bersama (tanggal, huruf)",
+  "tanggal_pemutusan": "Tanggal surat pemutusan",
+  "tanggal_pemutusan_efektif": "Tanggal pemutusan berlaku",
+  "tanggal_penawaran": "Tanggal surat penawaran",
+  "tanggal_pengembalian_jaminan": "Tanggal surat pengembalian jaminan pemeliharaan",
+  "tanggal_penghentian_kontrak": "Tanggal surat penghentian kontrak",
+  "tanggal_perintah_perbaikan": "Tanggal surat perintah perbaikan",
+  "tanggal_permintaan_pencairan": "Tanggal surat permintaan pencairan jaminan",
+  "tanggal_permintaan_pl": "Tanggal surat permintaan penunjukan langsung",
+  "tanggal_permintaan_serah_terima": "Tanggal surat permintaan serah terima dari penyedia",
+  "tanggal_permintaan_serah_terima_akhir": "Tanggal surat permintaan serah terima akhir dari penyedia",
+  "tanggal_rapat_pelaksanaan": "Tanggal rapat persiapan pelaksanaan kontrak",
+  "tanggal_rapat_pelaksanaan__bulan": "Tanggal rapat persiapan pelaksanaan kontrak (bulan)",
+  "tanggal_rapat_pelaksanaan__hari": "Tanggal rapat persiapan pelaksanaan kontrak (hari)",
+  "tanggal_rapat_pelaksanaan__tahun_kata": "Tanggal rapat persiapan pelaksanaan kontrak (tahun, huruf)",
+  "tanggal_rapat_pelaksanaan__tanggal_kata": "Tanggal rapat persiapan pelaksanaan kontrak (tanggal, huruf)",
+  "tanggal_rapat_ttd": "Tanggal rapat persiapan penandatanganan kontrak",
+  "tanggal_rapat_ttd__bulan": "Tanggal rapat persiapan penandatanganan kontrak (bulan)",
+  "tanggal_rapat_ttd__hari": "Tanggal rapat persiapan penandatanganan kontrak (hari)",
+  "tanggal_rapat_ttd__tahun_kata": "Tanggal rapat persiapan penandatanganan kontrak (tahun, huruf)",
+  "tanggal_rapat_ttd__tanggal_kata": "Tanggal rapat persiapan penandatanganan kontrak (tanggal, huruf)",
+  "tanggal_rencana_pemutusan": "Tanggal rencana pemutusan (paling cepat 14 hari kalender setelah pemberitahuan)",
+  "tanggal_reviu": "Tanggal reviu dokumen persiapan",
+  "tanggal_reviu__bulan": "Tanggal reviu dokumen persiapan (bulan)",
+  "tanggal_reviu__hari": "Tanggal reviu dokumen persiapan (hari)",
+  "tanggal_reviu__tahun_kata": "Tanggal reviu dokumen persiapan (tahun, huruf)",
+  "tanggal_reviu__tanggal_kata": "Tanggal reviu dokumen persiapan (tanggal, huruf)",
+  "tanggal_selesai": "Tanggal selesai kerja",
+  "tanggal_selesai_aktual": "Tanggal pekerjaan selesai 100 persen",
+  "tanggal_selesai_baru": "Tanggal penyelesaian pekerjaan setelah addendum",
+  "tanggal_sk_sanksi": "Tanggal keputusan penetapan sanksi",
+  "tanggal_sk_sanksi_temuan": "Tanggal keputusan penetapan sanksi atas temuan",
+  "tanggal_sp": "Tanggal surat peringatan",
+  "tanggal_spk": "Tanggal Kontrak (SPK atau Surat Perjanjian)",
+  "tanggal_spmk": "Tanggal SPMK",
+  "tanggal_sppbj": "Tanggal SPPBJ",
+  "tanggal_undangan": "Tanggal undangan pengadaan langsung",
+  "tanggal_usulan_sanksi": "Tanggal surat usulan penetapan sanksi",
+  "target_uji_coba": "Target kemajuan fisik yang disepakati",
+  "telepon": "Telepon (kop)",
+  "tempat": "Tempat",
+  "tindak_lanjut_sp": "Tindak lanjut (misalnya SCM tahap berikutnya)",
+  "tujuan_setor": "Rincian penyetoran ke kas Negara (bank, nomor rekening, kode billing)",
+  "unit_kerja": "Unit kerja (baris kop)",
+  "uraian_kahar": "Uraian keadaan kahar dan alasan penghentian",
+  "uraian_kekurangan": "Uraian pekerjaan yang tidak sesuai atau cacat",
+  "uraian_pekerjaan": "Uraian pekerjaan (hasil reviu)",
+  "uraian_sp": "Uraian kinerja atau kelalaian yang diperingatkan",
+  "usulan_sanksi_ref": "Surat usulan PPK (nomor dan tanggal)"
+ },
+ "doc_types": [
+  {
+   "key": "pengadaan",
+   "name": "Pengadaan Barang/Jasa",
+   "code": "PBJ"
+  },
+  {
+   "key": "pengadaan/nota_dinas",
+   "name": "Nota Dinas Permintaan Pengadaan",
+   "code": "ND",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/kak",
+   "name": "Kerangka Acuan Kerja",
+   "code": "KAK",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat",
+   "name": "Surat Pengadaan",
+   "code": "S"
+  },
+  {
+   "key": "pengadaan/surat/dokumen_pemilihan",
+   "name": "Dokumen Pemilihan",
+   "code": "DP",
+   "signer_role": "pp",
+   "review_chain": "Tanda tangan Pejabat Pengadaan"
+  },
+  {
+   "key": "pengadaan/surat/sppbj",
+   "name": "Surat Penunjukan Penyedia Barang/Jasa (SPPBJ)",
+   "code": "SPPBJ",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara",
+   "name": "Berita Acara Pengadaan",
+   "code": "BA"
+  },
+  {
+   "key": "pengadaan/berita_acara/reviu",
+   "name": "BA Hasil Reviu Dokumen Persiapan Pemilihan",
+   "code": "BAR",
+   "signer_role": "ppk",
+   "review_chain": "Reviu Pejabat Pengadaan, tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/spk",
+   "name": "Surat Perintah Kerja (SPK)",
+   "code": "PRJ",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/spmk",
+   "name": "Surat Perintah Mulai Kerja (SPMK)",
+   "code": "SPMK",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/keputusan",
+   "name": "Keputusan Pengadaan",
+   "code": "KEP"
+  },
+  {
+   "key": "pengadaan/addendum",
+   "name": "Addendum Kontrak",
+   "code": "ADD",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/rapat_ttd",
+   "name": "BA Rapat Persiapan Penandatanganan Kontrak",
+   "code": "BARTK",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/rapat_pelaksanaan",
+   "name": "BA Rapat Persiapan Pelaksanaan Kontrak",
+   "code": "BARPK",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/lokasi",
+   "name": "BA Penyerahan Lokasi Kerja",
+   "code": "BAPLK",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/pemeriksaan_bersama",
+   "name": "BA Pemeriksaan Bersama",
+   "code": "BAPB",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/pemeriksaan_pekerjaan",
+   "name": "BA Pemeriksaan Pekerjaan (Kemajuan Fisik)",
+   "code": "BAPP",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/bast_pertama",
+   "name": "BA Serah Terima Pertama Pekerjaan",
+   "code": "BAST1",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/pjphp",
+   "name": "BA Hasil Pemeriksaan Administratif (PjPHP/PPHP)",
+   "code": "BAPA",
+   "signer_role": "pphp",
+   "review_chain": "Tanda tangan PjPHP"
+  },
+  {
+   "key": "pengadaan/berita_acara/bast_pa",
+   "name": "BA Serah Terima Hasil Pekerjaan kepada PA/KPA",
+   "code": "BASTP",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/bast_akhir",
+   "name": "BA Serah Terima Akhir Pekerjaan",
+   "code": "BAST2",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/scm",
+   "name": "BA Rapat Pembuktian (Show Cause Meeting)",
+   "code": "BASCM",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/berita_acara/sanksi",
+   "name": "BA Pemeriksaan Usulan Sanksi Daftar Hitam",
+   "code": "BAPSD",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/sp",
+   "name": "Surat Peringatan (Kontrak Kritis/Wanprestasi)",
+   "code": "SPR",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/perintah_perbaikan",
+   "name": "Surat Perintah Perbaikan Pekerjaan",
+   "code": "SPP",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/penghentian_kahar",
+   "name": "Surat Penghentian Kontrak (Keadaan Kahar)",
+   "code": "SPKH",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pembatalan_sppbj",
+   "name": "Surat Pembatalan SPPBJ",
+   "code": "SPBS",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pemberitahuan_pemutusan",
+   "name": "Surat Pemberitahuan Rencana Pemutusan Kontrak",
+   "code": "SPRP",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pemutusan",
+   "name": "Surat Pemutusan Kontrak",
+   "code": "SPUT",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pencairan_jaminan",
+   "name": "Surat Permintaan Pencairan Jaminan",
+   "code": "SPCJ",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/permintaan_pl",
+   "name": "Surat Permintaan Penunjukan Langsung Lanjutan",
+   "code": "SPPL",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pengembalian_jaminan",
+   "name": "Surat Pengembalian Jaminan Pemeliharaan",
+   "code": "SPGJ",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/usulan_sanksi",
+   "name": "Surat Usulan Penetapan Sanksi Daftar Hitam",
+   "code": "SUSDH",
+   "signer_role": "ppk",
+   "review_chain": "Tanda tangan PPK"
+  },
+  {
+   "key": "pengadaan/surat/pemberitahuan_sanksi",
+   "name": "Surat Pemberitahuan Usulan Sanksi Daftar Hitam",
+   "code": "SPSDH",
+   "signer_role": "kpa",
+   "review_chain": "Tanda tangan KPA"
+  },
+  {
+   "key": "pengadaan/keputusan/sk_sanksi",
+   "name": "Keputusan Penetapan Sanksi Daftar Hitam",
+   "code": "SKSDH",
+   "signer_role": "kpa",
+   "review_chain": "Tanda tangan KPA"
+  },
+  {
+   "key": "pengadaan/keputusan/sk_sanksi_temuan",
+   "name": "Keputusan Penetapan Sanksi Daftar Hitam (Atas Temuan BPK/APIP)",
+   "code": "SKSDT",
+   "signer_role": "kpa",
+   "review_chain": "Tanda tangan KPA"
+  }
+ ],
+ "templates": [
+  {
+   "key": "nota_dinas",
+   "name": "Nota Dinas Permintaan Pengadaan",
+   "file": "Nota_Dinas_Permintaan_Pengadaan.docx",
+   "doc_type": "pengadaan/nota_dinas",
+   "default": true
+  },
+  {
+   "key": "kak",
+   "name": "Kerangka Acuan Kerja (Pekerjaan Konstruksi)",
+   "file": "KAK.docx",
+   "doc_type": "pengadaan/kak",
+   "default": true
+  },
+  {
+   "key": "dokumen_pemilihan",
+   "name": "Dokumen Pemilihan Pengadaan Langsung Pekerjaan Konstruksi",
+   "file": "Dokumen_Pemilihan.docx",
+   "doc_type": "pengadaan/surat/dokumen_pemilihan",
+   "default": true
+  },
+  {
+   "key": "ba_reviu",
+   "name": "BA Hasil Reviu Dokumen Persiapan Pemilihan",
+   "file": "Berita_Acara_Reviu_Dokumen_Persiapan.docx",
+   "doc_type": "pengadaan/berita_acara/reviu",
+   "default": true
+  },
+  {
+   "key": "sppbj",
+   "name": "SPPBJ",
+   "file": "SPPBJ.docx",
+   "doc_type": "pengadaan/surat/sppbj",
+   "default": true
+  },
+  {
+   "key": "spk",
+   "name": "Surat Perintah Kerja (Lumsum) dan Syarat Umum",
+   "file": "SPK.docx",
+   "doc_type": "pengadaan/spk",
+   "default": true
+  },
+  {
+   "key": "spmk",
+   "name": "Surat Perintah Mulai Kerja",
+   "file": "SPMK.docx",
+   "doc_type": "pengadaan/spmk",
+   "default": true
+  },
+  {
+   "key": "ba_rapat_ttd",
+   "name": "BA Rapat Persiapan Penandatanganan Kontrak",
+   "file": "BA_Rapat_Persiapan_Penandatanganan_Kontrak.docx",
+   "doc_type": "pengadaan/berita_acara/rapat_ttd",
+   "default": true
+  },
+  {
+   "key": "ba_rapat_pelaksanaan",
+   "name": "BA Rapat Persiapan Pelaksanaan Kontrak",
+   "file": "BA_Rapat_Persiapan_Pelaksanaan_Kontrak.docx",
+   "doc_type": "pengadaan/berita_acara/rapat_pelaksanaan",
+   "default": true
+  },
+  {
+   "key": "ba_lokasi",
+   "name": "BA Penyerahan Lokasi Kerja",
+   "file": "BA_Penyerahan_Lokasi_Kerja.docx",
+   "doc_type": "pengadaan/berita_acara/lokasi",
+   "default": true
+  },
+  {
+   "key": "ba_pemeriksaan_bersama",
+   "name": "BA Pemeriksaan Bersama",
+   "file": "BA_Pemeriksaan_Bersama.docx",
+   "doc_type": "pengadaan/berita_acara/pemeriksaan_bersama",
+   "default": true
+  },
+  {
+   "key": "ba_pemeriksaan_pekerjaan",
+   "name": "BA Pemeriksaan Pekerjaan (Kemajuan Fisik)",
+   "file": "BA_Pemeriksaan_Pekerjaan.docx",
+   "doc_type": "pengadaan/berita_acara/pemeriksaan_pekerjaan",
+   "default": true
+  },
+  {
+   "key": "perintah_perbaikan",
+   "name": "Surat Perintah Perbaikan Pekerjaan",
+   "file": "Surat_Perintah_Perbaikan.docx",
+   "doc_type": "pengadaan/surat/perintah_perbaikan",
+   "default": true
+  },
+  {
+   "key": "bast_pertama",
+   "name": "BA Serah Terima Pertama Pekerjaan",
+   "file": "BAST_Pertama.docx",
+   "doc_type": "pengadaan/berita_acara/bast_pertama",
+   "default": true
+  },
+  {
+   "key": "ba_pjphp",
+   "name": "BA Hasil Pemeriksaan Administratif (PjPHP/PPHP)",
+   "file": "BA_Pemeriksaan_Administratif_PjPHP.docx",
+   "doc_type": "pengadaan/berita_acara/pjphp",
+   "default": true
+  },
+  {
+   "key": "bast_pa",
+   "name": "BA Serah Terima Hasil Pekerjaan kepada PA/KPA",
+   "file": "BAST_kepada_PA_KPA.docx",
+   "doc_type": "pengadaan/berita_acara/bast_pa",
+   "default": true
+  },
+  {
+   "key": "bast_akhir",
+   "name": "BA Serah Terima Akhir Pekerjaan",
+   "file": "BAST_Akhir.docx",
+   "doc_type": "pengadaan/berita_acara/bast_akhir",
+   "default": true
+  },
+  {
+   "key": "pengembalian_jaminan",
+   "name": "Surat Pengembalian Jaminan Pemeliharaan",
+   "file": "Surat_Pengembalian_Jaminan_Pemeliharaan.docx",
+   "doc_type": "pengadaan/surat/pengembalian_jaminan",
+   "default": true
+  },
+  {
+   "key": "ba_scm",
+   "name": "BA Rapat Pembuktian (Show Cause Meeting)",
+   "file": "BA_SCM.docx",
+   "doc_type": "pengadaan/berita_acara/scm",
+   "default": true
+  },
+  {
+   "key": "sp",
+   "name": "Surat Peringatan (Kontrak Kritis/Wanprestasi)",
+   "file": "Surat_Peringatan.docx",
+   "doc_type": "pengadaan/surat/sp",
+   "default": true
+  },
+  {
+   "key": "addendum",
+   "name": "Addendum Kontrak",
+   "file": "Addendum_Kontrak.docx",
+   "doc_type": "pengadaan/addendum",
+   "default": true
+  },
+  {
+   "key": "penghentian_kahar",
+   "name": "Surat Penghentian Kontrak (Keadaan Kahar)",
+   "file": "Surat_Penghentian_Kontrak_Kahar.docx",
+   "doc_type": "pengadaan/surat/penghentian_kahar",
+   "default": true
+  },
+  {
+   "key": "pembatalan_sppbj",
+   "name": "Surat Pembatalan SPPBJ",
+   "file": "Surat_Pembatalan_SPPBJ.docx",
+   "doc_type": "pengadaan/surat/pembatalan_sppbj",
+   "default": true
+  },
+  {
+   "key": "pemberitahuan_pemutusan",
+   "name": "Surat Pemberitahuan Rencana Pemutusan Kontrak",
+   "file": "Surat_Pemberitahuan_Pemutusan.docx",
+   "doc_type": "pengadaan/surat/pemberitahuan_pemutusan",
+   "default": true
+  },
+  {
+   "key": "pemutusan",
+   "name": "Surat Pemutusan Kontrak",
+   "file": "Surat_Pemutusan_Kontrak.docx",
+   "doc_type": "pengadaan/surat/pemutusan",
+   "default": true
+  },
+  {
+   "key": "pencairan_jaminan",
+   "name": "Surat Permintaan Pencairan Jaminan",
+   "file": "Surat_Permintaan_Pencairan_Jaminan.docx",
+   "doc_type": "pengadaan/surat/pencairan_jaminan",
+   "default": true
+  },
+  {
+   "key": "permintaan_pl",
+   "name": "Surat Permintaan Penunjukan Langsung Lanjutan",
+   "file": "Surat_Permintaan_Penunjukan_Langsung.docx",
+   "doc_type": "pengadaan/surat/permintaan_pl",
+   "default": true
+  },
+  {
+   "key": "ba_sanksi",
+   "name": "BA Pemeriksaan Usulan Sanksi Daftar Hitam",
+   "file": "BA_Pemeriksaan_Usulan_Sanksi.docx",
+   "doc_type": "pengadaan/berita_acara/sanksi",
+   "default": true
+  },
+  {
+   "key": "usulan_sanksi",
+   "name": "Surat Usulan Penetapan Sanksi Daftar Hitam",
+   "file": "Surat_Usulan_Sanksi_Daftar_Hitam.docx",
+   "doc_type": "pengadaan/surat/usulan_sanksi",
+   "default": true
+  },
+  {
+   "key": "pemberitahuan_sanksi",
+   "name": "Surat Pemberitahuan Usulan Sanksi Daftar Hitam",
+   "file": "Surat_Pemberitahuan_Usulan_Sanksi.docx",
+   "doc_type": "pengadaan/surat/pemberitahuan_sanksi",
+   "default": true
+  },
+  {
+   "key": "sk_sanksi",
+   "name": "Keputusan Penetapan Sanksi Daftar Hitam",
+   "file": "SK_Penetapan_Sanksi_Daftar_Hitam.docx",
+   "doc_type": "pengadaan/keputusan/sk_sanksi",
+   "default": true
+  },
+  {
+   "key": "sk_sanksi_temuan",
+   "name": "Keputusan Penetapan Sanksi Daftar Hitam (Atas Temuan BPK/APIP)",
+   "file": "SK_Penetapan_Sanksi_Atas_Temuan.docx",
+   "doc_type": "pengadaan/keputusan/sk_sanksi_temuan",
+   "default": true
+  }
+ ],
+ "numbering_rules": [
+  {
+   "doc_type": "pengadaan/nota_dinas",
+   "pattern": "PL.02/ND-{seq}/{unit_code}/PBJ/{year}",
+   "reset_period": "year"
+  },
+  {
+   "doc_type": "pengadaan/surat",
+   "pattern": "PL.02.03/S-{seq}/{unit_code}/PBJ/{year}",
+   "reset_period": "year"
+  },
+  {
+   "doc_type": "pengadaan/berita_acara",
+   "pattern": "PL.02.03/BA-{seq}/{unit_code}/PBJ/{year}",
+   "reset_period": "year"
+  },
+  {
+   "doc_type": "pengadaan/spk",
+   "pattern": "PL.02.03/PRJ-{seq}/{unit_code}/PBJ/{year}",
+   "reset_period": "year"
+  },
+  {
+   "doc_type": "pengadaan/spmk",
+   "pattern": "PL.02.03/SPMK-{seq}/{unit_code}/PBJ/{year}",
+   "reset_period": "year"
+  }
+ ],
+ "package_templates": [
+  {
+   "key": "pengadaan_langsung",
+   "name": "Pengadaan Langsung (SPK Lumsum)",
+   "method": "Pengadaan Langsung",
+   "steps": [
+    {
+     "name": "Nota Dinas permintaan pengadaan",
+     "doc_type": "pengadaan/nota_dinas"
+    },
+    {
+     "name": "Kerangka Acuan Kerja",
+     "doc_type": "pengadaan/kak",
+     "depends_on": 1
+    },
+    {
+     "name": "Dokumen Pemilihan",
+     "doc_type": "pengadaan/surat/dokumen_pemilihan",
+     "depends_on": 2
+    },
+    {
+     "name": "BA Reviu Dokumen Persiapan Pemilihan",
+     "doc_type": "pengadaan/berita_acara/reviu",
+     "depends_on": 3
+    },
+    {
+     "name": "SPPBJ",
+     "doc_type": "pengadaan/surat/sppbj",
+     "depends_on": 4
+    },
+    {
+     "name": "BA Rapat Persiapan Penandatanganan Kontrak",
+     "doc_type": "pengadaan/berita_acara/rapat_ttd",
+     "depends_on": 5
+    },
+    {
+     "name": "Surat Perintah Kerja (SPK)",
+     "doc_type": "pengadaan/spk",
+     "depends_on": 6
+    },
+    {
+     "name": "Surat Perintah Mulai Kerja (SPMK)",
+     "doc_type": "pengadaan/spmk",
+     "depends_on": 7
+    },
+    {
+     "name": "BA Rapat Persiapan Pelaksanaan Kontrak",
+     "doc_type": "pengadaan/berita_acara/rapat_pelaksanaan",
+     "depends_on": 8,
+     "optional": true
+    },
+    {
+     "name": "BA Penyerahan Lokasi Kerja",
+     "doc_type": "pengadaan/berita_acara/lokasi",
+     "depends_on": 8,
+     "optional": true
+    },
+    {
+     "name": "BA Pemeriksaan Bersama",
+     "doc_type": "pengadaan/berita_acara/pemeriksaan_bersama",
+     "depends_on": 8,
+     "optional": true
+    },
+    {
+     "name": "BA Pemeriksaan Pekerjaan (Kemajuan Fisik)",
+     "doc_type": "pengadaan/berita_acara/pemeriksaan_pekerjaan",
+     "depends_on": 8
+    },
+    {
+     "name": "Surat Perintah Perbaikan Pekerjaan",
+     "doc_type": "pengadaan/surat/perintah_perbaikan",
+     "depends_on": 12,
+     "optional": true
+    },
+    {
+     "name": "BA Serah Terima Pertama Pekerjaan",
+     "doc_type": "pengadaan/berita_acara/bast_pertama",
+     "depends_on": 12
+    },
+    {
+     "name": "BA Hasil Pemeriksaan Administratif (PjPHP/PPHP)",
+     "doc_type": "pengadaan/berita_acara/pjphp",
+     "depends_on": 14
+    },
+    {
+     "name": "BA Serah Terima Hasil Pekerjaan kepada PA/KPA",
+     "doc_type": "pengadaan/berita_acara/bast_pa",
+     "depends_on": 15
+    },
+    {
+     "name": "BA Serah Terima Akhir Pekerjaan (setelah masa pemeliharaan)",
+     "doc_type": "pengadaan/berita_acara/bast_akhir",
+     "depends_on": 14,
+     "optional": true
+    },
+    {
+     "name": "Pengembalian Jaminan Pemeliharaan",
+     "doc_type": "pengadaan/surat/pengembalian_jaminan",
+     "depends_on": 17,
+     "optional": true
+    }
+   ]
+  },
+  {
+   "key": "kontrak_kritis",
+   "name": "Kontrak Kritis (SCM dan Surat Peringatan)",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "BA Rapat Pembuktian (SCM) Tahap I",
+     "doc_type": "pengadaan/berita_acara/scm"
+    },
+    {
+     "name": "Surat Peringatan Kontrak Kritis I",
+     "doc_type": "pengadaan/surat/sp",
+     "depends_on": 1,
+     "optional": true
+    },
+    {
+     "name": "BA Rapat Pembuktian (SCM) Tahap II",
+     "doc_type": "pengadaan/berita_acara/scm",
+     "depends_on": 2,
+     "optional": true
+    },
+    {
+     "name": "Surat Peringatan Kontrak Kritis II",
+     "doc_type": "pengadaan/surat/sp",
+     "depends_on": 3,
+     "optional": true
+    },
+    {
+     "name": "BA Rapat Pembuktian (SCM) Tahap III",
+     "doc_type": "pengadaan/berita_acara/scm",
+     "depends_on": 4,
+     "optional": true
+    },
+    {
+     "name": "Surat Peringatan Kontrak Kritis III",
+     "doc_type": "pengadaan/surat/sp",
+     "depends_on": 5,
+     "optional": true
+    }
+   ]
+  },
+  {
+   "key": "perubahan_kontrak",
+   "name": "Perubahan Kontrak (Addendum)",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "BA Pemeriksaan Bersama",
+     "doc_type": "pengadaan/berita_acara/pemeriksaan_bersama",
+     "optional": true
+    },
+    {
+     "name": "Addendum Kontrak",
+     "doc_type": "pengadaan/addendum"
+    }
+   ]
+  },
+  {
+   "key": "keadaan_kahar",
+   "name": "Keadaan Kahar (Penghentian Kontrak)",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "Surat Penghentian Kontrak (Keadaan Kahar)",
+     "doc_type": "pengadaan/surat/penghentian_kahar"
+    },
+    {
+     "name": "BA Pemeriksaan Bersama (kemajuan hasil pekerjaan)",
+     "doc_type": "pengadaan/berita_acara/pemeriksaan_bersama",
+     "depends_on": 1,
+     "optional": true
+    },
+    {
+     "name": "Addendum Kontrak (perpanjangan atau pengakhiran)",
+     "doc_type": "pengadaan/addendum",
+     "depends_on": 1,
+     "optional": true
+    }
+   ]
+  },
+  {
+   "key": "pemutusan_kontrak",
+   "name": "Pemutusan Kontrak oleh PPK",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "Surat Peringatan ke-1",
+     "doc_type": "pengadaan/surat/sp",
+     "optional": true
+    },
+    {
+     "name": "Surat Peringatan ke-2",
+     "doc_type": "pengadaan/surat/sp",
+     "depends_on": 1,
+     "optional": true
+    },
+    {
+     "name": "Surat Peringatan ke-3",
+     "doc_type": "pengadaan/surat/sp",
+     "depends_on": 2,
+     "optional": true
+    },
+    {
+     "name": "Pemberitahuan Rencana Pemutusan Kontrak",
+     "doc_type": "pengadaan/surat/pemberitahuan_pemutusan"
+    },
+    {
+     "name": "BA Pemeriksaan Bersama (hasil pekerjaan sampai pemutusan)",
+     "doc_type": "pengadaan/berita_acara/pemeriksaan_bersama",
+     "depends_on": 4,
+     "optional": true
+    },
+    {
+     "name": "Surat Pemutusan Kontrak",
+     "doc_type": "pengadaan/surat/pemutusan",
+     "depends_on": 4
+    },
+    {
+     "name": "Permintaan Pencairan Jaminan",
+     "doc_type": "pengadaan/surat/pencairan_jaminan",
+     "depends_on": 6,
+     "optional": true
+    },
+    {
+     "name": "Permintaan Penunjukan Langsung Lanjutan",
+     "doc_type": "pengadaan/surat/permintaan_pl",
+     "depends_on": 6,
+     "optional": true
+    }
+   ]
+  },
+  {
+   "key": "sanksi_daftar_hitam",
+   "name": "Sanksi Daftar Hitam (Usulan dan Keputusan)",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "BA Pemeriksaan Usulan Sanksi",
+     "doc_type": "pengadaan/berita_acara/sanksi"
+    },
+    {
+     "name": "Surat Usulan Penetapan Sanksi Daftar Hitam",
+     "doc_type": "pengadaan/surat/usulan_sanksi",
+     "depends_on": 1
+    },
+    {
+     "name": "Surat Pemberitahuan Usulan kepada Penyedia (bila KPA merangkap PPK)",
+     "doc_type": "pengadaan/surat/pemberitahuan_sanksi",
+     "depends_on": 2,
+     "optional": true
+    },
+    {
+     "name": "Keputusan Penetapan Sanksi Daftar Hitam",
+     "doc_type": "pengadaan/keputusan/sk_sanksi",
+     "depends_on": 2
+    },
+    {
+     "name": "Keputusan Penetapan Sanksi (atas temuan BPK/APIP)",
+     "doc_type": "pengadaan/keputusan/sk_sanksi_temuan",
+     "optional": true
+    }
+   ]
+  },
+  {
+   "key": "pembatalan_sppbj",
+   "name": "Pembatalan SPPBJ",
+   "method": "Pengadaan Langsung (kejadian kontrak)",
+   "steps": [
+    {
+     "name": "Surat Pembatalan SPPBJ",
+     "doc_type": "pengadaan/surat/pembatalan_sppbj"
+    },
+    {
+     "name": "SPPBJ kepada pemenang cadangan",
+     "doc_type": "pengadaan/surat/sppbj",
+     "depends_on": 1,
+     "optional": true
+    }
+   ]
+  }
+ ],
+ "org_defaults": {
+  "positions": [
+   {
+    "role": "ppk",
+    "title": "Pejabat Pembuat Komitmen",
+    "kind": "manager"
+   },
+   {
+    "role": "pp",
+    "title": "Pejabat Pengadaan",
+    "kind": "staff"
+   },
+   {
+    "role": "kpa",
+    "title": "Kuasa Pengguna Anggaran",
+    "kind": "manager"
+   },
+   {
+    "role": "pphp",
+    "title": "Pejabat Penerima Hasil Pekerjaan",
+    "kind": "staff"
+   }
+  ],
+  "review_chains": [
+   {
+    "name": "Tanda tangan PPK",
+    "steps": [
+     {
+      "step_no": 1,
+      "kind": "sign",
+      "position_role": "ppk"
+     }
+    ]
+   },
+   {
+    "name": "Tanda tangan Pejabat Pengadaan",
+    "steps": [
+     {
+      "step_no": 1,
+      "kind": "sign",
+      "position_role": "pp"
+     }
+    ]
+   },
+   {
+    "name": "Tanda tangan KPA",
+    "steps": [
+     {
+      "step_no": 1,
+      "kind": "sign",
+      "position_role": "kpa"
+     }
+    ]
+   },
+   {
+    "name": "Tanda tangan PjPHP",
+    "steps": [
+     {
+      "step_no": 1,
+      "kind": "sign",
+      "position_role": "pphp"
+     }
+    ]
+   },
+   {
+    "name": "Reviu Pejabat Pengadaan, tanda tangan PPK",
+    "steps": [
+     {
+      "step_no": 1,
+      "kind": "review",
+      "position_role": "pp"
+     },
+     {
+      "step_no": 2,
+      "kind": "sign",
+      "position_role": "ppk"
+     }
+    ]
+   }
+  ]
+ },
+ "org_overlays": {},
+ "manual_review": [
+  "dokumen_pemilihan"
+ ]
+}

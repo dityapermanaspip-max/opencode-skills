@@ -24,6 +24,11 @@ is also a backup. Nothing to build or sync.
   verification and stitching for documents that do not fit one model call: analyzing folders of long
   PDFs/scans (with OCR fallback) and authoring long contracts, policies or reports part by part.
   Ships `scripts/slice.py` (stdlib only) as the reference slicer and manifest writer.
+- `pbj-dokumen-bpkp` — Indonesian government procurement (PBJ) documents for a BPKP work unit: the
+  32-template pack in lifecycle order (SPK, SPPBJ, SPMK, BA, addendum, SCM, termination, sanctions,
+  replacement), a `proyek.md` tracker readable in Obsidian that tests the critical-contract criteria,
+  OCR for scanned supervisor reports, and filling of the owner's own BPKP draft forms. Legal acts
+  stay with the officials; the skill only drafts and computes.
 
 Stock/community skills (`docx-builder`, `frontend-design`, `mcp-builder`, `theme-factory`,
 `webapp-testing`) exist in this directory on the machine but are gitignored — they are not part

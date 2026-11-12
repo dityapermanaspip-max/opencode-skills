@@ -4,3 +4,7 @@ frontend-design/
 mcp-builder/
 theme-factory/
 webapp-testing/
+
+# Python bytecode from skill scripts (e.g. pbj-dokumen-bpkp).
+__pycache__/
+*.pyc
