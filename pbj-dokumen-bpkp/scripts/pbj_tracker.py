@@ -17,10 +17,12 @@ import re
 from datetime import date
 from pathlib import Path
 
+from pbj_derived import parse_amount
 from pbj_progress import evaluate, row_label
 
 FILE = "proyek.md"
-META = ("tipe", "metode", "status_kontrak")
+META = ("tipe", "metode", "status_kontrak", "jenis_pengadaan")
+JENIS = ("konstruksi", "barang", "jasa_lainnya", "konsultansi")
 PROGRESS_COLS = ["Pekan", "Mulai", "Selesai", "Rencana (%)", "Realisasi (%)", "Deviasi (%)", "Kriteria kritis"]
 DOC_COLS = ["Template", "Naskah", "Nomor", "Tanggal", "Status", "Berkas"]
 STATUSES = ("draf", "ditandatangani", "dikirim", "selesai", "batal")
@@ -43,6 +45,14 @@ def _rows(lines: list[str]) -> list[list[str]]:
         if line.startswith("|") and not re.fullmatch(r"\|[\s:|-]+\|", line):
             out.append([c.strip() for c in line.strip("|").split("|")])
     return out[1:]  # first row is the header
+
+
+def _num(text: str, where: str) -> float:
+    """A number from a hand-editable table cell: 85, 85,5 and 85% all mean the same."""
+    value = parse_amount(str(text).strip().rstrip("%").strip())
+    if value is None:
+        raise SystemExit(f"proyek.md: {where} '{text}' bukan angka (tulis 85 atau 85,5)")
+    return value
 
 
 class Project:
@@ -87,14 +97,17 @@ class Project:
             if name == "Progres fisik":
                 for r in _rows(lines):
                     if len(r) >= 5:
-                        project.progress.append({"pekan": int(float(r[0])), "mulai": r[1], "selesai": r[2], "rencana": float(r[3]), "realisasi": float(r[4])})
+                        week = _num(r[0], f"pekan '{r[0]}'")
+                        if week != int(week) or week < 1:
+                            raise SystemExit(f"proyek.md: pekan '{r[0]}' harus bilangan bulat mulai 1")
+                        project.progress.append({"pekan": int(week), "mulai": r[1], "selesai": r[2], "rencana": _num(r[3], f"pekan {r[0]}: Rencana (%)"), "realisasi": _num(r[4], f"pekan {r[0]}: Realisasi (%)")})
             elif name == "Dokumen":
                 for r in _rows(lines):
                     if len(r) >= 6:
                         link = re.search(r"\[\[(.+?)\]\]", r[5])
                         project.docs.append({"template": r[0], "naskah": r[1], "nomor": r[2], "tanggal": r[3], "status": r[4], "berkas": link.group(1) if link else r[5]})
             elif name == "Catatan":
-                project.notes = [ln[2:].strip() for ln in lines if ln.startswith("- ")]
+                project.notes = [ln.rstrip() for ln in lines if ln.strip()]
         return project
 
     def save(self) -> None:
@@ -102,7 +115,7 @@ class Project:
         generated = {
             "Progres fisik": _table(PROGRESS_COLS, [[r["pekan"], r["mulai"], r["selesai"], f"{r['rencana']:g}", f"{r['realisasi']:g}", f"{evaluate(r['rencana'], r['realisasi'])['deviasi']:g}", row_label(r)] for r in self.progress]),
             "Dokumen": _table(DOC_COLS, [[d["template"], d["naskah"], d["nomor"], d["tanggal"], d["status"], f"[[{d['berkas']}]]" if d["berkas"] else ""] for d in self.docs]),
-            "Catatan": [f"- {n}" for n in self.notes],
+            "Catatan": self.notes,
         }
         body: list[str] = []
         seen = set()
@@ -136,4 +149,4 @@ class Project:
         self.docs.append(doc)
 
     def note(self, text: str) -> None:
-        self.notes.append(f"{date.today().isoformat()}: {text}")
+        self.notes.append(f"- {date.today().isoformat()}: {text}")

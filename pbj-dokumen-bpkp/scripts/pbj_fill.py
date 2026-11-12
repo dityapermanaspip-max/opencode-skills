@@ -69,8 +69,9 @@ def cmd_fill(args) -> None:
     def resolve_marker(key: str):
         text = resolve(key, catalog.kind(key), values)
         if text is None:
-            unfilled.add(key)
-            return f"[{labels.get(key) or catalog.label(key)}]"
+            base = (parse_derived_key(key) or (key,))[0]
+            unfilled.add(base)
+            return f"[{labels.get(base) or catalog.label(base)}]"
         return text
 
     count, unknown = docx.fill_markers(document, resolve_marker)

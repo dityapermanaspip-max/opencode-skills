@@ -1,10 +1,11 @@
 """Refresh the skill's template catalog from the HILDA pack (single source of the wording).
 
-    python sync_templates.py [--source <pack manifest .json>]
+    python sync_templates.py [--source <pack manifest .json>] [--check]
 
 Copies the pack's .docx files into assets/templates, the manifest into assets/manifest.json, writes
 assets/SYNC.md (where it came from, file hashes) and regenerates references/kunci-isian.md, the list of
-every typed key per template. Run it after the pack builders in hilda-be1 change; never edit the copies.
+every typed key per template. ``--check`` reports whether the copies still match the pack and changes
+nothing. Run it after the pack builders in hilda-be1 change; never edit the copies.
 """
 
 from __future__ import annotations
@@ -21,22 +22,66 @@ SKILL = Path(__file__).resolve().parent.parent
 DEFAULT = Path(r"C:\Users\User\learnhowto\git_part_2\hilda-be1\scripts\packs\pbj-pengadaan-langsung-2026.json")
 
 
+def read_pack(source: Path) -> tuple[dict, Path]:
+    if not source.is_file():
+        raise SystemExit(f"pack manifest not found: {source}\nPass --source <pack manifest.json> or set PBJ_PACK_SOURCE.")
+    manifest = json.loads(source.read_text(encoding="utf-8"))
+    return manifest, source.parent / manifest["templates_dir"]
+
+
+def pack_sources(manifest: dict, templates_dir: Path) -> list[tuple[dict, Path]]:
+    """Every (template, source file); stops before anything is written when one is missing."""
+    pairs, missing = [], []
+    for template in manifest["templates"]:
+        src = templates_dir / template["file"]
+        (pairs if src.is_file() else missing).append((template, src))
+    if missing:
+        raise SystemExit("missing template files, nothing was changed:\n  " + "\n  ".join(str(src) for _, src in missing))
+    return pairs
+
+
+def check_drift(manifest: dict, pairs: list[tuple[dict, Path]]) -> int:
+    """Compare the copies with the pack without touching anything (exit 1 on drift)."""
+    out = SKILL / "assets"
+    problems = []
+    on_disk = out / "manifest.json"
+    if not on_disk.is_file():
+        problems.append("assets/manifest.json is missing")
+    elif json.loads(on_disk.read_text(encoding="utf-8")) != manifest:
+        problems.append("assets/manifest.json differs from the pack")
+    for template, src in pairs:
+        copy = out / "templates" / template["file"]
+        if not copy.is_file():
+            problems.append(f"missing {template['file']}")
+        elif hashlib.sha256(copy.read_bytes()).hexdigest() != hashlib.sha256(src.read_bytes()).hexdigest():
+            problems.append(f"stale {template['file']}")
+    extra = {p.name for p in (out / "templates").glob("*.docx")} - {template["file"] for template, _ in pairs}
+    problems += [f"extra {name}" for name in sorted(extra)]
+    if problems:
+        print("assets do not match the pack:")
+        print("\n".join("  " + p for p in problems))
+        return 1
+    print(f"assets match the pack ({len(pairs)} templates)")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--source", type=Path, default=Path(os.environ.get("PBJ_PACK_SOURCE", DEFAULT)))
-    source = parser.parse_args().source
-    manifest = json.loads(source.read_text(encoding="utf-8"))
-    templates_dir = source.parent / manifest["templates_dir"]
+    parser.add_argument("--check", action="store_true", help="report whether assets match the pack; change nothing")
+    args = parser.parse_args()
+    manifest, templates_dir = read_pack(args.source)
+    pairs = pack_sources(manifest, templates_dir)
+    if args.check:
+        return check_drift(manifest, pairs)
+    source = args.source
 
     out = SKILL / "assets" / "templates"
     out.mkdir(parents=True, exist_ok=True)
     for old in out.glob("*.docx"):
         old.unlink()
     lines = []
-    for template in manifest["templates"]:
-        src = templates_dir / template["file"]
-        if not src.is_file():
-            raise SystemExit(f"missing template file {src}")
+    for template, src in pairs:
         shutil.copy2(src, out / template["file"])
         lines.append(f"- `{template['file']}` sha256 {hashlib.sha256(src.read_bytes()).hexdigest()[:16]}")
     (SKILL / "assets" / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -21,7 +21,9 @@ use `python -P` so the dossier folder is not put on the import path, and set `PY
    and read every figure by eye before it is typed anywhere.
 3. **Record facts once.** `set key=value ...` (keys are the HILDA template keys, see `references/kunci-isian.md`; typos
    and bad dates are rejected). Weekly figures from the supervisor's report: `progress add --pekan N --mulai .. --selesai
-   .. --rencana .. --realisasi ..` (cumulative %). Re-adding a week replaces it.
+   .. --rencana .. --realisasi ..` (cumulative %). Re-adding a week replaces it. For a Pengadaan Langsung also set
+   `jenis_pengadaan=konstruksi|barang|jasa_lainnya|konsultansi`: the ceiling is Rp400 juta for construction but
+   Rp200 juta for goods and other services (Perpres 46/2025 Pasal 38).
 4. **Ask `status`.** It prints deviation, pace, projection, data checks (e.g. a week that does not follow the last, an
    end date that disagrees with start + duration) and the next step. Report what it says; it states that criteria are
    MET, never that a contract IS critical or terminated: those are acts of the officials.
@@ -65,10 +67,13 @@ After the HILDA pack changes, run `scripts/sync_templates.py` and then `selftest
 - **HPS** comes from the owner's BoQ (Excel) and is typed as `nilai_hps`. The `replacement` remainder is a method check only.
 - **Legal acts are the officials'.** The skill drafts; the Pejabat Penandatangan Kontrak declares a contract critical,
   warns, runs the SCM and terminates; the KPA decides sanctions; LKPP sets sanction details (no durations are baked).
+- **The ceiling depends on the object.** `status` and `replacement` read `jenis_pengadaan`; when it is unset they
+  state both limits (Rp400 juta konstruksi, Rp200 juta barang/jasa lainnya) and never pick one. Do not tell the user a
+  remainder "bisa Pengadaan Langsung" without knowing whether the work is construction.
 - **Say the status of the wording.** Only the SPMK and the four sanction documents follow official formats; the other
   lifecycle documents are authored and need the owner's or legal's review. `references/status-regulasi.md` has the
-  caveats (Rp400 juta ceiling vs Lampiran II, LKPP 4/2021 predating Perpres 46/2025) and is a snapshot: re-check a rule
-  with the `audit-legal-crawler` skill before relying on it.
+  caveats (the Pengadaan Langsung ceiling and its difference from Lampiran II, LKPP 4/2021 predating Perpres 46/2025)
+  and is a snapshot: re-check a rule with the `audit-legal-crawler` skill before relying on it.
 - **Personal and project data stays in the project folder.** Never copy a name, NIP, company or amount from a dossier
   into this skill, a repository or a chat summary beyond what the task needs.
 - Output only into `./dokumen/` (or `--out`). Never edit or overwrite the dossier's own files. Never read or create `.env`.

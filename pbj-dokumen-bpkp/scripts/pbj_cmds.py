@@ -9,13 +9,25 @@ from pathlib import Path
 import pbj_catalog as catalog
 from pbj_derived import parse_amount, parse_iso_date
 from pbj_progress import analyse, evaluate, id_num, row_label
-from pbj_tracker import META, STATUSES, Project
+from pbj_tracker import JENIS, META, STATUSES, Project
 
-PL_CEILING_KONSTRUKSI = 400_000_000  # Perpres 16/2018 Pasal 38 as amended by Perpres 46/2025
+# Perpres 16/2018 Pasal 38 as amended by Perpres 46/2025: Pengadaan Langsung is allowed up to Rp400
+# million for construction and Rp200 million for goods and other services. The note says which object
+# it is (jenis_pengadaan); when it does not, neither limit is asserted.
+PL_CEILING = {"konstruksi": 400_000_000, "barang": 200_000_000, "jasa_lainnya": 200_000_000, "konsultansi": 200_000_000}
+JENIS_LABEL = {"konstruksi": "pekerjaan konstruksi", "barang": "barang", "jasa_lainnya": "jasa lainnya", "konsultansi": "jasa konsultansi"}
 
 
 def rupiah(value: float) -> str:
     return f"{value:,.0f}".replace(",", ".")
+
+
+def pl_ceiling(jenis: str | None):
+    """(limit, 'Rp200.000.000 untuk barang') for a stated object, None when the note does not say."""
+    key = str(jenis or "").strip().lower()
+    if key not in PL_CEILING:
+        return None
+    return PL_CEILING[key], f"Rp{rupiah(PL_CEILING[key])} untuk {JENIS_LABEL[key]}"
 
 
 def pairs(items) -> dict[str, str]:
@@ -29,6 +41,10 @@ def pairs(items) -> dict[str, str]:
 
 
 def check_value(key: str, value: str) -> None:
+    if key == "jenis_pengadaan":
+        if value and value.strip().lower() not in JENIS:
+            raise SystemExit(f"jenis_pengadaan must be one of {', '.join(JENIS)} (got '{value}')")
+        return
     if key in META:
         return
     if not catalog.known_key(key):
@@ -101,13 +117,17 @@ def cmd_doc(args) -> None:
     if args.action == "add":
         catalog.template(args.template)
         project.add_doc({"template": args.template, "naskah": args.naskah or catalog.template(args.template)["name"], "nomor": args.nomor or "", "tanggal": args.tanggal or "", "status": args.status or "draf", "berkas": args.berkas or ""})
+        changed = project.docs[-1]
     else:  # set
         if not args.index or not 1 <= args.index <= len(project.docs):
             raise SystemExit("doc set needs --index from `doc list`")
-        doc = project.docs[args.index - 1]
+        changed = project.docs[args.index - 1]
         for field in ("nomor", "tanggal", "status", "berkas"):
-            if getattr(args, field):
-                doc[field] = getattr(args, field)
+            value = getattr(args, field)
+            if value is not None:  # --nomor= clears it; leaving the flag out keeps it
+                changed[field] = value
+    if changed["tanggal"] and not parse_iso_date(changed["tanggal"]):
+        raise SystemExit(f"tanggal must be yyyy-mm-dd or empty (got '{changed['tanggal']}')")
     for d in project.docs:
         if d["status"] not in STATUSES:
             raise SystemExit(f"status must be one of {', '.join(STATUSES)}")
@@ -137,8 +157,12 @@ def cmd_status(args) -> None:
     for advice in result["advice"]:
         print("  [langkah] " + advice)
     value = parse_amount(d.get("nilai_kontrak") or d.get("nilai_hps"))
-    if d.get("metode", "").lower().startswith("pengadaan langsung") and value and value > PL_CEILING_KONSTRUKSI:
-        print(f"  [periksa metode] nilai Rp{rupiah(value)} melebihi batas Pengadaan Langsung konstruksi Rp400 juta (Perpres 46/2025 Pasal 38)")
+    if d.get("metode", "").lower().startswith("pengadaan langsung") and value:
+        limit = pl_ceiling(d.get("jenis_pengadaan"))
+        if limit and value > limit[0]:
+            print(f"  [periksa metode] nilai Rp{rupiah(value)} melebihi batas Pengadaan Langsung {limit[1]} (Perpres 46/2025 Pasal 38)")
+        elif limit is None and value > PL_CEILING["barang"]:
+            print(f"  [periksa metode] nilai Rp{rupiah(value)}: Pengadaan Langsung hanya sampai Rp400 juta untuk konstruksi dan Rp200 juta untuk barang/jasa lainnya (Perpres 46/2025 Pasal 38). Isi jenis_pengadaan (konstruksi/barang/jasa_lainnya/konsultansi) di proyek.md.")
 
 
 def cmd_route(args) -> None:
@@ -178,10 +202,13 @@ def cmd_replacement(args) -> None:
     rest = value * (1 - done / 100)
     print(f"Sisa pekerjaan (indikatif, hanya untuk memilih metode): {100 - done:.2f}% dari nilai kontrak = Rp{rupiah(rest)}")
     print("HPS pekerjaan lanjutan BUKAN angka ini: susun dari volume sisa pada BoQ pemilik (Excel) dan ketik nilainya sebagai nilai_hps.")
-    if rest > PL_CEILING_KONSTRUKSI:
-        print("Di atas Rp400 juta: bukan Pengadaan Langsung. Jalur setelah pemutusan: Penunjukan Langsung (Perpres 16/2018 Pasal 38 ayat (5) sebagaimana diubah Perpres 46/2025; Lampiran II LKPP 12/2021 angka 5.2.2) kepada pemenang cadangan; bila tidak ada atau tidak bersedia, penyedia lain dengan tahapan Penunjukan Langsung penuh atau Tender.")
+    limit = pl_ceiling(d.get("jenis_pengadaan"))
+    if limit is None:
+        print("Batas Pengadaan Langsung tergantung jenis pengadaan: Rp400 juta untuk konstruksi, Rp200 juta untuk barang/jasa lainnya (Perpres 46/2025 Pasal 38). Isi jenis_pengadaan di proyek.md; jalur Penunjukan Langsung (Perpres 16/2018 Pasal 38 ayat (5) sebagaimana diubah Perpres 46/2025; Lampiran II LKPP 12/2021 angka 5.2.2) kepada pemenang cadangan tetap tersedia setelah pemutusan.")
+    elif rest > limit[0]:
+        print(f"Di atas batas Pengadaan Langsung {limit[1]}: bukan Pengadaan Langsung. Jalur setelah pemutusan: Penunjukan Langsung (Perpres 16/2018 Pasal 38 ayat (5) sebagaimana diubah Perpres 46/2025; Lampiran II LKPP 12/2021 angka 5.2.2) kepada pemenang cadangan; bila tidak ada atau tidak bersedia, penyedia lain dengan tahapan Penunjukan Langsung penuh atau Tender.")
     else:
-        print("Di bawah batas Rp400 juta: Pengadaan Langsung dimungkinkan (`route pengadaan_langsung`); jalur Penunjukan Langsung kepada pemenang cadangan tetap tersedia setelah pemutusan.")
+        print(f"Di bawah batas Pengadaan Langsung {limit[1]}: Pengadaan Langsung dimungkinkan (`route pengadaan_langsung`); jalur Penunjukan Langsung kepada pemenang cadangan tetap tersedia setelah pemutusan.")
     print("Dokumen: lihat references/kontrak-pengganti.md. Persiapan memakai template nota_dinas, kak, permintaan_pl; formulir tender/kontrak yang belum ada diambil dari formulir pemilik di folder proyek (`blanks`, `fillform`).")
     print(f"Tanggal acuan: {date.today().isoformat()}; periksa status peraturan sebelum dipakai (references/status-regulasi.md).")
 

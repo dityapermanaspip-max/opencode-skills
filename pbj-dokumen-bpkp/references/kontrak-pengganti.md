@@ -19,9 +19,10 @@ work is already accepted and therefore what is left.
   clarification and negotiation, clarification and negotiation of technical and price, determination and
   announcement. No reserve winner, or none willing: another provider through the full Penunjukan Langsung stages
   (prequalification, explanation, offer, evaluation, negotiation, determination) or a Tender.
-- Pengadaan Langsung only if the remaining work is within Rp400 juta (`route pengadaan_langsung`). Above it, it is
-  not an option: `replacement` prints the indicative remainder (contract value x (100 - actual %)) only to decide
-  this. It is not the HPS.
+- Pengadaan Langsung only if the remaining work is within the ceiling for its object: Rp400 juta for construction,
+  Rp200 juta for goods and other services (`route pengadaan_langsung`, Perpres 46/2025 Pasal 38). `replacement` reads
+  `jenis_pengadaan` and prints both limits when it is unset. Above the ceiling it is not an option: `replacement` prints
+  the indicative remainder (contract value x (100 - actual %)) only to decide this. It is not the HPS.
 - The HPS of the new work is built from the unfinished volumes of the owner's BoQ (Excel) and typed as `nilai_hps`.
   Never derive it from a percentage.
 

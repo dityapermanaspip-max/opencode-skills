@@ -81,7 +81,9 @@ def _title(text: str) -> str:
 
 
 def parse_amount(value):
-    """155373000, '155373000.5', '155.373.000,50' and 'Rp155.373.000' parse; anything else is None."""
+    """155373000, '155373000.5', '1.500' (Indonesian thousands), '155.373.000,50', 'Rp155.373.000' parse;
+    anything else is None. A single dot followed by exactly three digits is a thousands separator,
+    because Indonesian amounts never use a decimal dot."""
     if isinstance(value, bool):
         return None
     if isinstance(value, (int, float)):
@@ -89,7 +91,11 @@ def parse_amount(value):
     raw = re.sub(r"^Rp\.?\s*", "", str(value if value is not None else "").strip(), flags=re.I)
     if not raw:
         return None
-    if re.fullmatch(r"\d+(\.\d+)?", raw):
+    if re.fullmatch(r"\d+", raw):
+        return float(raw)
+    if re.fullmatch(r"\d+\.\d{3}", raw):
+        return float(raw.replace(".", ""))
+    if re.fullmatch(r"\d+\.\d+", raw):
         return float(raw)
     if re.fullmatch(r"\d{1,3}(\.\d{3})+(,\d+)?", raw):
         return float(raw.replace(".", "").replace(",", "."))

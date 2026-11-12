@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 
+from pbj_derived import parse_amount
+
 PERIOD_SPLIT = 70.0
 LIMIT = {"I": 10.0, "II": 5.0}
 SCM_TEMPLATES = {"ba_scm", "sp"}
@@ -26,10 +28,8 @@ def iso(value) -> date | None:
 
 
 def number(value) -> float | None:
-    try:
-        return float(str(value).strip().replace(",", "."))
-    except ValueError:
-        return None
+    """A figure from proyek.md: 150, 150,5 and Rp150 all parse; anything else is None."""
+    return parse_amount(value)
 
 
 def evaluate(rencana: float, realisasi: float) -> dict:
@@ -90,18 +90,23 @@ def analyse(data: dict, rows: list[dict], docs: list[dict]) -> dict:
         days = (last_end - iso(window[0]["selesai"])).days
         if days > 0:
             pace_day = (last["realisasi"] - window[0]["realisasi"]) / days
-            lines.append(f"Laju realisasi {len(window) - 1} pekan terakhir: {pace_day * 7:.2f}% per pekan")
+            lines.append(f"Laju realisasi {len(window) - 1} pekan terakhir: {id_num(pace_day * 7)}% per pekan")
     out["pace_day"] = pace_day
     if remaining and remaining > 0:
         needed = (100 - last["realisasi"]) / remaining
-        lines.append(f"Laju yang dibutuhkan agar selesai tepat waktu: {needed * 7:.2f}% per pekan" + (f" ({needed / pace_day:.0f} kali laju terakhir)" if pace_day and pace_day > 0 else ""))
+        lines.append(f"Laju yang dibutuhkan agar selesai tepat waktu: {id_num(needed * 7)}% per pekan" + (f" ({needed / pace_day:.0f} kali laju terakhir)" if pace_day and pace_day > 0 else ""))
         if pace_day is not None:
             reach = min(100.0, last["realisasi"] + max(pace_day, 0) * remaining)
-            lines.append(f"Proyeksi realisasi pada akhir masa pelaksanaan dengan laju terakhir: {reach:.1f}% (indikatif)")
+            lines.append(f"Proyeksi realisasi pada akhir masa pelaksanaan dengan laju terakhir: {id_num(reach)}% (indikatif)")
             if pace_day > 0 and last_end:
                 finish = last_end + timedelta(days=int((100 - last["realisasi"]) / pace_day))
-                year = int(number(data.get("tahun_anggaran")) or (selesai_kontrak.year if selesai_kontrak else last_end.year))
+                fallback = selesai_kontrak.year if selesai_kontrak else last_end.year
+                raw_year = number(data.get("tahun_anggaran"))
+                year = int(raw_year) if raw_year is not None else fallback
                 out["finish"] = finish
+                if not 1000 <= year <= 9999:
+                    out["checks"].append(f"tahun_anggaran '{data.get('tahun_anggaran')}' tidak masuk akal; proyeksi memakai tahun {fallback}")
+                    year = fallback
                 if finish > date(year, 12, 31):
                     lines.append(f"Dengan laju terakhir pekerjaan baru selesai sekitar {finish.isoformat()}, melewati tahun anggaran {year}: kesempatan yang melewati tahun anggaran butuh DIPA tahun berikutnya (SSUK 32.3)")
 

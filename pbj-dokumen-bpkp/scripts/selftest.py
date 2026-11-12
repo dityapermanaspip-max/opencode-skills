@@ -4,19 +4,23 @@ Uses synthetic data only. Run it after sync_templates.py or after changing any s
 
 from __future__ import annotations
 
+import contextlib
+import io
 import sys
 import tempfile
 from pathlib import Path
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from docx import Document  # noqa: E402
 
 import pbj_catalog as catalog  # noqa: E402
+import pbj_cmds as cmds  # noqa: E402
 import pbj_derived as d  # noqa: E402
 import pbj_docx as docx  # noqa: E402
 from pbj_fill import _base_keys  # noqa: E402
-from pbj_progress import analyse, evaluate  # noqa: E402
+from pbj_progress import analyse, evaluate, number  # noqa: E402
 from pbj_tracker import Project  # noqa: E402
 
 failures: list[str] = []
@@ -97,8 +101,113 @@ def test_progress_and_tracker() -> None:
         check("SCM already recorded, no 'belum ada' advice", not any("Belum ada BA SCM" in a for a in result["advice"]))
 
 
+def test_hand_edits() -> None:
+    """A note edited in Obsidian is read as a person writes it: 8,5, 85%, free text under Catatan."""
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "proyek.md"
+        path.write_text(
+            '---\ntipe: "proyek-pbj"\nnama_paket: "Uji"\n---\n\n# Uji\n\n'
+            "## Progres fisik\n\n"
+            "| Pekan | Mulai | Selesai | Rencana (%) | Realisasi (%) | Deviasi (%) | Kriteria kritis |\n"
+            "|---|---|---|---|---|---|---|\n"
+            "| 1 | 2026-08-04 | 2026-08-10 | 10,5 | 8,25% | -2,25 | terlambat |\n\n"
+            "## Dokumen\n\n| Template | Naskah | Nomor | Tanggal | Status | Berkas |\n|---|---|---|---|---|---|\n\n"
+            "## Catatan\n\n- 2026-11-12: uji\n\nCatatan bebas yang ditulis tangan.\n",
+            encoding="utf-8",
+        )
+        project = Project.load(path)
+        row = project.progress[0]
+        check("comma decimal and % parse", row["rencana"] == 10.5 and row["realisasi"] == 8.25, str(row))
+        project.save()
+        text = path.read_text(encoding="utf-8")
+        check("free text under Catatan kept", "Catatan bebas yang ditulis tangan." in text)
+        check("dated note kept once", text.count("- 2026-11-12: uji") == 1)
+        check("number('1.500') reads 1500", number("1.500") == 1500 and d.parse_amount("1500.5") == 1500.5)
+        check("number('nan') is None", number("nan") is None)
+
+        bad = path.read_text(encoding="utf-8").replace("10.5", "10,x")
+        path.write_text(bad, encoding="utf-8")
+        try:
+            Project.load(path)
+            check("bad cell gives a readable error", False, "no exception")
+        except SystemExit as exc:
+            check("bad cell gives a readable error", "10,x" in str(exc) and "bukan angka" in str(exc), str(exc))
+
+
+def test_progress_guards() -> None:
+    rows = [
+        {"pekan": 1, "mulai": "2026-01-01", "selesai": "2026-01-07", "rencana": 10, "realisasi": 8},
+        {"pekan": 2, "mulai": "2026-01-08", "selesai": "2026-01-14", "rencana": 20, "realisasi": 15},
+        {"pekan": 3, "mulai": "2026-01-15", "selesai": "2026-01-21", "rencana": 30, "realisasi": 22},
+        {"pekan": 4, "mulai": "2026-01-22", "selesai": "2026-01-28", "rencana": 40, "realisasi": 28},
+    ]
+    data = {"tanggal_mulai": "2026-01-01", "tanggal_selesai": "2026-06-30", "jangka_waktu_hari": "181", "tahun_anggaran": "99999"}
+    result = analyse(data, rows, [])
+    check("absurd tahun_anggaran falls back", any("tidak masuk akal" in c for c in result["checks"]) and result.get("finish") is not None)
+
+
+def test_cli_ceiling_and_doc_set() -> None:
+    check("ceiling barang", cmds.pl_ceiling("barang") == (200_000_000, "Rp200.000.000 untuk barang"))
+    check("ceiling konstruksi", cmds.pl_ceiling("konstruksi") == (400_000_000, "Rp400.000.000 untuk pekerjaan konstruksi"))
+    check("ceiling unset", cmds.pl_ceiling(None) is None and cmds.pl_ceiling("") is None)
+
+    def run(func, args) -> str:
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            func(args)
+        return out.getvalue()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "proyek.md"
+        project = Project(path)
+        project.set("nama_paket", "Uji")
+        project.set("metode", "Pengadaan Langsung")
+        project.set("nilai_kontrak", "300000000")
+        project.save()
+
+        out = run(cmds.cmd_status, SimpleNamespace(folder=tmp))
+        check("300 juta without jenis asks for both limits", "Rp400 juta untuk konstruksi" in out and "Rp200 juta untuk barang/jasa lainnya" in out, out)
+
+        project.set("jenis_pengadaan", "barang")
+        project.save()
+        out = run(cmds.cmd_status, SimpleNamespace(folder=tmp))
+        check("300 juta barang is flagged", "melebihi batas Pengadaan Langsung Rp200.000.000 untuk barang" in out, out)
+
+        project.set("jenis_pengadaan", "konstruksi")
+        project.save()
+        out = run(cmds.cmd_status, SimpleNamespace(folder=tmp))
+        check("300 juta konstruksi not flagged", "[periksa metode]" not in out, out)
+        project.set("nilai_kontrak", "1000000000")
+        project.save()
+        out = run(cmds.cmd_replacement, SimpleNamespace(folder=tmp, realisasi=75.0))
+        check("250 juta remainder konstruksi allowed", "Di bawah batas Pengadaan Langsung Rp400.000.000" in out, out)
+
+        project.set("jenis_pengadaan", "barang")
+        project.save()
+        out = run(cmds.cmd_replacement, SimpleNamespace(folder=tmp, realisasi=75.0))
+        check("250 juta remainder barang blocked", "Di atas batas Pengadaan Langsung Rp200.000.000 untuk barang" in out, out)
+
+        project.set("jenis_pengadaan", "")
+        project.save()
+        out = run(cmds.cmd_replacement, SimpleNamespace(folder=tmp, realisasi=75.0))
+        check("remainder unset states both limits", "Rp400 juta untuk konstruksi, Rp200 juta untuk barang/jasa lainnya" in out, out)
+
+        project.add_doc({"template": "spk", "naskah": "SPK", "nomor": "01/2026", "tanggal": "", "status": "draf", "berkas": ""})
+        project.save()
+        run(cmds.cmd_doc, SimpleNamespace(folder=tmp, action="set", index=1, nomor="", tanggal=None, status=None, berkas=None, template=None, naskah=None))
+        check("doc set clears a field", Project.load(path).docs[0]["nomor"] == "")
+        run(cmds.cmd_doc, SimpleNamespace(folder=tmp, action="set", index=1, nomor=None, tanggal=None, status="selesai", berkas=None, template=None, naskah=None))
+        reloaded = Project.load(path).docs[0]
+        check("doc set keeps omitted fields", reloaded["nomor"] == "" and reloaded["status"] == "selesai")
+        try:
+            run(cmds.cmd_doc, SimpleNamespace(folder=tmp, action="set", index=1, nomor=None, tanggal="4 Agustus 2026", status=None, berkas=None, template=None, naskah=None))
+            check("doc set rejects a non-ISO date", False, "no exception")
+        except SystemExit as exc:
+            check("doc set rejects a non-ISO date", "yyyy-mm-dd" in str(exc), str(exc))
+
+
 def main() -> int:
-    for test in (test_derived, test_templates, test_split_runs, test_progress_and_tracker):
+    for test in (test_derived, test_templates, test_split_runs, test_progress_and_tracker, test_hand_edits, test_progress_guards, test_cli_ceiling_and_doc_set):
         test()
     print("FAILED: " + ", ".join(failures) if failures else "all passed")
     return 1 if failures else 0

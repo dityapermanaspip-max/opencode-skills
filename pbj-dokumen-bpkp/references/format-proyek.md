@@ -12,7 +12,7 @@ nama_paket: "..."            <- front matter: flat keys, JSON-quoted values
 nomor_spk: "..."                same key vocabulary as the HILDA templates
 tanggal_mulai: "2026-08-04"     dates are yyyy-mm-dd, numbers are plain or Indonesian-formatted
 nilai_kontrak: "7726944800"
-metode: "Tender"             <- optional meta keys: metode, status_kontrak
+metode: "Tender"             <- optional meta keys: metode, status_kontrak, jenis_pengadaan
 ---
 # <title>
 
@@ -24,7 +24,9 @@ metode: "Tender"             <- optional meta keys: metode, status_kontrak
 
 Front matter values are quoted strings (`key: "value"`), which Obsidian shows as properties. An unquoted value is
 read as plain text. Keys must come from `references/kunci-isian.md` (`pbj.py set` rejects typos and checks dates
-and numbers). Document status: `draf`, `ditandatangani`, `dikirim`, `selesai`, `batal`.
+and numbers). `jenis_pengadaan` (`konstruksi`, `barang`, `jasa_lainnya`, `konsultansi`) is optional but decides the
+Pengadaan Langsung ceiling that `status` and `replacement` check. Document status: `draf`, `ditandatangani`,
+`dikirim`, `selesai`, `batal`.
 
 ## What is typed and what is computed
 
