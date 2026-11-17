@@ -25,7 +25,7 @@ Needs Python 3.11+ (standard library only; use `python3` on macOS/Linux).
 | OpenCode, one project | `<project>/.opencode/skills/grimis-payungan/` |
 
 ```
-git clone <this repo> <one of the folders above>
+# copy this folder (or `git clone` the repo that holds it into ~/.config/opencode/skills)
 python -P <folder>/scripts/selftest.py        # 13 tests, expect OK
 ```
 
