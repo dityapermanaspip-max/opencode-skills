@@ -1,0 +1,152 @@
+# Log perubahan
+
+Catatan tambah-saja. Jangan diubah atau dihapus.
+
+- 2026-11-17 14:26 | new | MTX-001 | dibuat
+- 2026-11-17 14:26 | matrix activate | MTX-001 | dipakai untuk tahun depan dan evaluasi baru
+- 2026-11-17 14:26 | appetite | MTX-001 | tahun 2024: batas skor 9
+- 2026-11-17 14:26 | appetite | MTX-001 | tahun 2025: batas skor 9
+- 2026-11-17 14:26 | appetite | MTX-001 | tahun 2026: batas skor 9
+- 2026-11-17 14:26 | new | MND-001 | dibuat
+- 2026-11-17 14:26 | new | SAS-001 | dibuat
+- 2026-11-17 14:26 | new | SAS-002 | dibuat
+- 2026-11-17 14:26 | new | IND-001 | dibuat
+- 2026-11-17 14:26 | new | IND-002 | dibuat
+- 2026-11-17 14:26 | new | PRS-001 | dibuat
+- 2026-11-17 14:26 | new | PRS-002 | dibuat
+- 2026-11-17 14:26 | new | PRS-003 | dibuat
+- 2026-11-17 14:26 | new | RSK-001 | dibuat
+- 2026-11-17 14:26 | new | PRE-001 | dibuat
+- 2026-11-17 14:26 | new | RSK-002 | dibuat
+- 2026-11-17 14:26 | new | PRE-002 | dibuat
+- 2026-11-17 14:26 | new | RSK-003 | dibuat
+- 2026-11-17 14:26 | new | PRE-003 | dibuat
+- 2026-11-17 14:26 | new | RSK-004 | dibuat
+- 2026-11-17 14:26 | new | PRE-004 | dibuat
+- 2026-11-17 14:26 | new | RSK-005 | dibuat
+- 2026-11-17 14:26 | new | PRE-005 | dibuat
+- 2026-11-17 14:26 | new | CTL-001 | dibuat
+- 2026-11-17 14:26 | new | CTL-002 | dibuat
+- 2026-11-17 14:26 | new | CTL-003 | dibuat
+- 2026-11-17 14:26 | new | EVA-2024-001 | dibuat
+- 2026-11-17 14:26 | new | EVA-2024-002 | dibuat
+- 2026-11-17 14:26 | new | EVA-2024-003 | dibuat
+- 2026-11-17 14:26 | new | EVA-2024-004 | dibuat
+- 2026-11-17 14:26 | new | EVA-2024-005 | dibuat
+- 2026-11-17 14:26 | new | INS-001 | dibuat
+- 2026-11-17 14:26 | new | INS-002 | dibuat
+- 2026-11-17 14:26 | rate | EVA-2024-001 | inherent=4x4 | aktif INHERENT
+- 2026-11-17 14:26 | control add | EVA-2024-001 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-001 | residual=3x4, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-002 | inherent=4x3 | aktif INHERENT
+- 2026-11-17 14:26 | control add | EVA-2024-002 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-002 | residual=3x3, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-003 | inherent=3x5 | aktif INHERENT
+- 2026-11-17 14:26 | control add | EVA-2024-003 | CTL-002 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-003 | residual=2x4, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-004 | inherent=4x3 | aktif INHERENT
+- 2026-11-17 14:26 | control add | EVA-2024-004 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-004 | residual=3x3, expected=2x2 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-005 | inherent=3x3 | aktif INHERENT
+- 2026-11-17 14:26 | control add | EVA-2024-005 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-005 | residual=2x3, expected=1x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | plan new | PLN-001 | dibuat
+- 2026-11-17 14:26 | plan done | CTL-004 | dibuat
+- 2026-11-17 14:26 | plan done | PLN-001 | kontrol CTL-004 | EVA-2024-001 aktif EXPECTED
+- 2026-11-17 14:26 | open-period | GRIMIS | periode 2024 dibuka: ACTUAL boleh diisi, tutup buku boleh dijalankan
+- 2026-11-17 14:26 | rate | EVA-2024-001 | actual=3x4 | aktif EXPECTED
+- 2026-11-17 14:26 | rate | EVA-2024-002 | actual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-003 | actual=2x4 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-004 | actual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2024-005 | actual=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | close | EVA-2025-001 | dibuat
+- 2026-11-17 14:26 | close | EVA-2025-002 | dibuat
+- 2026-11-17 14:26 | close | EVA-2025-003 | dibuat
+- 2026-11-17 14:26 | close | EVA-2025-004 | dibuat
+- 2026-11-17 14:26 | close | EVA-2025-005 | dibuat
+- 2026-11-17 14:26 | close | GRIMIS | tutup buku 2024: 5 evaluasi, 1 kontrol dibawa, 0 rencana NOT_REALISED, 0 evaluasi baru kosong (matriks berganti), 4 evaluasi baru terisi RESIDUAL tetapi belum punya kontrol
+- 2026-11-17 14:26 | new | INS-003 | dibuat
+- 2026-11-17 14:26 | new | INS-004 | dibuat
+- 2026-11-17 14:26 | control add | EVA-2025-001 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-001 | residual=3x3, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2025-002 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-002 | residual=3x3, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2025-003 | CTL-002 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-003 | residual=3x4, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2025-004 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-004 | residual=3x3, expected=2x2 | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2025-005 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-005 | residual=2x3, expected=1x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | plan new | PLN-002 | dibuat
+- 2026-11-17 14:26 | plan done | CTL-005 | dibuat
+- 2026-11-17 14:26 | plan done | PLN-002 | kontrol CTL-005 | EVA-2025-003 aktif EXPECTED
+- 2026-11-17 14:26 | plan new | PLN-003 | dibuat
+- 2026-11-17 14:26 | open-period | GRIMIS | periode 2025 dibuka: ACTUAL boleh diisi, tutup buku boleh dijalankan
+- 2026-11-17 14:26 | rate | EVA-2025-001 | actual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-002 | actual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-003 | actual=3x4 | aktif EXPECTED
+- 2026-11-17 14:26 | rate | EVA-2025-004 | actual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2025-005 | actual=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | close | EVA-2026-001 | dibuat
+- 2026-11-17 14:26 | close | EVA-2026-002 | dibuat
+- 2026-11-17 14:26 | close | EVA-2026-003 | dibuat
+- 2026-11-17 14:26 | close | EVA-2026-004 | dibuat
+- 2026-11-17 14:26 | close | EVA-2026-005 | dibuat
+- 2026-11-17 14:26 | close | GRIMIS | tutup buku 2025: 5 evaluasi, 2 kontrol dibawa, 1 rencana NOT_REALISED, 0 evaluasi baru kosong (matriks berganti), 3 evaluasi baru terisi RESIDUAL tetapi belum punya kontrol
+- 2026-11-17 14:26 | control add | EVA-2026-001 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2026-002 | CTL-001 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2026-003 | CTL-002 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2026-004 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | control add | EVA-2026-005 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2026-001 | residual=2x4, expected=1x4 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2026-002 | residual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2026-003 | residual=3x5 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2026-004 | residual=2x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | rate | EVA-2026-005 | residual=2x3, expected=1x3 | aktif RESIDUAL
+- 2026-11-17 14:26 | plan new | PLN-004 | dibuat
+- 2026-11-17 14:26 | plan start | PLN-004 | IN_PROGRESS
+- 2026-11-17 14:26 | plan new | PLN-005 | dibuat
+- 2026-11-17 14:26 | plan new | PLN-006 | dibuat
+- 2026-11-17 14:26 | plan done | CTL-006 | dibuat
+- 2026-11-17 14:26 | plan done | PLN-006 | kontrol CTL-006 | EVA-2026-005 aktif EXPECTED
+- 2026-11-17 14:26 | new | INS-005 | dibuat
+- 2026-11-17 14:26 | new | INS-006 | dibuat
+- 2026-11-17 14:26 | new | INS-007 | dibuat
+- 2026-11-17 14:26 | new | INS-008 | dibuat
+- 2026-11-17 14:26 | new | INS-009 | dibuat
+- 2026-11-17 14:26 | new | INS-010 | dibuat
+- 2026-11-17 14:26 | new | KRI-001 | dibuat
+- 2026-11-17 14:26 | kri threshold | KRI-001 | (None, None) -> (2.0, 4.0): Penetapan awal oleh pemilik risiko
+- 2026-11-17 14:26 | kri read | KRI-001 | 1 pada 2026-07-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-001 | 2 pada 2026-08-28 -> amber
+- 2026-11-17 14:26 | kri read | KRI-001 | 2 pada 2026-09-28 -> amber
+- 2026-11-17 14:26 | kri read | KRI-001 | 3 pada 2026-10-28 -> amber
+- 2026-11-17 14:26 | new | KRI-002 | dibuat
+- 2026-11-17 14:26 | kri threshold | KRI-002 | (None, None) -> (15.0, 25.0): Penetapan awal oleh pemilik risiko
+- 2026-11-17 14:26 | kri read | KRI-002 | 8 pada 2026-07-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-002 | 12 pada 2026-08-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-002 | 22 pada 2026-09-28 -> amber
+- 2026-11-17 14:26 | kri read | KRI-002 | 22 pada 2026-10-28 -> amber
+- 2026-11-17 14:26 | new | KRI-003 | dibuat
+- 2026-11-17 14:26 | kri threshold | KRI-003 | (None, None) -> (1.0, 3.0): Penetapan awal oleh pemilik risiko
+- 2026-11-17 14:26 | kri read | KRI-003 | 0 pada 2026-07-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-003 | 1 pada 2026-08-28 -> amber
+- 2026-11-17 14:26 | kri read | KRI-003 | 0 pada 2026-09-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-003 | 0 pada 2026-10-28 -> green
+- 2026-11-17 14:26 | new | KRI-004 | dibuat
+- 2026-11-17 14:26 | kri threshold | KRI-004 | (None, None) -> (85.0, 70.0): Penetapan awal oleh pemilik risiko
+- 2026-11-17 14:26 | kri read | KRI-004 | 90 pada 2026-07-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-004 | 88 pada 2026-08-28 -> green
+- 2026-11-17 14:26 | kri read | KRI-004 | 82 pada 2026-09-28 -> amber
+- 2026-11-17 14:26 | kri read | KRI-004 | 82 pada 2026-10-28 -> amber
+- 2026-11-17 14:26 | kri threshold | KRI-002 | (15.0, 25.0) -> (10.0, 20.0): Standar waktu layanan diperketat pada semester kedua
+- 2026-11-17 14:26 | draft new | DRF-001 | dibuat
+- 2026-11-17 14:26 | draft accept | DRF-001 | item [1, 2, 3, 4]: 4 catatan dibuat/diubah
+- 2026-11-17 14:26 | draft new | DRF-002 | dibuat
+- 2026-11-17 14:26 | draft accept | DRF-002 | item [1, 2]: 2 catatan dibuat/diubah
+- 2026-11-17 14:26 | draft new | DRF-003 | dibuat
+- 2026-11-17 14:26 | draft new | DRF-004 | dibuat
+- 2026-11-17 14:26 | new | LAP-001 | dibuat
+- 2026-11-17 14:26 | new | LAP-002 | dibuat
+- 2026-11-17 14:26 | simulate | EVA-2026-001 | 3 insiden, saran 4x3
+- 2026-11-17 14:26 | simulate | EVA-2026-003 | 2 insiden, saran 3x5

@@ -29,6 +29,11 @@ is also a backup. Nothing to build or sync.
   replacement), a `proyek.md` tracker readable in Obsidian that tests the critical-contract criteria,
   OCR for scanned supervisor reports, and filling of the owner's own BPKP draft forms. Legal acts
   stay with the officials; the skill only drafts and computes.
+- `grimis-payungan` — enterprise risk management (ISO 31000) for one organisation on an Obsidian vault of
+  Markdown notes, no web app or database: context, matrix and appetite, risk and bowtie drafts a person
+  accepts, the four risk values with the active-value rule, controls and plans, KRI, incidents, a Monte
+  Carlo suggestion, an ISO 31000 report and the annual close. A stdlib Python engine enforces the rules;
+  the agent drafts and explains. Ships two demo vaults (`examples/`). Output is Indonesian.
 
 Stock/community skills (`docx-builder`, `frontend-design`, `mcp-builder`, `theme-factory`,
 `webapp-testing`) exist in this directory on the machine but are gitignored — they are not part
