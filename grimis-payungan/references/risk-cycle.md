@@ -38,6 +38,19 @@ They are prompts to ask the user, not errors.
 - Plan statuses: PLANNED -> IN_PROGRESS -> DONE; NOT_REALISED is set only by the close.
 - A control that came from a plan cannot be removed from its evaluation by hand.
 
+### SOP yang sudah berlaku versus SOP yang baru (aturan klasifikasi)
+
+Klasifikasi ditentukan oleh **waktu mulai berlaku**, bukan oleh nama "SOP" atau "prosedur".
+
+| Keadaan SOP | Masuk ke | Perintah | Akibat pada nilai |
+|---|---|---|---|
+| Sudah berlaku sebelum tahun kerja berjalan (misalnya sejak 2020) | **existing control** (`CTL-nnn`) | `new kontrol ...` lalu `control add EVA CTL --notes "berlaku sejak ..."` | Menjadi bagian RESIDUAL. Tidak membuat EXPECTED. |
+| Baru dirancang atau baru ditetapkan pada tahun kerja berjalan | **rencana** (`PLN-nnn`) | `new rencana ... new_control_code=CTL-nnn`, lalu `plan start` / `plan done` | Sebelum DONE bukan kontrol eksisting. Setelah DONE kontrolnya dipasang engine dengan sumber rencana itu. |
+
+- Jangan mengubah SOP lama menjadi rencana hanya agar kontrolnya terbawa saat tutup buku. Jangan pula mencatat SOP tahun ini sebagai existing control sebelum `plan done`.
+- Cantumkan bukti mulai berlakunya SOP lama di kolom `notes` pada `control add` (sumber dokumen dan tahun berlaku, sesuai isi dokumen; jangan mengarang tahun).
+- Simpan dua kategori ini terpisah di laporan dan saat tutup buku. `close` hanya membawa kontrol yang bersumber dari rencana **DONE**; kontrol eksisting tidak dibawa dan dicantumkan dalam `needs_controls` untuk dipasang ulang dengan `control add` dari CTL yang sama. Lihat langkah 4 di bawah.
+
 ## The fiscal period and the close
 
 `open-period` opens the close period of the working year (`period_open: true`). While it is open ACTUAL may be entered. `close` then:

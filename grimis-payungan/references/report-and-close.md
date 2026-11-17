@@ -22,6 +22,14 @@ heat map, scores against appetite, one card per risk, Monte Carlo), 3 treatment 
 5 recording and reporting (6.7: data notes, `check` result, drafts still waiting). Zone colours always come with the zone name.
 Open it and look before telling the user it is fine: tables that break badly or text that overflows are not caught by the engine.
 
+## Custom format on request
+
+`report` and `report --pdf` are the default and remain the canonical output. If the user asks for a specific template
+(a regulation outline, an inspectorate format), produce an **additional** note from the same vault data; do not overwrite
+`Laporan-<year>.*` or reorder the engine's sections. Read `references/custom-report.md` first: it covers naming, the mapping
+from the requested outline to vault notes, how to handle sections the vault cannot fill, and the jurisdiction caveat when the
+template comes from another region.
+
 ## Close, in order
 1. `check` and fix errors. 2. `status`: what is missing? 3. `open-period`. 4. Enter every ACTUAL (`rate EVA-... --actual LxI`); ask the
 user for each value, or for the source of the year-end assessment. 5. Make sure `active_matrix` is the matrix for next year

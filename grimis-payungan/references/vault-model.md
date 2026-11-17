@@ -207,7 +207,7 @@ An AI draft: a JSON list of items waiting for a person. Body `Hasil` table track
 ## Body sections
 
 - Table sections (`## Name` followed by a Markdown table): `Kontrol yang ada` (Kontrol, Efektivitas, Sumber rencana, Catatan), `Pembacaan` (Tanggal, Nilai),
-  `Riwayat ambang`, `Hasil` (draft items), matrix tables `Label kemungkinan`, `Label dampak`, `Kriteria dampak`, `Appetite` (Tahun, Batas skor), `Zona sel`.
+  `Riwayat ambang`, `Hasil` (draft items), `Kontrol bowtie` (Cabang = branch text, Kontrol = `[[CTL-nnn]]`; on a risk note, written only by `bowtie attach|detach`), matrix tables `Label kemungkinan`, `Label dampak`, `Kriteria dampak`, `Appetite` (Tahun, Batas skor), `Zona sel`.
 - Bullet-tree sections (`Penyebab`, `Dampak`, `Saran ditolak`): `- text [Category]`, two spaces per level; a child is a cause of its parent.
   Cause categories: Kebijakan, Kelalaian Manusia, Bencana, Fraud, Stakeholders. Impact categories: Finansial, Reputasi, Hukum, Gangguan Layanan.
 - Control effectiveness is a convention here (EFFECTIVE, PARTIAL, INEFFECTIVE).

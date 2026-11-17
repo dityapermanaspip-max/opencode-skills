@@ -13,6 +13,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import gv_bowtie  # noqa: E402
+import gv_bowtie_data  # noqa: E402
 import gv_cmds as C  # noqa: E402
 import gv_draft  # noqa: E402
 import gv_check  # noqa: E402
@@ -49,6 +51,12 @@ def build() -> argparse.ArgumentParser:
     a = sub.add_parser("draft", help="AI drafts: new/list/show/accept/reject"); a.add_argument("action", choices=["new", "list", "show", "accept", "reject"])
     a.add_argument("id", nargs="?"); a.add_argument("--kind"); a.add_argument("--target"); a.add_argument("--file"); a.add_argument("--summary", default="")
     a.add_argument("--items", help="comma separated item numbers; default all pending"); a.add_argument("--reason", default="")
+    a = sub.add_parser("bowtie", help="render bowtie SVG + Markdown; pick controls for branches (attach/detach/show)")
+    a.add_argument("action", choices=["render", "attach", "detach", "show"])
+    a.add_argument("risks", nargs="*", help="render: ID risiko (RSK-009 RSK-010); attach/detach: ID risiko lalu ID kontrol (RSK-050 CTL-005); show: ID risiko")
+    a.add_argument("--branch", action="append", help="attach/detach: cabang (kunci c1/i0 atau teksnya), boleh diulang")
+    a.add_argument("--above-appetite", action="store_true", help="render semua risiko di atas appetite tahun berjalan")
+    a.add_argument("--out", help="folder keluaran (default: 99-Laporan/Bowtie)")
     a = sub.add_parser("status"); a.add_argument("--write", action="store_true", help="also write 00-Dashboard.md")
     sub.add_parser("check")
     a = sub.add_parser("report"); a.add_argument("--year", type=int)
@@ -91,6 +99,19 @@ def run(args) -> str:
         return C.matrix(v, args.action, args.id)
     if c == "draft":
         return _draft(v, args)
+    if c == "bowtie":
+        if args.action == "render":
+            paths = gv_bowtie.render(v, args.risks, args.above_appetite, args.out)
+            return "Bowtie ditulis:\n" + "\n".join(str(p) for p in paths)
+        if not args.risks:
+            raise VaultError("Sebutkan ID risiko, mis. RSK-050")
+        risk, controls = args.risks[0], args.risks[1:]
+        if args.action == "show":
+            return gv_bowtie_data.describe(v, risk)
+        if not args.branch or (args.action == "attach" and not controls):
+            raise VaultError(f"bowtie {args.action} butuh --branch dan ID kontrol, mis.: bowtie {args.action} RSK-050 CTL-005 --branch c1")
+        pick = gv_bowtie_data.attach if args.action == "attach" else gv_bowtie_data.detach
+        return "\n".join(pick(v, risk, args.branch, controls))
     if c == "status":
         s = gv_report.status(v)
         if args.write:

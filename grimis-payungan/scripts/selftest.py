@@ -13,6 +13,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import gv_check  # noqa: E402
+import gv_bowtie  # noqa: E402
+import gv_bowtie_data  # noqa: E402
 import gv_close  # noqa: E402
 import gv_cmds as C  # noqa: E402
 import gv_cycle  # noqa: E402
@@ -271,6 +273,61 @@ class T(unittest.TestCase):
         self.assertEqual(again.get("RSK-001").fields["title"], "Berkas: hilang saat pindah")
         self.assertEqual(again.get("RSK-001").fields["tags"], ["kritis"])
         self.assertEqual(json.dumps(again.problems), "[]")
+
+    # ---- bowtie ------------------------------------------------------------------------------------------
+    def _bowtie_risk(self):
+        v = self.v
+        items = [{"type": "cause", "description": "Arsip tidak dikunci", "category": "Kebijakan",
+                  "children": [{"description": "Kunci tidak dipegang petugas"}]},
+                 {"type": "impact", "description": "Izin tertunda", "category": "Gangguan Layanan"}]
+        gv_draft.accept(v, gv_draft.create(v, "bowtie", "RSK-001", items).id)
+
+    def test_bowtie_controls_are_picked_from_the_evaluation(self):
+        v = self.v
+        self._bowtie_risk()
+        with self.assertRaises(VaultError):                       # not installed on an evaluation yet: refused
+            gv_bowtie_data.attach(v, "RSK-001", ["c0"], ["CTL-001"])
+        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        gv_bowtie_data.attach(v, "RSK-001", ["c0.0", "Izin tertunda"], ["CTL-001"])   # a key, and the text of a branch
+        with self.assertRaises(VaultError):
+            gv_bowtie_data.attach(v, "RSK-001", ["tidak ada cabang ini"], ["CTL-001"])
+        self.assertEqual(gv_bowtie_data.attachments(v.get("RSK-001")),
+                         [("Kunci tidak dipegang petugas", "CTL-001"), ("Izin tertunda", "CTL-001")])
+        folder = self.tmp / "bt"
+        gv_bowtie.render(v, ["RSK-001"], out=str(folder))
+        svg = (folder / "RSK-001.svg").read_text(encoding="utf-8")
+        self.assertEqual(svg.count("href='#p-CTL-001'"), 2)       # one chip per picked branch
+        self.assertIn("id='p-CTL-001' class='pop'", svg)          # and the panel they open
+        self.assertIn("## Kontrol terpasang", (folder / "RSK-001.md").read_text(encoding="utf-8"))
+        gv_bowtie_data.detach(v, "RSK-001", ["c0.0"], [])
+        self.assertEqual(gv_bowtie_data.attachments(v.get("RSK-001")), [("Izin tertunda", "CTL-001")])
+        with self.assertRaises(VaultError):
+            gv_bowtie_data.detach(v, "RSK-001", ["c0.0"], [])     # nothing left to detach
+
+    def test_bowtie_kri_on_a_nested_branch_and_unpicked_controls(self):
+        v = self.v
+        self._bowtie_risk()
+        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        C.new(v, "kri", ["risk=RSK-001", "title=Kunci hilang", "kri_type=LEADING", "direction=higher_is_worse",
+                         "frequency=monthly", "watch=Kunci tidak dipegang petugas"])
+        folder = self.tmp / "bt"
+        gv_bowtie.render(v, ["RSK-001"], out=str(folder))
+        svg = (folder / "RSK-001.svg").read_text(encoding="utf-8")
+        self.assertIn("href='#p-KRI-001'", svg)
+        self.assertIn("Kontrol pada evaluasi yang belum dipasang ke cabang", svg)   # a control nobody picked is still reachable
+        self.assertIn("Penyebab c0.0", (folder / "RSK-001.md").read_text(encoding="utf-8"))   # KRI sits on the nested branch
+
+    def test_bowtie_check_warns_when_a_branch_is_renamed(self):
+        v = self.v
+        self._bowtie_risk()
+        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        gv_bowtie_data.attach(v, "RSK-001", ["i0"], ["CTL-001"])
+        self.assertEqual([f for f in gv_check.check(v) if "Kontrol bowtie" in f[2]], [])
+        p = v.get("RSK-001").path
+        text = p.read_text(encoding="utf-8")
+        p.write_text(text.replace("- Izin tertunda [", "- Izin terlambat [", 1), encoding="utf-8", newline="\n")
+        found = [f for f in gv_check.check(Vault(v.root)) if "Kontrol bowtie" in f[2]]
+        self.assertEqual([f[0] for f in found], ["WARN"])         # drifted pick is a warning, never an error
 
 
 if __name__ == "__main__":

@@ -9,7 +9,9 @@ Works with **Claude Code** and **OpenCode** (same `SKILL.md` format). Working la
 Context (mandate, objectives, indicators, processes) -> risk matrix and appetite -> risk identification and bowtie (as AI drafts a person
 accepts) -> evaluation with the four values (inherent, residual, expected, actual) and the active-value rule -> controls and mitigation
 plans -> KRI with traffic lights -> incident register and report inbox -> Monte Carlo suggestion -> ISO 31000 report (Markdown, CSV, and a formatted PDF through Edge or Chrome) ->
-annual close with carry-over and trend.
+annual close with carry-over and trend. Each risk can be drawn as a bowtie (`bowtie render`): an SVG tree of causes and impacts around the
+risk event, with KRI badges and the controls a person picked from the evaluation (`bowtie attach`), each opening a detail panel when the SVG
+is opened in a browser, plus a Markdown note with the same details as tables.
 
 Rules the skill keeps: no invented scores or thresholds, AI output is a draft until a person accepts it, the engine (not the agent)
 decides the active value, trend, KRI colour and the close, and a refusal is reported, never worked around.

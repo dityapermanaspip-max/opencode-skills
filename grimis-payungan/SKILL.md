@@ -1,6 +1,6 @@
 ---
 name: grimis-payungan
-description: "Run enterprise risk management (ISO 31000) from an Obsidian vault of Markdown notes, with no web app or database: context (mandate, objectives, indicators, processes), risk matrix and appetite, risk identification and bowtie drafts, evaluation with the four risk values (inherent, residual, expected, actual), controls and mitigation plans, KRI, incident register, Monte Carlo suggestion, ISO 31000 report and the annual close. Use when the user mentions a risk register, register risiko, bowtie, KRI, risk appetite, matriks risiko, tutup buku risiko, or asks to build, rate, review, report or close a risk register for an organisation, in Indonesian public-sector or corporate settings. Output to the user is Indonesian."
+description: "Run enterprise risk management (ISO 31000) from an Obsidian vault of Markdown notes, with no web app or database: context (mandate, objectives, indicators, processes), risk matrix and appetite, risk identification and bowtie drafts, evaluation with the four risk values (inherent, residual, expected, actual), controls and mitigation plans, KRI, incident register, Monte Carlo suggestion, the default ISO 31000 report, ad-hoc report formats on request, and the annual close. Use when the user mentions a risk register, register risiko, bowtie, KRI, risk appetite, matriks risiko, tutup buku risiko, or asks to build, rate, review, report or close a risk register for an organisation, in Indonesian public-sector or corporate settings. Output to the user is Indonesian."
 ---
 
 # grimis-payungan: risk management in an Obsidian vault
@@ -24,8 +24,8 @@ Two finished vaults to learn from are in `examples/` (`demo-diskompen` from a pe
    after the user chose the items. Do not write proposed risks, causes, impacts or KRIs straight into notes.
 3. **The engine decides, you report.** The active value, trend, KRI colour, appetite status, close and its refusals come from
    the engine. Never compute or "correct" them by hand, and never edit `active_type`, `active_cell`, `trend`, `closed` in a note.
-4. **Use the CLI for anything with a rule** (`new`, `set`, `rate`, `control`, `plan`, `kri`, `simulate`, `draft`, `open-period`,
-   `close`). Free text (descriptions, bowtie bullets, comments in the body) may be edited directly in the note.
+4. **Use the CLI for anything with a rule** (`new`, `set`, `rate`, `control`, `plan`, `kri`, `simulate`, `draft`, `bowtie attach|detach`,
+   `open-period`, `close`). Free text (descriptions, bowtie bullets, comments in the body) may be edited directly in the note.
 5. **Run `check` after any direct edit of a note** and before a report or the close. Fix every ERROR; explain every WARN.
 6. **A refusal is information.** When the engine refuses (a missing ACTUAL, a fourth KRI, a closed year), tell the user what and
    why in plain Indonesian. Do not look for a way around it.
@@ -47,20 +47,29 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
    environment offers; read figures by eye).
 4. **Identify risks.** Per process, draft risk events (`draft new risiko --target PRS-001`). Before drafting read the dictionary
    (`list risiko`) and set `match` when the same event already exists. After acceptance each risk is attached to a
-   process and indicator as an anchor (`PRE-nnn`). Then bowtie per risk (`draft new bowtie --target RSK-001`).
+   process and indicator as an anchor (`PRE-nnn`). Then bowtie per risk (`draft new bowtie --target RSK-001`); after acceptance,
+   draw it with `bowtie render RSK-001` (SVG + Markdown). Controls on a bowtie are picked by the user, from the controls
+   installed on the risk's evaluation: `bowtie show RSK-001` lists the branches and the options, `bowtie attach` records the
+   user's choice (never choose for them). See `references/bowtie-render.md`.
 5. **Evaluate.** `new evaluasi pre=PRE-001` (year and matrix default to the working year and the active matrix), then
    `rate EVA-... --inherent 4x4`, install controls (`control add`), rate `--residual`, plan treatments (`new rencana ...`),
    rate `--expected`. Read `references/risk-cycle.md`: which value is active follows the controls and the plans, and ACTUAL is
-   only input for the close. Offer `simulate` once the risk has incidents.
+   only input for the close. Classify every SOP by its start date: already in force before this year -> existing control
+   (`CTL` + `control add`); newly designed or established this year -> `PLN` + `plan done`. Keep the two apart; see
+   `references/risk-cycle.md`. Offer `simulate` once the risk has incidents.
 6. **Monitor.** KRI drafts (`draft new kri`), thresholds set by a person (`kri threshold ... --reason`), readings (`kri read`),
    incidents (`new insiden`), public incident reports (`new laporan`; approve or ignore with `set LAP-001 status=...`). Start a
-   plan with `plan start`, finish it with `plan done` (this creates the control and installs it).
+   plan with `plan start`, finish it with `plan done` (this creates the control and installs it). KRI positions on a bowtie are
+   drawn by `bowtie render` from the KRI `watch` field; `watch=RISIKO` lands on the centre node.
 7. **Look and report.** `status` (counts, appetite, KRI colours, consistency checks), `status --write` (dashboard note),
    `report [--year] [--pdf]` (Markdown + CSV under `99-Laporan/`; `--pdf` adds a formatted ISO 31000:2018 report as HTML and PDF, printed by
    Edge or Chrome, and still leaves the HTML when no browser is found). Summarise for the user; point to the files.
+   This report is the default and stays canonical. When the user asks for another template (a Perwali/Perda outline, an
+   inspectorate format), also produce a separate custom note from vault data without touching the default files; read
+   `references/custom-report.md` first. Bowtie diagrams live separately under `99-Laporan/Bowtie/`.
 8. **Close the year.** `open-period`, every `rate ... --actual`, then `close`. Read `references/report-and-close.md` first and
-   tell the user what the close will do before running it. After it, controls that did not come from a DONE plan must be
-   installed again by hand: the engine lists them.
+   tell the user what the close will do before running it. Report existing controls and plan-born controls separately: only
+   controls from a DONE plan are carried; existing controls must be installed again by hand and the engine lists them.
 
 ## Commands at a glance
 
@@ -74,6 +83,8 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
 | Matrix | `matrix show\|activate MTX`, `appetite MTX YEAR SCORE` |
 | Drafts | `draft new --kind konteks\|risiko\|bowtie\|kri [--target ID] --file items.json`, `draft show\|accept\|reject DRF [--items 1,3]` |
 | Views | `status [--write]`, `check`, `report [--year] [--pdf]` |
+| Bowtie | `bowtie render RSK-001 [RSK-002 ...] [--above-appetite] [--out FOLDER]` (SVG + Markdown, KRI via `watch`, clickable KRI/control panels in the SVG), `bowtie show RSK-001`, `bowtie attach\|detach RSK-001 CTL-001 --branch c1` |
+| Custom format | (no CLI) `references/custom-report.md`: an extra note from vault data when a specific template is requested |
 | Year | `open-period`, `close [--year]` |
 
 Jenis: `mandat sasaran indikator proses matriks risiko kontrol pasang evaluasi rencana kri insiden laporan`. Field names per
@@ -91,11 +102,13 @@ jenis are in `references/vault-model.md`. IDs equal file names (`RSK-001`, evalu
 ## References (load when the step needs them)
 
 - `references/vault-model.md`: folders, note kinds, fields, id rules, section formats.
-- `references/risk-cycle.md`: the four values, active value, controls, plans, trend, the close.
+- `references/risk-cycle.md`: the four values, active value, controls, plans, SOP lama versus rencana, trend, the close.
 - `references/drafting-rules.md`: the rules for drafting risks, bowtie, KRI, context and incident matching, and the JSON shape of each draft.
 - `references/matrix-and-appetite.md`: score, zones, appetite and how to set them with the user.
 - `references/kri-incidents-simulation.md`: KRI status, incidents, how to read and present the Monte Carlo.
 - `references/report-and-close.md`: report sections, CSV columns, close steps and their order.
+- `references/custom-report.md`: how to build an extra report in a requested template while keeping the default report canonical.
+- `references/bowtie-render.md`: SVG + Markdown rendering of accepted bowties, the KRI overlay, picking controls for branches, and the click-to-open panels.
 - `references/limits.md`: what this skill does not do compared with a multi-user risk-management system.
 
 `examples/demo-vault/` is a complete fictional vault ("Instansi Demo", two fiscal years) to open in Obsidian or to copy from.

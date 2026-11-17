@@ -3,6 +3,7 @@ Each finding is (level, id, message); level is ERROR (breaks a rule) or WARN (su
 
 from __future__ import annotations
 
+from gv_bowtie_data import problems as bowtie_problems
 from gv_cycle import active_of, ecm_rows
 from gv_matrix import Matrix
 from gv_rules import MAX_KRI_PER_RISK, VaultError, validate
@@ -31,6 +32,7 @@ def check(vault) -> list[tuple[str, str, str]]:
     for pls in vault.all("rencana"):
         if pls.fields["status"] == "DONE" and not any(r["plan"] == pls.id for r in ecm_rows(vault.notes[pls.fields["evaluation"]])):
             out.append(("ERROR", pls.id, "rencana DONE tetapi kontrolnya tidak terpasang pada evaluasi"))
+    out += bowtie_problems(vault)
     cfg = vault.cfg
     if cfg.get("active_matrix") and cfg["active_matrix"] not in vault.notes:
         out.append(("ERROR", "VAULT", f"active_matrix menunjuk {cfg['active_matrix']} yang tidak ada"))
