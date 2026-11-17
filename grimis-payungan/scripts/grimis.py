@@ -17,6 +17,7 @@ import gv_cmds as C  # noqa: E402
 import gv_draft  # noqa: E402
 import gv_check  # noqa: E402
 import gv_close  # noqa: E402
+import gv_pdf  # noqa: E402
 import gv_report  # noqa: E402
 from gv_rules import VaultError  # noqa: E402
 from gv_vault import Vault  # noqa: E402
@@ -51,6 +52,7 @@ def build() -> argparse.ArgumentParser:
     a = sub.add_parser("status"); a.add_argument("--write", action="store_true", help="also write 00-Dashboard.md")
     sub.add_parser("check")
     a = sub.add_parser("report"); a.add_argument("--year", type=int)
+    a.add_argument("--pdf", action="store_true", help="also write the ISO 31000 report as HTML and PDF (needs Edge or Chrome)")
     sub.add_parser("open-period")
     a = sub.add_parser("close"); a.add_argument("--year", type=int)
     return p
@@ -102,8 +104,13 @@ def run(args) -> str:
             raise VaultError(f"{text}\n{errors} ERROR")
         return text + f"\n{len(found)} peringatan, 0 error"
     if c == "report":
-        md, csv_path = gv_report.report(v, args.year or v.cfg["fiscal_year"])
-        return f"Laporan: {md}\nCSV: {csv_path}"
+        year = args.year or v.cfg["fiscal_year"]
+        md, csv_path = gv_report.report(v, year)
+        text = f"Laporan: {md}\nCSV: {csv_path}"
+        if args.pdf:
+            html_path, pdf_path, msg = gv_pdf.write_pdf(v, year)
+            text += f"\nHTML: {html_path}\nPDF: {pdf_path or '-'}\n{msg}"
+        return text
     if c == "open-period":
         return f"Periode tutup buku {gv_close.open_period(v)} dibuka"
     if c == "close":

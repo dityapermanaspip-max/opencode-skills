@@ -17,6 +17,7 @@ import gv_cmds as C  # noqa: E402
 import gv_cycle  # noqa: E402
 import gv_draft  # noqa: E402
 import gv_kri  # noqa: E402
+import gv_pdf  # noqa: E402
 import gv_report  # noqa: E402
 import gv_sim  # noqa: E402
 from gv_notes import make_table, set_section  # noqa: E402
@@ -126,6 +127,7 @@ def build(folder: Path) -> Vault:
     v.save_config()
     gv_report.write_dashboard(v, gv_report.status(v))
     gv_report.report(v, D.YEAR)
+    print(gv_pdf.write_pdf(v, D.YEAR)[2])  # the formatted report; the HTML stays when no browser is installed
     return v
 
 

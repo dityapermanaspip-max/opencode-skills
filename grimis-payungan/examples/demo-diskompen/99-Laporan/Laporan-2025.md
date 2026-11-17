@@ -1,6 +1,6 @@
 # Laporan Manajemen Risiko Dinas Komunikasi dan Penerangan Kabupaten Tirta Sembada (dokumen fiktif) - 2025
 
-Disusun 2026-11-17 dari vault GRIMIS (kerangka ISO 31000: konteks, identifikasi, analisis, evaluasi, perlakuan, pemantauan). Matriks MTX-001 (5x5), batas appetite 14.
+Disusun 2026-11-17 dari vault manajemen risiko (kerangka ISO 31000: konteks, identifikasi, analisis, evaluasi, perlakuan, pemantauan). Matriks MTX-001 (5x5), batas appetite 14.
 
 ## 1. Konteks
 

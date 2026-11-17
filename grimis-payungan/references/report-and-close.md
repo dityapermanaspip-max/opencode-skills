@@ -13,6 +13,15 @@ atas appetite, 5 efektivitas kontrol (installed controls by effectiveness), 6 re
 per evaluation. After running it, summarise the findings for the user (what is above appetite, what is red, what is overdue) and name the
 files. The report contains only what is in the vault: say so if the data is thin.
 
+## `report --pdf`
+Also writes `99-Laporan/Laporan-<year>.html` (one self-contained file: inline CSS and SVG, no scripts, no web fonts) and prints it to
+`Laporan-<year>.pdf` with headless Edge, Chrome or Chromium (found automatically; set `GRIMIS_BROWSER` to a program path to choose one).
+No browser found, or the print fails: the HTML is kept and the command says so; tell the user to open it and print to PDF (A4, background
+graphics on). The PDF follows ISO 31000:2018 clause 6: cover and summary, 1 scope, context and criteria (6.3), 2 risk assessment (6.4: register,
+heat map, scores against appetite, one card per risk, Monte Carlo), 3 treatment (6.5), 4 monitoring and review (6.6: KRI charts, incidents),
+5 recording and reporting (6.7: data notes, `check` result, drafts still waiting). Zone colours always come with the zone name.
+Open it and look before telling the user it is fine: tables that break badly or text that overflows are not caught by the engine.
+
 ## Close, in order
 1. `check` and fix errors. 2. `status`: what is missing? 3. `open-period`. 4. Enter every ACTUAL (`rate EVA-... --actual LxI`); ask the
 user for each value, or for the source of the year-end assessment. 5. Make sure `active_matrix` is the matrix for next year

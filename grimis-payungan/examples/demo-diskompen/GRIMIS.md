@@ -5,7 +5,7 @@ period_open: false
 active_matrix: "[[MTX-001]]"
 ---
 
-# GRIMIS: vault manajemen risiko
+# Vault manajemen risiko
 
 Vault ini dikelola oleh skill `grimis-payungan`. Siklusnya: mandat -> sasaran -> indikator -> proses
 -> identifikasi risiko -> evaluasi (inheren, residual, ekspektasi, aktual) -> mitigasi -> insiden -> tutup buku tahunan.

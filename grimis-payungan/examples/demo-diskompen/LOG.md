@@ -2,191 +2,191 @@
 
 Catatan tambah-saja. Jangan diubah atau dihapus.
 
-- 2026-11-17 14:26 | new | MTX-001 | dibuat
-- 2026-11-17 14:26 | matrix activate | MTX-001 | dipakai untuk tahun depan dan evaluasi baru
-- 2026-11-17 14:26 | appetite | MTX-001 | tahun 2025: batas skor 14
-- 2026-11-17 14:26 | draft new | DRF-001 | dibuat
-- 2026-11-17 14:26 | draft accept | MND-001 | dibuat
-- 2026-11-17 14:26 | draft accept | MND-002 | dibuat
-- 2026-11-17 14:26 | draft accept | SAS-001 | dibuat
-- 2026-11-17 14:26 | draft accept | SAS-002 | dibuat
-- 2026-11-17 14:26 | draft accept | SAS-003 | dibuat
-- 2026-11-17 14:26 | draft accept | SAS-004 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-001 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-002 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-003 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-004 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-005 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-006 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-007 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-008 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-009 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-010 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-011 | dibuat
-- 2026-11-17 14:26 | draft accept | IND-012 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-001 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-002 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-003 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-004 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-005 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-006 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-007 | dibuat
-- 2026-11-17 14:26 | draft accept | PRS-008 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-001 | item [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]: 26 catatan dibuat/diubah
-- 2026-11-17 14:26 | new | CTL-001 | dibuat
-- 2026-11-17 14:26 | new | CTL-002 | dibuat
-- 2026-11-17 14:26 | new | CTL-003 | dibuat
-- 2026-11-17 14:26 | new | CTL-004 | dibuat
-- 2026-11-17 14:26 | new | CTL-005 | dibuat
-- 2026-11-17 14:26 | new | CTL-006 | dibuat
-- 2026-11-17 14:26 | new | CTL-007 | dibuat
-- 2026-11-17 14:26 | new | CTL-008 | dibuat
-- 2026-11-17 14:26 | draft new | DRF-002 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-001 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-001 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-002 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-002 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-002 | item [1, 2]: 4 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft reject | DRF-002 | item [3]: Dokumen tidak mencatat sengketa informasi; 5 permohonan ditolak karena dikecualikan.
-- 2026-11-17 14:26 | draft new | DRF-003 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-003 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-003 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-003 | item [1]: 2 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-004 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-004 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-004 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-004 | item [1]: 2 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-005 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-005 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-005 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-006 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-006 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-007 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-007 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-005 | item [1, 2, 3]: 6 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-006 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-008 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-008 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-006 | item [1]: 2 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-007 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-009 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-009 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-007 | item [1]: 2 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-008 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-010 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-010 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-011 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-011 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-012 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-012 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-008 | item [1, 2, 3]: 6 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-009 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-013 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-013 | dibuat
-- 2026-11-17 14:26 | draft accept | RSK-014 | dibuat
-- 2026-11-17 14:26 | draft accept | PRE-014 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-009 | item [1, 2]: 4 catatan dibuat/diubah
-- 2026-11-17 14:26 | new | EVA-2025-001 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-001 | inherent=5x3 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-001 | CTL-001 PARTIAL | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-001 | residual=5x3, expected=2x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | plan new | PLN-001 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-002 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-002 | inherent=3x3 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-002 | CTL-008 EFFECTIVE | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-002 | residual=1x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | new | EVA-2025-003 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-003 | inherent=3x3 | aktif INHERENT
-- 2026-11-17 14:26 | rate | EVA-2025-003 | expected=2x3 | aktif INHERENT
-- 2026-11-17 14:26 | plan new | PLN-002 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-004 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-004 | inherent=4x3 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-004 | CTL-006 PARTIAL | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-004 | residual=4x3, expected=3x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | plan new | PLN-003 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-005 | dibuat
-- 2026-11-17 14:26 | new | INS-001 | dibuat
-- 2026-11-17 14:26 | new | INS-002 | dibuat
-- 2026-11-17 14:26 | new | INS-003 | dibuat
-- 2026-11-17 14:26 | new | INS-004 | dibuat
-- 2026-11-17 14:26 | new | INS-005 | dibuat
-- 2026-11-17 14:26 | new | INS-006 | dibuat
-- 2026-11-17 14:26 | new | INS-007 | dibuat
-- 2026-11-17 14:26 | new | INS-008 | dibuat
-- 2026-11-17 14:26 | new | INS-009 | dibuat
-- 2026-11-17 14:26 | new | INS-010 | dibuat
-- 2026-11-17 14:26 | simulate | EVA-2025-005 | 10 insiden, saran 5x4
-- 2026-11-17 14:26 | rate | EVA-2025-005 | inherent=5x4 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-005 | CTL-005 PARTIAL | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-005 | residual=5x4, expected=3x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | plan new | PLN-004 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-006 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-006 | inherent=4x5 | aktif INHERENT
-- 2026-11-17 14:26 | rate | EVA-2025-006 | expected=1x4 | aktif INHERENT
-- 2026-11-17 14:26 | plan new | PLN-005 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-007 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-007 | inherent=4x4 | aktif INHERENT
-- 2026-11-17 14:26 | new | EVA-2025-008 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-008 | inherent=5x4 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-008 | CTL-002 EFFECTIVE | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-008 | residual=4x4, expected=3x4 | aktif RESIDUAL
-- 2026-11-17 14:26 | plan new | PLN-006 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-009 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-009 | inherent=5x2 | aktif INHERENT
-- 2026-11-17 14:26 | rate | EVA-2025-009 | expected=3x2 | aktif INHERENT
-- 2026-11-17 14:26 | plan new | PLN-007 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-010 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-010 | inherent=3x3 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-010 | CTL-007 PARTIAL | aktif RESIDUAL
-- 2026-11-17 14:26 | control add | EVA-2025-010 | CTL-003 EFFECTIVE | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-010 | residual=3x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | new | EVA-2025-011 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-011 | inherent=5x2 | aktif INHERENT
-- 2026-11-17 14:26 | rate | EVA-2025-011 | expected=2x2 | aktif INHERENT
-- 2026-11-17 14:26 | plan new | PLN-008 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-012 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-012 | inherent=4x3 | aktif INHERENT
-- 2026-11-17 14:26 | control add | EVA-2025-012 | CTL-003 EFFECTIVE | aktif RESIDUAL
-- 2026-11-17 14:26 | control add | EVA-2025-012 | CTL-004 EFFECTIVE | aktif RESIDUAL
-- 2026-11-17 14:26 | rate | EVA-2025-012 | residual=4x3, expected=3x3 | aktif RESIDUAL
-- 2026-11-17 14:26 | plan new | PLN-009 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-013 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-013 | inherent=5x3 | aktif INHERENT
-- 2026-11-17 14:26 | rate | EVA-2025-013 | expected=2x3 | aktif INHERENT
-- 2026-11-17 14:26 | plan new | PLN-010 | dibuat
-- 2026-11-17 14:26 | new | EVA-2025-014 | dibuat
-- 2026-11-17 14:26 | rate | EVA-2025-014 | inherent=4x3 | aktif INHERENT
-- 2026-11-17 14:26 | new | KRI-001 | dibuat
-- 2026-11-17 14:26 | kri threshold | KRI-001 | (None, None) -> (99.5, 98.0): Contoh demo: kuning = target PK 2025 (99,50%); merah = 98,00%, batas yang dipakai LKjIP hal. 12
-- 2026-11-17 14:26 | kri read | KRI-001 | 99.1 pada 2025-01-31 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.9 pada 2025-02-28 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 99.6 pada 2025-03-31 -> green
-- 2026-11-17 14:26 | kri read | KRI-001 | 99.55 pada 2025-04-30 -> green
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.6 pada 2025-05-31 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 96.8 pada 2025-06-30 -> red
-- 2026-11-17 14:26 | kri read | KRI-001 | 97.8 pada 2025-07-31 -> red
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.5 pada 2025-08-31 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.7 pada 2025-09-30 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 96.2 pada 2025-10-31 -> red
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.4 pada 2025-11-30 -> amber
-- 2026-11-17 14:26 | kri read | KRI-001 | 98.6 pada 2025-12-31 -> amber
-- 2026-11-17 14:26 | draft new | DRF-010 | dibuat
-- 2026-11-17 14:26 | draft accept | KRI-002 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-010 | item [1]: 1 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-011 | dibuat
-- 2026-11-17 14:26 | draft accept | KRI-003 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-011 | item [1]: 1 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-012 | dibuat
-- 2026-11-17 14:26 | kri read | KRI-003 | 62 pada 2024-12-31 -> grey
-- 2026-11-17 14:26 | kri read | KRI-003 | 74 pada 2025-12-31 -> grey
-- 2026-11-17 14:26 | draft new | DRF-013 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-013 | item [1, 2, 3]: 3 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-014 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-014 | item [1, 2, 3, 4]: 4 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-015 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-015 | item [1, 2, 3]: 3 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft new | DRF-016 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-016 | item [1, 2]: 2 catatan dibuat/diubah
-- 2026-11-17 14:26 | draft reject | DRF-016 | item [3]: Tidak ada dasar di dokumen: kehilangan data tidak disebut.
-- 2026-11-17 14:26 | draft new | DRF-017 | dibuat
-- 2026-11-17 14:26 | draft accept | DRF-017 | item [1, 3]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | new | MTX-001 | dibuat
+- 2026-11-17 14:37 | matrix activate | MTX-001 | dipakai untuk tahun depan dan evaluasi baru
+- 2026-11-17 14:37 | appetite | MTX-001 | tahun 2025: batas skor 14
+- 2026-11-17 14:37 | draft new | DRF-001 | dibuat
+- 2026-11-17 14:37 | draft accept | MND-001 | dibuat
+- 2026-11-17 14:37 | draft accept | MND-002 | dibuat
+- 2026-11-17 14:37 | draft accept | SAS-001 | dibuat
+- 2026-11-17 14:37 | draft accept | SAS-002 | dibuat
+- 2026-11-17 14:37 | draft accept | SAS-003 | dibuat
+- 2026-11-17 14:37 | draft accept | SAS-004 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-001 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-002 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-003 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-004 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-005 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-006 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-007 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-008 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-009 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-010 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-011 | dibuat
+- 2026-11-17 14:37 | draft accept | IND-012 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-001 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-002 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-003 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-004 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-005 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-006 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-007 | dibuat
+- 2026-11-17 14:37 | draft accept | PRS-008 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-001 | item [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]: 26 catatan dibuat/diubah
+- 2026-11-17 14:37 | new | CTL-001 | dibuat
+- 2026-11-17 14:37 | new | CTL-002 | dibuat
+- 2026-11-17 14:37 | new | CTL-003 | dibuat
+- 2026-11-17 14:37 | new | CTL-004 | dibuat
+- 2026-11-17 14:37 | new | CTL-005 | dibuat
+- 2026-11-17 14:37 | new | CTL-006 | dibuat
+- 2026-11-17 14:37 | new | CTL-007 | dibuat
+- 2026-11-17 14:37 | new | CTL-008 | dibuat
+- 2026-11-17 14:37 | draft new | DRF-002 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-001 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-001 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-002 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-002 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-002 | item [1, 2]: 4 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft reject | DRF-002 | item [3]: Dokumen tidak mencatat sengketa informasi; 5 permohonan ditolak karena dikecualikan.
+- 2026-11-17 14:37 | draft new | DRF-003 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-003 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-003 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-003 | item [1]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-004 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-004 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-004 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-004 | item [1]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-005 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-005 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-005 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-006 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-006 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-007 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-007 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-005 | item [1, 2, 3]: 6 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-006 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-008 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-008 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-006 | item [1]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-007 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-009 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-009 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-007 | item [1]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-008 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-010 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-010 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-011 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-011 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-012 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-012 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-008 | item [1, 2, 3]: 6 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-009 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-013 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-013 | dibuat
+- 2026-11-17 14:37 | draft accept | RSK-014 | dibuat
+- 2026-11-17 14:37 | draft accept | PRE-014 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-009 | item [1, 2]: 4 catatan dibuat/diubah
+- 2026-11-17 14:37 | new | EVA-2025-001 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-001 | inherent=5x3 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-001 | CTL-001 PARTIAL | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-001 | residual=5x3, expected=2x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | plan new | PLN-001 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-002 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-002 | inherent=3x3 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-002 | CTL-008 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-002 | residual=1x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | new | EVA-2025-003 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-003 | inherent=3x3 | aktif INHERENT
+- 2026-11-17 14:37 | rate | EVA-2025-003 | expected=2x3 | aktif INHERENT
+- 2026-11-17 14:37 | plan new | PLN-002 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-004 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-004 | inherent=4x3 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-004 | CTL-006 PARTIAL | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-004 | residual=4x3, expected=3x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | plan new | PLN-003 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-005 | dibuat
+- 2026-11-17 14:37 | new | INS-001 | dibuat
+- 2026-11-17 14:37 | new | INS-002 | dibuat
+- 2026-11-17 14:37 | new | INS-003 | dibuat
+- 2026-11-17 14:37 | new | INS-004 | dibuat
+- 2026-11-17 14:37 | new | INS-005 | dibuat
+- 2026-11-17 14:37 | new | INS-006 | dibuat
+- 2026-11-17 14:37 | new | INS-007 | dibuat
+- 2026-11-17 14:37 | new | INS-008 | dibuat
+- 2026-11-17 14:37 | new | INS-009 | dibuat
+- 2026-11-17 14:37 | new | INS-010 | dibuat
+- 2026-11-17 14:37 | simulate | EVA-2025-005 | 10 insiden, saran 5x4
+- 2026-11-17 14:37 | rate | EVA-2025-005 | inherent=5x4 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-005 | CTL-005 PARTIAL | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-005 | residual=5x4, expected=3x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | plan new | PLN-004 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-006 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-006 | inherent=4x5 | aktif INHERENT
+- 2026-11-17 14:37 | rate | EVA-2025-006 | expected=1x4 | aktif INHERENT
+- 2026-11-17 14:37 | plan new | PLN-005 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-007 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-007 | inherent=4x4 | aktif INHERENT
+- 2026-11-17 14:37 | new | EVA-2025-008 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-008 | inherent=5x4 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-008 | CTL-002 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-008 | residual=4x4, expected=3x4 | aktif RESIDUAL
+- 2026-11-17 14:37 | plan new | PLN-006 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-009 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-009 | inherent=5x2 | aktif INHERENT
+- 2026-11-17 14:37 | rate | EVA-2025-009 | expected=3x2 | aktif INHERENT
+- 2026-11-17 14:37 | plan new | PLN-007 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-010 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-010 | inherent=3x3 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-010 | CTL-007 PARTIAL | aktif RESIDUAL
+- 2026-11-17 14:37 | control add | EVA-2025-010 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-010 | residual=3x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | new | EVA-2025-011 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-011 | inherent=5x2 | aktif INHERENT
+- 2026-11-17 14:37 | rate | EVA-2025-011 | expected=2x2 | aktif INHERENT
+- 2026-11-17 14:37 | plan new | PLN-008 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-012 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-012 | inherent=4x3 | aktif INHERENT
+- 2026-11-17 14:37 | control add | EVA-2025-012 | CTL-003 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:37 | control add | EVA-2025-012 | CTL-004 EFFECTIVE | aktif RESIDUAL
+- 2026-11-17 14:37 | rate | EVA-2025-012 | residual=4x3, expected=3x3 | aktif RESIDUAL
+- 2026-11-17 14:37 | plan new | PLN-009 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-013 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-013 | inherent=5x3 | aktif INHERENT
+- 2026-11-17 14:37 | rate | EVA-2025-013 | expected=2x3 | aktif INHERENT
+- 2026-11-17 14:37 | plan new | PLN-010 | dibuat
+- 2026-11-17 14:37 | new | EVA-2025-014 | dibuat
+- 2026-11-17 14:37 | rate | EVA-2025-014 | inherent=4x3 | aktif INHERENT
+- 2026-11-17 14:37 | new | KRI-001 | dibuat
+- 2026-11-17 14:37 | kri threshold | KRI-001 | (None, None) -> (99.5, 98.0): Contoh demo: kuning = target PK 2025 (99,50%); merah = 98,00%, batas yang dipakai LKjIP hal. 12
+- 2026-11-17 14:37 | kri read | KRI-001 | 99.1 pada 2025-01-31 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.9 pada 2025-02-28 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 99.6 pada 2025-03-31 -> green
+- 2026-11-17 14:37 | kri read | KRI-001 | 99.55 pada 2025-04-30 -> green
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.6 pada 2025-05-31 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 96.8 pada 2025-06-30 -> red
+- 2026-11-17 14:37 | kri read | KRI-001 | 97.8 pada 2025-07-31 -> red
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.5 pada 2025-08-31 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.7 pada 2025-09-30 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 96.2 pada 2025-10-31 -> red
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.4 pada 2025-11-30 -> amber
+- 2026-11-17 14:37 | kri read | KRI-001 | 98.6 pada 2025-12-31 -> amber
+- 2026-11-17 14:37 | draft new | DRF-010 | dibuat
+- 2026-11-17 14:37 | draft accept | KRI-002 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-010 | item [1]: 1 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-011 | dibuat
+- 2026-11-17 14:37 | draft accept | KRI-003 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-011 | item [1]: 1 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-012 | dibuat
+- 2026-11-17 14:37 | kri read | KRI-003 | 62 pada 2024-12-31 -> grey
+- 2026-11-17 14:37 | kri read | KRI-003 | 74 pada 2025-12-31 -> grey
+- 2026-11-17 14:37 | draft new | DRF-013 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-013 | item [1, 2, 3]: 3 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-014 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-014 | item [1, 2, 3, 4]: 4 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-015 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-015 | item [1, 2, 3]: 3 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft new | DRF-016 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-016 | item [1, 2]: 2 catatan dibuat/diubah
+- 2026-11-17 14:37 | draft reject | DRF-016 | item [3]: Tidak ada dasar di dokumen: kehilangan data tidak disebut.
+- 2026-11-17 14:37 | draft new | DRF-017 | dibuat
+- 2026-11-17 14:37 | draft accept | DRF-017 | item [1, 3]: 2 catatan dibuat/diubah

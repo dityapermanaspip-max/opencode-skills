@@ -19,6 +19,7 @@ import gv_cycle  # noqa: E402
 import gv_draft  # noqa: E402
 import gv_kri  # noqa: E402
 import gv_notes  # noqa: E402
+import gv_pdf  # noqa: E402
 import gv_report  # noqa: E402
 import gv_sim  # noqa: E402
 from gv_rules import VaultError  # noqa: E402
@@ -236,6 +237,30 @@ class T(unittest.TestCase):
         p = v.get("EVA-2026-001").path
         p.write_text(p.read_text(encoding="utf-8").replace("active_type: RESIDUAL", "active_type: INHERENT"), encoding="utf-8")
         self.assertTrue(any("tidak sama dengan hitungan" in m for _l, _i, m in gv_check.check(Vault(v.root))))
+
+    def test_pdf_report_html_and_fallback(self):
+        import os
+        v = self.v
+        C.set_fields(v, "RSK-001", ["title=Berkas <b>hilang</b> & rusak"])
+        C.rate(v, "EVA-2026-001", inherent="5x4", residual="4x4")
+        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        html = gv_pdf.build_html(v, 2026)
+        self.assertIn("ISO 31000:2018", html)
+        self.assertIn("Berkas &lt;b&gt;hilang&lt;/b&gt; &amp; rusak", html)      # note text is escaped, never injected
+        self.assertNotIn("<b>hilang</b>", html)
+        self.assertNotIn("<script", html)                                       # one self-contained file
+        self.assertNotIn("http://", html.replace("http://www.w3.org/2000/svg", ""))
+        with self.assertRaises(ValueError):
+            gv_pdf.build_html(v, 2031)
+        old = os.environ.get("GRIMIS_BROWSER")
+        os.environ["GRIMIS_BROWSER"] = str(self.tmp / "no-such-browser.exe")
+        try:
+            page, pdf, msg = gv_pdf.write_pdf(v, 2026)
+        finally:
+            os.environ.pop("GRIMIS_BROWSER") if old is None else os.environ.update(GRIMIS_BROWSER=old)
+        self.assertTrue(page.is_file())
+        self.assertIsNone(pdf)
+        self.assertIn("PDF tidak dibuat", msg)
 
     def test_edit_in_obsidian_style_is_read_back(self):
         v = self.v

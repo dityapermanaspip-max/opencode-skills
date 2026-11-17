@@ -56,7 +56,8 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
    incidents (`new insiden`), public incident reports (`new laporan`; approve or ignore with `set LAP-001 status=...`). Start a
    plan with `plan start`, finish it with `plan done` (this creates the control and installs it).
 7. **Look and report.** `status` (counts, appetite, KRI colours, consistency checks), `status --write` (dashboard note),
-   `report [--year]` (Markdown + CSV under `99-Laporan/`). Summarise for the user; point to the files.
+   `report [--year] [--pdf]` (Markdown + CSV under `99-Laporan/`; `--pdf` adds a formatted ISO 31000:2018 report as HTML and PDF, printed by
+   Edge or Chrome, and still leaves the HTML when no browser is found). Summarise for the user; point to the files.
 8. **Close the year.** `open-period`, every `rate ... --actual`, then `close`. Read `references/report-and-close.md` first and
    tell the user what the close will do before running it. After it, controls that did not come from a DONE plan must be
    installed again by hand: the engine lists them.
@@ -72,7 +73,7 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
 | Simulation | `simulate EVA [--iterations N] [--percentile P] [--seed S]` |
 | Matrix | `matrix show\|activate MTX`, `appetite MTX YEAR SCORE` |
 | Drafts | `draft new --kind konteks\|risiko\|bowtie\|kri [--target ID] --file items.json`, `draft show\|accept\|reject DRF [--items 1,3]` |
-| Views | `status [--write]`, `check`, `report [--year]` |
+| Views | `status [--write]`, `check`, `report [--year] [--pdf]` |
 | Year | `open-period`, `close [--year]` |
 
 Jenis: `mandat sasaran indikator proses matriks risiko kontrol pasang evaluasi rencana kri insiden laporan`. Field names per
