@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 
+import gv_evidence
 from gv_cycle import ecm_rows
 from gv_draft import norm
 from gv_notes import bullet_tree, get_section, make_table, set_section, table_rows
@@ -45,11 +46,13 @@ def _evaluations(vault, risk_id: str) -> list:
 
 
 def installed(vault, risk_id: str) -> dict[str, list[dict]]:
-    """control id -> [{eva, status, plan, notes}] over the working year's evaluations of the risk."""
+    """control id -> [{eva, status, plan, notes, files, proven}] over the working year's evaluations of the risk.
+    `files` are the names in 08-Bukti/<EVA>/<CTL>/; `proven` = has files or came from a plan."""
     out: dict[str, list[dict]] = {}
     for ev in _evaluations(vault, risk_id):
         for r in ecm_rows(ev):
-            out.setdefault(r["control"], []).append({"eva": ev.id, **r})
+            names = [p.name for p in gv_evidence.files(vault, ev.id, r["control"])]
+            out.setdefault(r["control"], []).append({"eva": ev.id, **r, "files": names, "proven": bool(r["plan"]) or bool(names)})
     return out
 
 
@@ -90,6 +93,10 @@ def attach(vault, risk_id: str, refs: list[str], controls: list[str]) -> list[st
             raise VaultError(f"{ctl} belum terpasang pada evaluasi {', '.join(e.id for e in evas)}. Kontrol bowtie hanya dipilih dari kontrol "
                              f"yang terpasang pada evaluasi; terpasang: {', '.join(sorted(pool)) or 'belum ada'}. "
                              f"Pasang dulu: control add {evas[0].id} {ctl}")
+    loose = [c for c in controls if not any(x["proven"] for x in pool[c])]
+    if loose:
+        raise VaultError(f"{', '.join(loose)} belum punya bukti. Kontrol pada bowtie harus terbukti ada: taruh berkas (SOP, tangkapan layar "
+                         f"aplikasi, foto atau CCTV, dsb.) di {gv_evidence.ROOT}/{pool[loose[0]][0]['eva']}/{loose[0]}/ lalu ulangi")
     rows, said = attachments(risk), []
     for ref in refs:
         text = _resolve(risk, ref)
@@ -129,9 +136,10 @@ def describe(vault, risk_id: str) -> str:
     if not branches(risk):
         out.append("  (belum ada cabang: buat draft bowtie dan accept dulu)")
     year = vault.cfg["fiscal_year"]
-    out.append(f"Kontrol pada evaluasi {year} yang boleh dipilih:")
+    out.append(f"Kontrol pada evaluasi {year} (hanya yang punya bukti yang boleh dipilih):")
     for cid, evals in sorted(pool.items()):
         out.append(f"  {cid}  {vault.notes[cid].fields.get('control_type')}  " + "; ".join(f"{x['status']} ({x['eva']})" for x in evals)
+                   + ("" if any(x["proven"] for x in evals) else "  [TANPA BUKTI: belum bisa dipilih]")
                    + f"  {vault.notes[cid].fields.get('title')}")
     if not pool:
         out.append("  (belum ada: pasang dulu dengan control add)")

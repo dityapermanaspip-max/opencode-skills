@@ -17,7 +17,7 @@ CENTRE_W = 230
 MIN_W = 900
 CHIP_W, CHIP_PER_ROW = 66, 3
 LEGEND = ("Lencana bulat = KRI (warna = status) · kotak bertitik = kontrol (titik = efektivitas). "
-          "Buka berkas .svg di peramban lalu klik lencana untuk rincian.")
+          "Garis putus-putus = tanpa bukti. Buka berkas .svg di peramban lalu klik lencana untuk rincian.")
 
 
 def _place(nodes, prefix: str, depth: int, y: float, flat: list, view: dict) -> tuple[list, float]:
@@ -56,9 +56,11 @@ def _kri_chip(kri, status: str, x: float, y: float) -> str:
 def _ctl_chip(cid: str, info: dict, x: float, y: float) -> str:
     kind = (info["note"].fields.get("control_type") or "-").capitalize()
     status = worst(info["evals"])
-    tip = f"{cid} · {kind} · {status}. Klik untuk rincian"
+    unproven = not any(e["proven"] for e in info["evals"])
+    tip = f"{cid} · {kind} · {status}" + (" · TANPA BUKTI" if unproven else "") + ". Klik untuk rincian"
+    dash = " stroke-dasharray='3 2'" if unproven else ""
     return (f"<a href='#p-{cid}' class='chip'><title>{_e(tip)}</title>"
-            f"<rect class='box' x='{x}' y='{y:.1f}' width='{CHIP_W}' height='16' rx='3' fill='#fff' stroke='{CTL_INK}' stroke-width='1.1'/>"
+            f"<rect class='box' x='{x}' y='{y:.1f}' width='{CHIP_W}' height='16' rx='3' fill='#fff' stroke='{CTL_INK}' stroke-width='1.1'{dash}/>"
             f"<circle cx='{x + 9}' cy='{y + 8:.1f}' r='3.5' fill='{EFF_COLOUR.get(status, '#6b6b6b')}'/>"
             f"<text x='{x + 16}' y='{y + 11.5:.1f}' font-size='9' font-weight='600' fill='{CTL_INK}'>{_e(cid)}</text></a>")
 

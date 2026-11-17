@@ -3,6 +3,7 @@ Each finding is (level, id, message); level is ERROR (breaks a rule) or WARN (su
 
 from __future__ import annotations
 
+import gv_evidence
 from gv_bowtie_data import problems as bowtie_problems
 from gv_cycle import active_of, ecm_rows
 from gv_matrix import Matrix
@@ -33,6 +34,14 @@ def check(vault) -> list[tuple[str, str, str]]:
         if pls.fields["status"] == "DONE" and not any(r["plan"] == pls.id for r in ecm_rows(vault.notes[pls.fields["evaluation"]])):
             out.append(("ERROR", pls.id, "rencana DONE tetapi kontrolnya tidak terpasang pada evaluasi"))
     out += bowtie_problems(vault)
+    for ev in vault.all("evaluasi"):
+        gap = gv_evidence.missing(vault, ev) if ev.fields["fiscal_year"] == vault.cfg["fiscal_year"] else []
+        if gap:
+            out.append(("WARN", ev.id, f"kontrol tanpa bukti (belum ada berkas di {gv_evidence.ROOT}/{ev.id}/<CTL>/): {', '.join(gap)}"))
+    stray = gv_evidence.plan_sort(vault)
+    if stray:
+        out.append(("WARN", "VAULT", f"{len(stray)} berkas bukti belum di folder yang benar ({sum(s['dest'] is not None for s in stray)} bisa "
+                    f"dipindah otomatis): jalankan 'evidence sort'"))
     cfg = vault.cfg
     if cfg.get("active_matrix") and cfg["active_matrix"] not in vault.notes:
         out.append(("ERROR", "VAULT", f"active_matrix menunjuk {cfg['active_matrix']} yang tidak ada"))

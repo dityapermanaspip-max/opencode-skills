@@ -19,6 +19,7 @@ import gv_close  # noqa: E402
 import gv_cmds as C  # noqa: E402
 import gv_cycle  # noqa: E402
 import gv_draft  # noqa: E402
+import gv_evidence  # noqa: E402
 import gv_kri  # noqa: E402
 import gv_notes  # noqa: E402
 import gv_pdf  # noqa: E402
@@ -53,6 +54,23 @@ class T(unittest.TestCase):
     def tearDown(self):
         self._tmp.cleanup()
 
+    def evidence(self, eva="EVA-2026-001", ctl="CTL-001", name="sop.txt"):
+        """A person puts a file in the evidence folder (the engine only looks at that folder, never makes evidence)."""
+        d = self.v.root / "08-Bukti" / eva / ctl
+        d.mkdir(parents=True, exist_ok=True)
+        (d / name).write_text("isi berkas bukti", encoding="utf-8")
+
+    def add_ctl(self, eva="EVA-2026-001", ctl="CTL-001"):
+        self.evidence(eva, ctl)
+        return C.control(self.v, "add", eva, ctl)
+
+    def install_without_evidence(self, eva="EVA-2026-001", ctl="CTL-001"):
+        """An install from before the evidence rule: written straight into the table."""
+        ev = self.v.get(eva)
+        gv_cycle.set_ecm(ev, gv_cycle.ecm_rows(ev) + [{"control": ctl, "status": "EFFECTIVE", "plan": None, "notes": ""}])
+        self.v.save(ev)
+        gv_cycle.refresh_active(self.v, ev)
+
     def active(self, eva="EVA-2026-001"):
         f = self.v.get(eva).fields
         return f["active_type"], f["active_cell"]
@@ -75,7 +93,7 @@ class T(unittest.TestCase):
     def test_active_value_follows_controls_and_plans(self):
         C.rate(self.v, "EVA-2026-001", inherent="4x4", residual="3x3", expected="2x2")
         self.assertEqual(self.active(), ("INHERENT", "4x4"))
-        C.control(self.v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         self.assertEqual(self.active(), ("RESIDUAL", "3x3"))
         C.new(self.v, "rencana", ["evaluation=EVA-2026-001", "action=A", "pic=P", "target_date=2026-12-01", "new_control_code=NEW-1"])
         C.new(self.v, "rencana", ["evaluation=EVA-2026-001", "action=B", "pic=P", "target_date=2026-12-01", "new_control_code=NEW-2"])
@@ -152,7 +170,7 @@ class T(unittest.TestCase):
     def test_annual_close_two_years(self):
         v = self.v
         C.rate(v, "EVA-2026-001", inherent="4x4", residual="3x3", expected="2x2")
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         C.new(v, "rencana", ["evaluation=EVA-2026-001", "action=A", "pic=P", "target_date=2026-12-01", "new_control_code=NEW-1", "new_control_title=Baru"])
         C.new(v, "rencana", ["evaluation=EVA-2026-001", "action=B", "pic=P", "target_date=2026-12-01"])
         C.plan(v, "done", "PLN-001")
@@ -227,7 +245,7 @@ class T(unittest.TestCase):
     def test_report_status_and_check(self):
         v = self.v
         C.rate(v, "EVA-2026-001", inherent="5x4", residual="4x4")
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         s = gv_report.status(v)
         self.assertEqual((s["total"], s["above_appetite"], s["below_appetite"]), (1, 1, 0))     # 16 > 9
         md, cs = gv_report.report(v, 2026)
@@ -245,7 +263,7 @@ class T(unittest.TestCase):
         v = self.v
         C.set_fields(v, "RSK-001", ["title=Berkas <b>hilang</b> & rusak"])
         C.rate(v, "EVA-2026-001", inherent="5x4", residual="4x4")
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         html = gv_pdf.build_html(v, 2026)
         self.assertIn("ISO 31000:2018", html)
         self.assertIn("Berkas &lt;b&gt;hilang&lt;/b&gt; &amp; rusak", html)      # note text is escaped, never injected
@@ -274,6 +292,73 @@ class T(unittest.TestCase):
         self.assertEqual(again.get("RSK-001").fields["tags"], ["kritis"])
         self.assertEqual(json.dumps(again.problems), "[]")
 
+    # ---- evidence ----------------------------------------------------------------------------------------
+    def test_existing_control_needs_evidence_in_its_folder(self):
+        v = self.v
+        with self.assertRaises(VaultError) as cm:
+            C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.assertIn("08-Bukti", str(cm.exception))
+        folder = v.root / "08-Bukti" / "EVA-2026-001" / "CTL-001"
+        self.assertTrue(folder.is_dir(), "the folder is prepared for the person")
+        self.assertEqual(gv_cycle.ecm_rows(Vault(v.root).get("EVA-2026-001")), [], "nothing was installed")
+        for junk in (".hidden", "~$sop.docx", "unduhan.tmp", "Thumbs.db"):
+            (folder / junk).write_text("x", encoding="utf-8")
+        with self.assertRaises(VaultError):
+            C.control(v, "add", "EVA-2026-001", "CTL-001")           # hidden and temporary files are not evidence
+        self.add_ctl()
+        self.assertEqual([r["control"] for r in gv_cycle.ecm_rows(Vault(v.root).get("EVA-2026-001"))], ["CTL-001"])
+
+    def test_evidence_in_the_wrong_folder_is_moved(self):
+        v = self.v
+        C.new(v, "kontrol", ["title=Kunci ganda", "control_type=preventif"])                     # CTL-002
+        (v.root / "CTL-001 SOP arsip.pdf").write_text("sop", encoding="utf-8")                   # loose in the vault root
+        out = C.control(v, "add", "EVA-2026-001", "CTL-001")                                     # adopted by the install itself
+        self.assertIn("dipindahkan", out)
+        right = v.root / "08-Bukti" / "EVA-2026-001" / "CTL-001"
+        self.assertTrue((right / "CTL-001 SOP arsip.pdf").is_file())
+        self.assertFalse((v.root / "CTL-001 SOP arsip.pdf").exists())
+        self.add_ctl(ctl="CTL-002")
+        wrong = v.root / "08-Bukti" / "CTL-002"                                                  # right control, no evaluation in the path
+        wrong.mkdir()
+        (wrong / "foto.jpg").write_text("a", encoding="utf-8")
+        (v.root / "08-Bukti" / "lampiran.pdf").write_text("b", encoding="utf-8")                 # no id at all: cannot be placed
+        (v.root / "04-Evaluasi" / "CTL-002 sop.md").write_text("catatan", encoding="utf-8")      # a note is never touched
+        dry, _ = gv_evidence.sort(v, dry=True)
+        self.assertEqual(len(dry), 1)
+        self.assertTrue((wrong / "foto.jpg").exists(), "dry run moves nothing")
+        stray = gv_check.check(v)
+        self.assertTrue(any("evidence sort" in m for _l, _i, m in stray))
+        (v.root / "08-Bukti" / "EVA-2026-001" / "CTL-002" / "foto.jpg").write_text("sudah ada", encoding="utf-8")
+        moved, left = gv_evidence.sort(v)
+        self.assertEqual(len(moved), 1)
+        self.assertIn("foto (2).jpg", moved[0], "an existing file is never overwritten")
+        self.assertEqual(len(left), 1)
+        self.assertIn("lampiran.pdf", left[0])
+        self.assertFalse(wrong.exists(), "the emptied wrong folder is tidied away")
+        self.assertTrue((v.root / "04-Evaluasi" / "CTL-002 sop.md").exists())
+
+    def test_unevidenced_control_is_flagged_not_dropped(self):
+        v = self.v
+        C.rate(v, "EVA-2026-001", inherent="4x4", residual="3x3")
+        self.install_without_evidence()
+        again = Vault(v.root)
+        self.assertEqual(gv_cycle.active_of(again, again.get("EVA-2026-001"))[0], "RESIDUAL", "an old install keeps counting")
+        self.assertEqual(gv_evidence.missing(again, again.get("EVA-2026-001")), ["CTL-001"])
+        s = gv_report.status(again)
+        self.assertEqual((s["controls_no_evidence"], s["evaluations_no_evidence"]), (1, 1))
+        found = gv_check.check(again)
+        self.assertEqual([f for f in found if f[0] == "ERROR"], [])
+        self.assertTrue(any(f[1] == "EVA-2026-001" and "tanpa bukti" in f[2] for f in found))
+        self.assertIn("tanpa bukti", gv_report.report(again, 2026)[0].read_text(encoding="utf-8"))
+        self.evidence()
+        self.assertEqual(gv_evidence.missing(Vault(v.root), Vault(v.root).get("EVA-2026-001")), [], "a file in the folder proves it")
+
+    def test_plan_born_control_is_proven_by_its_plan(self):
+        v = self.v
+        C.new(v, "rencana", ["evaluation=EVA-2026-001", "action=A", "pic=P", "target_date=2026-12-01", "new_control_code=NEW-1"])
+        C.plan(v, "done", "PLN-001")
+        self.assertEqual(gv_evidence.missing(v, v.get("EVA-2026-001")), [])
+
     # ---- bowtie ------------------------------------------------------------------------------------------
     def _bowtie_risk(self):
         v = self.v
@@ -287,7 +372,7 @@ class T(unittest.TestCase):
         self._bowtie_risk()
         with self.assertRaises(VaultError):                       # not installed on an evaluation yet: refused
             gv_bowtie_data.attach(v, "RSK-001", ["c0"], ["CTL-001"])
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         gv_bowtie_data.attach(v, "RSK-001", ["c0.0", "Izin tertunda"], ["CTL-001"])   # a key, and the text of a branch
         with self.assertRaises(VaultError):
             gv_bowtie_data.attach(v, "RSK-001", ["tidak ada cabang ini"], ["CTL-001"])
@@ -299,6 +384,13 @@ class T(unittest.TestCase):
         self.assertEqual(svg.count("href='#p-CTL-001'"), 2)       # one chip per picked branch
         self.assertIn("id='p-CTL-001' class='pop'", svg)          # and the panel they open
         self.assertIn("## Kontrol terpasang", (folder / "RSK-001.md").read_text(encoding="utf-8"))
+        C.new(v, "kontrol", ["title=Kunci ganda", "control_type=preventif"])                  # CTL-002, installed before the evidence rule
+        self.install_without_evidence(ctl="CTL-002")
+        with self.assertRaises(VaultError) as cm:
+            gv_bowtie_data.attach(Vault(v.root), "RSK-001", ["c0"], ["CTL-002"])
+        self.assertIn("bukti", str(cm.exception))
+        gv_bowtie.render(Vault(v.root), ["RSK-001"], out=str(folder))
+        self.assertIn("TANPA BUKTI", (folder / "RSK-001.svg").read_text(encoding="utf-8"))   # marked in the panel of the unpicked control
         gv_bowtie_data.detach(v, "RSK-001", ["c0.0"], [])
         self.assertEqual(gv_bowtie_data.attachments(v.get("RSK-001")), [("Izin tertunda", "CTL-001")])
         with self.assertRaises(VaultError):
@@ -307,7 +399,7 @@ class T(unittest.TestCase):
     def test_bowtie_kri_on_a_nested_branch_and_unpicked_controls(self):
         v = self.v
         self._bowtie_risk()
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         C.new(v, "kri", ["risk=RSK-001", "title=Kunci hilang", "kri_type=LEADING", "direction=higher_is_worse",
                          "frequency=monthly", "watch=Kunci tidak dipegang petugas"])
         folder = self.tmp / "bt"
@@ -320,7 +412,7 @@ class T(unittest.TestCase):
     def test_bowtie_check_warns_when_a_branch_is_renamed(self):
         v = self.v
         self._bowtie_risk()
-        C.control(v, "add", "EVA-2026-001", "CTL-001")
+        self.add_ctl()
         gv_bowtie_data.attach(v, "RSK-001", ["i0"], ["CTL-001"])
         self.assertEqual([f for f in gv_check.check(v) if "Kontrol bowtie" in f[2]], [])
         p = v.get("RSK-001").path

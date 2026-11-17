@@ -18,7 +18,8 @@ bowtie render --above-appetite [--out FOLDER]
 - `--branch` is a branch key from `bowtie show` (`c1` = second cause, `c4.0` = first child of the fifth cause, `i0` = first
   impact) or the branch text (exact, else one unique part of it). Ambiguous or unknown: the command refuses and lists the keys.
 - `attach` accepts only a control that is **installed on an evaluation of this risk in the working year** (`control add`,
-  or a DONE plan). Anything else is refused with the controls that are installed. Do not pick for the user: show the options
+  or a DONE plan) **and has evidence** (a file in `08-Bukti/<EVA>/<CTL>/`, or a DONE plan as its source). Anything else is refused
+  with the controls that are installed, or with the folder that needs evidence. Do not pick for the user: show the options
   and let them choose. Preventive, detective and corrective controls may sit on any branch; the type is shown, not enforced.
 - The pick is stored in the risk note, section `## Kontrol bowtie` (table `Cabang | Kontrol`), by branch **text**, so it
   survives re-ordering. `check` warns when a branch was renamed/deleted or the control left the evaluation (a WARN, not an ERROR).
@@ -36,10 +37,11 @@ For each risk the renderer writes:
   its parent, a sub-impact one column further right; first-level branches join the risk. The centre carries the active
   value, score, zone and appetite from the engine, so the diagram matches `status` and `report`.
 - Chips on the diagram: a round **filled** badge is a KRI (colour = engine status), a **boxed** chip with a dot is a control
-  (dot = effectiveness on the evaluation; the weakest one when the control sits on several evaluations of the risk). Controls
+  (dot = effectiveness on the evaluation; the weakest one when the control sits on several evaluations of the risk; a dashed
+  outline means no evidence yet). Controls
   installed on the evaluation but not picked for a branch are listed in a strip under the diagram, so they stay clickable.
 - **Click-to-open detail panels** for every KRI and control: title, type, effectiveness per evaluation, source plan, notes,
-  the branches it is picked for (control); measured quantity, unit, type, direction, thresholds, watched branch, newest
+  the evidence files per evaluation, the branches it is picked for (control); measured quantity, unit, type, direction, thresholds, watched branch, newest
   readings (KRI). They are plain SVG + CSS `:target` (no script), so they work when the `.svg` is opened in a browser or an
   Obsidian "open in default app". An SVG **embedded in a note is drawn as an image and stays static**; do not promise popups
   inside Obsidian. The Markdown note carries the same details as tables for that reason. Hovering a chip shows a short tooltip.

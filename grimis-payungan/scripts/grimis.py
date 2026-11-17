@@ -19,6 +19,7 @@ import gv_cmds as C  # noqa: E402
 import gv_draft  # noqa: E402
 import gv_check  # noqa: E402
 import gv_close  # noqa: E402
+import gv_evidence  # noqa: E402
 import gv_pdf  # noqa: E402
 import gv_report  # noqa: E402
 from gv_rules import VaultError  # noqa: E402
@@ -40,6 +41,9 @@ def build() -> argparse.ArgumentParser:
         a.add_argument(f"--{lvl}")
     a = sub.add_parser("control"); a.add_argument("action", choices=["add", "remove"]); a.add_argument("eva"); a.add_argument("ctl")
     a.add_argument("--status", default="EFFECTIVE"); a.add_argument("--notes", default="")
+    a = sub.add_parser("evidence", help="evidence of existing controls (08-Bukti/<EVA>/<CTL>/): show gaps, sort misplaced files")
+    a.add_argument("action", choices=["show", "sort"]); a.add_argument("eva", nargs="?", help="show: one evaluation in detail")
+    a.add_argument("--dry-run", action="store_true", help="sort: only list what would move")
     a = sub.add_parser("plan"); a.add_argument("action", choices=["start", "done"]); a.add_argument("plan")
     a.add_argument("--evidence"); a.add_argument("--notes")
     a = sub.add_parser("kri"); a.add_argument("action", choices=["read", "threshold", "retire"]); a.add_argument("kri")
@@ -87,6 +91,15 @@ def run(args) -> str:
         return C.rate(v, args.eva, **{k: getattr(args, k) for k in ("inherent", "residual", "expected", "actual")})
     if c == "control":
         return C.control(v, args.action, args.eva, args.ctl, args.status, args.notes)
+    if c == "evidence":
+        if args.action == "show":
+            return gv_evidence.describe(v, args.eva)
+        moved, left = gv_evidence.sort(v, dry=args.dry_run)
+        text = [("Akan dipindahkan:" if args.dry_run else "Dipindahkan:") + (f" {len(moved)} berkas" if moved else " tidak ada")]
+        text += [f"  {m}" for m in moved]
+        if left:
+            text += [f"Tetap di tempatnya ({len(left)} berkas, perlu dipilah manual):"] + [f"  {m}" for m in left]
+        return "\n".join(text)
     if c == "plan":
         return C.plan(v, args.action, args.plan, args.evidence, args.notes)
     if c == "kri":

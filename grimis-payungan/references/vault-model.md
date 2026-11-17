@@ -25,9 +25,13 @@ year is open: ACTUAL may be entered and `close` may run) and `active_matrix` (th
 06-KRI/
 07-Insiden/
 07-Insiden/Laporan/
+08-Bukti/<EVA>/<CTL>/     evidence files of existing controls (no notes here; see risk-cycle.md)
 _Draft/
 99-Laporan/
 ```
+
+`08-Bukti` holds plain files put there by a person (SOP, screenshot, photo, CCTV still). The engine only counts the files; a control
+installed by hand (`control add`) needs at least one in `08-Bukti/<its EVA>/<its CTL>/`.
 
 ## Note kinds and fields
 

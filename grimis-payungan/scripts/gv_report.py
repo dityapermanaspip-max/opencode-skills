@@ -6,6 +6,7 @@ from __future__ import annotations
 import csv
 from datetime import date, timedelta
 
+import gv_evidence
 from gv_cycle import ecm_rows, plans_of
 from gv_kri import current_status
 from gv_matrix import Matrix
@@ -39,7 +40,7 @@ def profile(vault, year: int) -> list[dict]:
             "eva": ev, "id": ev.id, "risk": risk, "process": proc, "indicator": ind, "objective": obj, "matrix": mx,
             "active_type": f.get("active_type"), "active_cell": cell,
             "score": mx.score(cell) if cell else None, "zone": mx.zone(cell) if cell else None,
-            "threshold": mx.appetite(year), "controls": ecm_rows(ev), "plans": plans,
+            "threshold": mx.appetite(year), "controls": ecm_rows(ev), "no_evidence": gv_evidence.missing(vault, ev), "plans": plans,
             "incidents": [i for i in vault.all("insiden") if i.fields["pre"] == f["pre"] and str(i.fields["date"]).startswith(f"{year}-")],
             "kris": [(k, *current_status(k)) for k in kris], "trend": f.get("trend"),
         })
@@ -59,6 +60,8 @@ def status(vault) -> dict:
          "actual_missing": sum(vault.cfg["period_open"] and not r["eva"].fields.get("actual") for r in rows),
          "residual_no_control": sum(bool(r["eva"].fields.get("residual")) and not r["controls"] for r in rows),
          "control_no_residual": sum(bool(r["controls"]) and not r["eva"].fields.get("residual") for r in rows),
+         "controls_no_evidence": sum(len(r["no_evidence"]) for r in rows),
+         "evaluations_no_evidence": sum(bool(r["no_evidence"]) for r in rows),
          "expected_no_plan": sum(bool(r["eva"].fields.get("expected")) and not r["plans"] for r in rows),
          "plan_no_expected": sum(bool(r["plans"]) and not r["eva"].fields.get("expected") for r in rows),
          "plans_due": sum(1 for r in rows for p in r["plans"] if p.fields["status"] in ("PLANNED", "IN_PROGRESS")
@@ -77,6 +80,8 @@ def status_text(s: dict) -> str:
              f"ACTUAL belum diisi: {s['actual_missing']} | rencana jatuh tempo <= {DUE_DAYS} hari: {s['plans_due']}",
              f"KRI merah {s['kri']['red']}, kuning {s['kri']['amber']}, hijau {s['kri']['green']}, abu-abu {s['kri']['grey']}",
              f"Laporan insiden menunggu: {s['pending_reports']}"]
+    if s["controls_no_evidence"]:
+        lines.append(f"Kontrol tanpa bukti: {s['controls_no_evidence']} pada {s['evaluations_no_evidence']} evaluasi (tetap dihitung; taruh berkas di 08-Bukti/<EVA>/<CTL>/)")
     flags = [(k, s[k]) for k in ("residual_no_control", "control_no_residual", "expected_no_plan", "plan_no_expected") if s[k]]
     if flags:
         lines.append("Cek konsistensi: " + ", ".join(f"{k}={v}" for k, v in flags))
@@ -92,7 +97,7 @@ def write_dashboard(vault, s: dict) -> None:
 
 
 CSV_HEAD = ["Tahun", "Sasaran", "Indikator", "Proses", "Kode risiko", "Risiko", "Inheren", "Residual", "Ekspektasi", "Aktual",
-            "Nilai aktif", "Sel aktif", "Skor", "Zona", "Batas appetite", "Status appetite", "Kontrol", "Rencana", "Insiden", "Tren"]
+            "Nilai aktif", "Sel aktif", "Skor", "Zona", "Batas appetite", "Status appetite", "Kontrol", "Rencana", "Insiden", "Tren", "Kontrol tanpa bukti"]
 
 
 def _csv_row(year, r):
@@ -100,7 +105,7 @@ def _csv_row(year, r):
     return [year, r["objective"].fields["title"], r["indicator"].fields["title"], r["process"].fields["title"], r["risk"].id,
             r["risk"].fields["title"], f.get("inherent"), f.get("residual"), f.get("expected"), f.get("actual"), r["active_type"],
             r["active_cell"], r["score"], r["zone"], r["threshold"], r["appetite"], len(r["controls"]), len(r["plans"]),
-            len(r["incidents"]), r["trend"]]
+            len(r["incidents"]), r["trend"], len(r["no_evidence"])]
 
 
 def report(vault, year: int) -> tuple:
@@ -132,13 +137,19 @@ def report(vault, year: int) -> tuple:
           "## 3. Profil risiko", ""]
     md.append(make_table(["Risiko", "Proses", "Aktif", "Sel", "Skor", "Zona", "Appetite", "Kontrol", "Rencana", "Insiden", "Tren"],
                          [[f"{r['risk'].id} {r['risk'].fields['title']}", r["process"].fields["title"], r["active_type"], r["active_cell"],
-                           r["score"], r["zone"], r["appetite"], len(r["controls"]), len(r["plans"]), len(r["incidents"]), r["trend"]]
+                           r["score"], r["zone"], r["appetite"], len(r["controls"]) if not r["no_evidence"] else f"{len(r['controls'])} ({len(r['no_evidence'])} tanpa bukti)",
+                           len(r["plans"]), len(r["incidents"]), r["trend"]]
                           for r in sorted(rows, key=lambda r: -(r["score"] or 0))]))
     above = [r for r in rows if r["appetite"] == "DI_ATAS_APPETITE"]
     md += ["", "## 4. Risiko di atas appetite", ""] + ([f"- {r['risk'].id} {r['risk'].fields['title']} (skor {r['score']})" for r in above]
                                                        or ["Tidak ada."])
     md += ["", "## 5. Efektivitas kontrol", "", ("Kontrol terpasang menurut penilaian: " + ", ".join(f"{k} {v}" for k, v in sorted(ctl.items()))) if ctl
            else "Belum ada kontrol terpasang."]
+    no_proof = sum(len(r["no_evidence"]) for r in rows)
+    if no_proof:
+        md += ["", f"Catatan: {no_proof} kontrol pada {sum(bool(r['no_evidence']) for r in rows)} evaluasi belum punya berkas bukti "
+               f"(SOP, tangkapan layar, foto/CCTV, dsb. di 08-Bukti/<EVA>/<CTL>/). Kontrol itu masih dihitung pada nilai aktif tetapi belum "
+               f"dapat dianggap terbukti ada."]
     md += ["", "## 6. Realisasi rencana perlakuan", "",
            ("Rencana: " + ", ".join(f"{k} {v}" for k, v in sorted(plan_status.items())) + (f"; anggaran Rp{budget:,.0f}." if budget else "; anggaran belum diisi.")) if plan_status else "Belum ada rencana."]
     kri_rows = [[k.id, k.fields["title"], r["risk"].id, st, last[1] if last else "-"] for r in rows for k, st, last in r["kris"]]

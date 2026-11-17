@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from datetime import date
 
+import gv_evidence
 from gv_matrix import load as load_matrix
 from gv_notes import get_section, make_table, set_section, table_rows
 from gv_rules import VaultError
@@ -93,7 +94,10 @@ def rate(vault, eva_id: str, **levels) -> dict:
     return changed
 
 
-def add_control(vault, eva_id: str, ctl_id: str, status: str = "EFFECTIVE", notes: str = "", plan: str | None = None) -> None:
+def add_control(vault, eva_id: str, ctl_id: str, status: str = "EFFECTIVE", notes: str = "", plan: str | None = None) -> list[str]:
+    """Installs an existing control. It is recognised only with evidence: at least one file in 08-Bukti/<EVA>/<CTL>/ put there by
+    a person. Files of this control that were dropped in the wrong place are moved there first. A plan-born control (`plan`) is
+    proven by the plan. Returns the lines of files that were moved."""
     ev = _open_eval(vault, eva_id)
     if ctl_id not in vault.notes or vault.notes[ctl_id].entity != "kontrol":
         raise VaultError(f"Kontrol tidak ditemukan di kamus: {ctl_id}")
@@ -103,10 +107,20 @@ def add_control(vault, eva_id: str, ctl_id: str, status: str = "EFFECTIVE", note
     rows = ecm_rows(ev)
     if any(r["control"] == ctl_id for r in rows):
         raise VaultError(f"{ctl_id} sudah terpasang pada {eva_id}")
+    moved: list[str] = []
+    if not plan:
+        moved, _left = gv_evidence.sort(vault, hint=(eva_id, ctl_id), only=ctl_id)
+        if not gv_evidence.files(vault, eva_id, ctl_id):
+            where = gv_evidence.folder(vault, eva_id, ctl_id)
+            where.mkdir(parents=True, exist_ok=True)
+            raise VaultError(f"Belum ada bukti untuk {ctl_id} pada {eva_id}. Kontrol baru diakui sebagai kontrol yang ada bila ada berkas "
+                             f"buktinya (SOP, tangkapan layar aplikasi, foto atau CCTV, dsb.). Taruh berkas di: {where} lalu ulangi. "
+                             f"Berkas yang salah folder dipindahkan otomatis bila nama atau foldernya memuat ID {ctl_id}.")
     rows.append({"control": ctl_id, "status": status, "plan": plan, "notes": notes})
     set_ecm(ev, rows)
     refresh_active(vault, ev)
     vault.log("control add", eva_id, f"{ctl_id} {status} | aktif {ev.fields['active_type']}")
+    return moved
 
 
 def remove_control(vault, eva_id: str, ctl_id: str) -> None:

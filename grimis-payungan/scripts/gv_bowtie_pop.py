@@ -93,11 +93,15 @@ def control_panel(ctl, evals: list[dict], on: list[str], w: float, h: float, mid
     status = [f"{x['status']} (pada {x['eva']})" for x in evals]
     plans = [f"{x['plan']} (pada {x['eva']})" for x in evals if x.get("plan")]
     notes = [f"{x['notes']} ({x['eva']})" for x in evals if x.get("notes")]
+    proof = [(f"{x['eva']}: dari rencana {x['plan']} (bukti ada pada rencana)" if x.get("plan") else
+              f"{x['eva']}: {len(x['files'])} berkas ({', '.join(x['files'][:3])}{' dan lainnya' if len(x['files']) > 3 else ''})" if x["files"] else
+              f"{x['eva']}: TANPA BUKTI (belum ada berkas di 08-Bukti/{x['eva']}/{ctl.id}/)") for x in evals]
     kinds = f"{(f.get('control_type') or '-').capitalize()}"
     more = [f"dan {len(on) - 6} cabang lainnya"] if len(on) > 6 else []
-    rows = [("Efektivitas", status), ("Kode", f.get("code")), ("Sumber rencana", plans or None),
+    rows = [("Efektivitas", status), ("Bukti", proof), ("Kode", f.get("code")), ("Sumber rencana", plans or None),
             ("Catatan", notes or None), ("Dipasang pada cabang", (on[:6] + more) if on else "belum dipasang pada cabang mana pun")]
-    return panel(f"p-{ctl.id}", f"KONTROL · {ctl.id} · {kinds}", CTL_INK, f.get("title", ctl.id), rows, w, h, mid)
+    unproven = not any(x["proven"] for x in evals)
+    return panel(f"p-{ctl.id}", f"KONTROL · {ctl.id} · {kinds}" + (" · TANPA BUKTI" if unproven else ""), "#8a5a00" if unproven else CTL_INK, f.get("title", ctl.id), rows, w, h, mid)
 
 
 def kri_panel(kri, status: str, w: float, h: float, mid: float) -> tuple[str, float]:

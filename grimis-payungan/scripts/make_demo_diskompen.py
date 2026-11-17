@@ -16,6 +16,7 @@ import gv_check  # noqa: E402
 import gv_cmds as C  # noqa: E402
 import gv_cycle  # noqa: E402
 import gv_draft  # noqa: E402
+import gv_evidence  # noqa: E402
 import gv_kri  # noqa: E402
 import gv_pdf  # noqa: E402
 import gv_report  # noqa: E402
@@ -110,7 +111,7 @@ def build(folder: Path) -> Vault:
             gv_sim.simulate(v, eva[key], 10000, 75, seed=D.YEAR)
         C.rate(v, eva[key], inherent=inh)
         for ck, eff in ctls:
-            gv_cycle.add_control(v, eva[key], ctl[ck], eff)
+            gv_evidence.demo_install(v, eva[key], ctl[ck], eff)
         levels = {k: x for k, x in (("residual", res), ("expected", exp)) if x}
         if levels:
             C.rate(v, eva[key], **levels)

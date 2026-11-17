@@ -118,7 +118,7 @@ def details(vault, rows: list, mx) -> str:
             if tree:
                 li = "".join(f"<li>{e(n['text'])}{' <small>[' + e(n['category']) + ']</small>' if n.get('category') else ''}</li>" for n in tree)
                 trees.append(f"<h4>{name}</h4><ul>{li}</ul>")
-        ctl = "".join(f"<li>{e(c['control'])} {e(vault.notes[c['control']].fields['title'])}: <b>{e(c['status'])}</b></li>" for c in r["controls"])
+        ctl = "".join(f"<li>{e(c['control'])} {e(vault.notes[c['control']].fields['title'])}: <b>{e(c['status'])}</b>{' <small>(tanpa bukti)</small>' if c['control'] in r['no_evidence'] else ''}</li>" for c in r["controls"])
         pln = "".join(f"<li>{e(p.id)} {e(p.fields['action'])}; PIC {e(p.fields['pic'])}; target {e(date_long(p.fields['target_date']))}; <b>{e(p.fields['status'])}</b></li>" for p in r["plans"])
         kri = "".join(f"<li>{e(k.id)} {e(k.fields['title'])}: {KRI_TEXT[st]}{f' ({num(last[1])} pada {date_long(last[0])})' if last else ''}</li>" for k, st, last in r["kris"])
         extra = "".join(f"<h4>{e(t)}</h4><p>{inline(c)}</p>" for t, c in _extra_sections(r["eva"].body))

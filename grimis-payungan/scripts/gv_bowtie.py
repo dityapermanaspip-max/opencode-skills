@@ -100,9 +100,10 @@ def _controls_table(view: dict, stale: list) -> str:
     for cid, i in sorted(view["info"].items()):
         f = i["note"].fields
         status = "; ".join(f"{x['status']} ({x['eva']})" for x in i["evals"])
-        rows.append([cid, f.get("control_type") or "-", status, "; ".join(i["branches"]) or "(belum dipasang pada cabang)", f.get("title", "")])
-    rows += [[cid, "-", "-", f"{text} (cabang atau kontrol sudah tidak cocok, periksa dengan `check`)", "-"] for text, cid in stale]
-    head = ["Kontrol", "Jenis", "Efektivitas (evaluasi)", "Dipasang pada cabang", "Judul"]
+        proof = "; ".join(f"{x['eva']}: " + ("dari rencana" if x.get("plan") else f"{len(x['files'])} berkas" if x["files"] else "TANPA BUKTI") for x in i["evals"])
+        rows.append([cid, f.get("control_type") or "-", status, proof, "; ".join(i["branches"]) or "(belum dipasang pada cabang)", f.get("title", "")])
+    rows += [[cid, "-", "-", "-", f"{text} (cabang atau kontrol sudah tidak cocok, periksa dengan `check`)", "-"] for text, cid in stale]
+    head = ["Kontrol", "Jenis", "Efektivitas (evaluasi)", "Bukti", "Dipasang pada cabang", "Judul"]
     return make_table(head, rows) if rows else "Belum ada kontrol terpasang pada evaluasi risiko ini."
 
 

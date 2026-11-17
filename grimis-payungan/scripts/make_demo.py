@@ -14,6 +14,7 @@ import gv_close  # noqa: E402
 import gv_cmds as C  # noqa: E402
 import gv_cycle  # noqa: E402
 import gv_draft  # noqa: E402
+import gv_evidence  # noqa: E402
 import gv_kri  # noqa: E402
 import gv_report  # noqa: E402
 import gv_sim  # noqa: E402
@@ -39,7 +40,7 @@ def year_cycle(v, year):
         if inh:
             C.rate(v, eva, inherent=inh)
         if f"CTL-{CTL_OF[n][-3:]}" not in [r["control"] for r in gv_cycle.ecm_rows(v.get(eva))]:
-            gv_cycle.add_control(v, eva, CTL_OF[n])
+            gv_evidence.demo_install(v, eva, CTL_OF[n])
         C.rate(v, eva, residual=res, expected=exp)
     if year == 2024:
         plan(v, "EVA-2024-001", "Pemindaian berkas masuk di loket", "2024-09-30", "SCAN-01", "Pemindaian berkas masuk", budget=15000000)
@@ -102,7 +103,7 @@ def build(folder: Path) -> Vault:
     for n in range(1, 6):
         eva = f"EVA-2026-{n:03d}"
         if CTL_OF[n] not in [r["control"] for r in gv_cycle.ecm_rows(v.get(eva))]:
-            gv_cycle.add_control(v, eva, CTL_OF[n])
+            gv_evidence.demo_install(v, eva, CTL_OF[n])
     C.rate(v, "EVA-2026-001", residual="2x4", expected="1x4")
     C.rate(v, "EVA-2026-002", residual="3x3")
     C.rate(v, "EVA-2026-003", residual="3x5")

@@ -14,7 +14,7 @@ from gv_notes import write_note, Note
 from gv_rules import VaultError
 from gv_schema import ENTITIES, entity_name, entity_of_id
 
-FOLDERS = sorted({e.folder for e in ENTITIES.values()}) + ["99-Laporan"]
+FOLDERS = sorted({e.folder for e in ENTITIES.values()}) + ["08-Bukti", "99-Laporan"]   # 08-Bukti: evidence of existing controls
 
 GRIMIS_BODY = """# Vault manajemen risiko
 
@@ -97,8 +97,9 @@ def rate(v, eva: str, **levels) -> str:
 
 
 def control(v, action: str, eva: str, ctl: str, status: str = "EFFECTIVE", notes: str = "") -> str:
-    (gv_cycle.add_control(v, eva, ctl, status, notes) if action == "add" else gv_cycle.remove_control(v, eva, ctl))
-    return f"{ctl} {'dipasang pada' if action == 'add' else 'dilepas dari'} {eva}; nilai aktif: {v.get(eva).fields['active_type']}"
+    moved = gv_cycle.add_control(v, eva, ctl, status, notes) if action == "add" else (gv_cycle.remove_control(v, eva, ctl) or [])
+    text = f"{ctl} {'dipasang pada' if action == 'add' else 'dilepas dari'} {eva}; nilai aktif: {v.get(eva).fields['active_type']}"
+    return text + "".join(f"\nBerkas bukti dipindahkan: {line}" for line in moved)
 
 
 def plan(v, action: str, plan_id: str, evidence=None, notes=None) -> str:

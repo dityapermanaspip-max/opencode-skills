@@ -13,6 +13,9 @@ annual close with carry-over and trend. Each risk can be drawn as a bowtie (`bow
 risk event, with KRI badges and the controls a person picked from the evaluation (`bowtie attach`), each opening a detail panel when the SVG
 is opened in a browser, plus a Markdown note with the same details as tables.
 
+Existing controls are evidence-based: a control is installed only when a person has put evidence (SOP, app screenshot, photo, CCTV still)
+in `08-Bukti/<EVA>/<CTL>/`; `evidence sort` moves files dropped in the wrong folder.
+
 Rules the skill keeps: no invented scores or thresholds, AI output is a draft until a person accepts it, the engine (not the agent)
 decides the active value, trend, KRI colour and the close, and a refusal is reported, never worked around.
 

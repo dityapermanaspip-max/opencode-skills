@@ -31,6 +31,10 @@ Two finished vaults to learn from are in `examples/` (`demo-diskompen` from a pe
    why in plain Indonesian. Do not look for a way around it.
 7. **Say what you did not verify.** This is a simulation: one user, no permissions, no approval flow. Do not claim it equals
    a full multi-user risk-management system, and do not present drafts or suggested cells as findings.
+8. **Existing controls are evidence-based.** A control counts as existing only when a person has put at least one evidence file
+   (SOP, app screenshot, photo, CCTV still) in `08-Bukti/<EVA>/<CTL>/`. Never create, copy, rename or invent evidence to satisfy
+   the engine, and never decide something is a control from its title alone: ask for the file, name the folder, wait.
+   `evidence sort` moves files dropped in the wrong folder. See `references/risk-cycle.md`.
 
 ## Workflow
 
@@ -52,7 +56,8 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
    installed on the risk's evaluation: `bowtie show RSK-001` lists the branches and the options, `bowtie attach` records the
    user's choice (never choose for them). See `references/bowtie-render.md`.
 5. **Evaluate.** `new evaluasi pre=PRE-001` (year and matrix default to the working year and the active matrix), then
-   `rate EVA-... --inherent 4x4`, install controls (`control add`), rate `--residual`, plan treatments (`new rencana ...`),
+   `rate EVA-... --inherent 4x4`, install controls (`control add`, refused until the person has put evidence files in
+   `08-Bukti/<EVA>/<CTL>/`; `evidence show` lists the gaps), rate `--residual`, plan treatments (`new rencana ...`),
    rate `--expected`. Read `references/risk-cycle.md`: which value is active follows the controls and the plans, and ACTUAL is
    only input for the close. Classify every SOP by its start date: already in force before this year -> existing control
    (`CTL` + `control add`); newly designed or established this year -> `PLN` + `plan done`. Keep the two apart; see
@@ -77,7 +82,8 @@ Work in this order; a step may be skipped only if its notes already exist (`stat
 |---|---|
 | Create / inspect | `init`, `new <jenis> k=v ...`, `show ID`, `list <jenis>`, `set ID k=v ...` |
 | Values | `rate EVA [--inherent LxI] [--residual ..] [--expected ..] [--actual ..]` (a cell is written `3x4`; `sim` uses the saved suggestion; `-` clears) |
-| Controls and plans | `control add\|remove EVA CTL [--status EFFECTIVE\|PARTIAL\|INEFFECTIVE]`, `plan start\|done PLN [--evidence ..]` |
+| Controls and plans | `control add\|remove EVA CTL [--status EFFECTIVE\|PARTIAL\|INEFFECTIVE]` (add needs evidence files, see below), `plan start\|done PLN [--evidence ..]` |
+| Evidence | `evidence show [EVA]` (controls without evidence, folder to use), `evidence sort [--dry-run]` (move files dropped in the wrong folder to `08-Bukti/<EVA>/<CTL>/`) |
 | KRI | `kri read KRI VALUE [--date]`, `kri threshold KRI --amber A --red R --reason ".."`, `kri retire KRI` |
 | Simulation | `simulate EVA [--iterations N] [--percentile P] [--seed S]` |
 | Matrix | `matrix show\|activate MTX`, `appetite MTX YEAR SCORE` |
